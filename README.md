@@ -1,3 +1,5 @@
+![Development CI Status](https://github.com/heyitsjhu/nolocimes/workflows/Development%20CI/badge.svg)
+
 # Project Nolocimes
 
 ## Getting Started
