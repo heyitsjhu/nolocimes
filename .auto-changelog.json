@@ -1,0 +1,13 @@
+{
+  "commitLimit": false,
+  "unreleased": true,
+  "output": "CHANGELOG.md",
+  "template": "keepachangelog",
+  "replaceText": {
+    "[Ff]eature:": "",
+    "[Ff]ix:": "",
+    "[Oo]ther:": "",
+    "[Bb]reaking:": ""
+  },
+  "includeBranch": ["development", "master"]
+}

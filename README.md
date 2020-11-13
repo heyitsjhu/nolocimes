@@ -25,3 +25,5 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 [Git LFS](https://git-lfs.github.com/)
 
 ### References
+
+[Automating Changelog in Node Project](https://medium.com/@tiagoboeing/automating-changelog-in-your-nodejs-project-c54bdbb56e57)
