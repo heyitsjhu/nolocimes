@@ -17,6 +17,13 @@
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "npm run pretty-quick",
+      "pre-push": "run-s pretty-format eslint test"
+    }
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/heyitsjhu/nolocimes.git"
