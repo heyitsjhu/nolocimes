@@ -1,0 +1,7 @@
+# Ignore production folders
+**/build
+**/dist
+**/public
+
+# Ignore node_modules
+**/node_modules
