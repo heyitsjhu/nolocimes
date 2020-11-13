@@ -11,17 +11,17 @@
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules --exclude-list-file=.clocignore *",
     "eslint": "eslint backend frontend --ext .js,.jsx --color --fix-dry-run",
     "pre-commit": "npm run pretty-quick",
-    "pre-push": "run-s pretty-format eslint test",
+    "pre-push": "run-s eslint test",
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "npm run pretty-quick",
-      "pre-push": "run-s pretty-format eslint test"
+      "pre-commit": "npm run pre-commit",
+      "pre-push": "npm run pre-push"
     }
   },
   "repository": {
