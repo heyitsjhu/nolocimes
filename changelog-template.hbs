@@ -18,7 +18,7 @@ and this project does its best to try to adheres to [Semantic Versioning](https:
   commits
   heading='### Features'
   message='(feature: )|(Feature: )'
-  exclude='(fix: )|(Fix: )|(breaking: )|(Breaking: )|(other: )|(Other: )'}}
+  exclude='(fix: )|(Fix: )|(breaking: )|(Breaking: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
 * {{subject}} ([`{{shorthash}}`]({{href}}))
 {{/commit-list}}
 
@@ -27,7 +27,7 @@ and this project does its best to try to adheres to [Semantic Versioning](https:
   commits
   heading='### Fixes'
   message='(fix: )|(Fix: )'
-  exclude='(breaking: )|(Breaking: )|(feature: )|(Feature: )|(other: )|(Other: )'}}
+  exclude='(feature: )|(Feature: )|(breaking: )|(Breaking: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
 * {{subject}} ([`{{shorthash}}`]({{href}}))
 {{/commit-list}}
 
@@ -36,7 +36,7 @@ and this project does its best to try to adheres to [Semantic Versioning](https:
   commits
   heading='### Breaking changes'
   message='(breaking: )|(Breaking: )'
-  exclude='(fix: )|(Fix: )|(feature: )|(Feature: )|(other: )|(Other: )'}}
+  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
 * {{subject}} ([`{{shorthash}}`]({{href}}))
 {{/commit-list}}
 
@@ -45,7 +45,16 @@ and this project does its best to try to adheres to [Semantic Versioning](https:
   commits
   heading='### Other changes'
   message='(other: )|(Other: )'
-  exclude='(fix: )|(Fix: )|(feature: )|(Feature: )|(breaking: )|(Breaking: )'}}
+  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(breaking: )|(Breaking: )|(docs: )|(Docs: )'}}
+* {{subject}} ([`{{shorthash}}`]({{href}}))
+{{/commit-list}}
+
+{{! use docs: or Docs: }}
+{{#commit-list
+  commits
+  heading='### Documentation'
+  message='(docs: )|(Docs: )'
+  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(breaking: )|(Breaking: )|(other: )|(Other: )'}}
 * {{subject}} ([`{{shorthash}}`]({{href}}))
 {{/commit-list}}
 

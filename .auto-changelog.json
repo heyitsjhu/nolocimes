@@ -4,6 +4,7 @@
   "output": "CHANGELOG.md",
   "template": "keepachangelog",
   "replaceText": {
+    "[Dd]ocs:": "",
     "[Ff]eature:": "",
     "[Ff]ix:": "",
     "[Oo]ther:": "",

@@ -4,6 +4,8 @@
 
 ## Versioning
 
+`auto-changelog`, `commit message` structure and enforcement
+
 ## Code Quality
 
 Various formatting, linting, and pre-commit tools are used to ensure code consistency.
@@ -27,3 +29,5 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 ### References
 
 [Automating Changelog in Node Project](https://medium.com/@tiagoboeing/automating-changelog-in-your-nodejs-project-c54bdbb56e57)
+
+[How to Validate Commit Message Convention](https://dev.to/omarzi/how-to-validate-commit-message-convention-using-commitlint-and-husky-aaa)

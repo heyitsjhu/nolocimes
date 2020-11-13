@@ -26,6 +26,8 @@
   },
   "homepage": "https://github.com/heyitsjhu/nolocimes#readme",
   "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
     "auto-changelog": "^2.2.1",
     "cloc": "^2.7.0",
     "eslint": "^7.13.0",
