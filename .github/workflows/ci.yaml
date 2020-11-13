@@ -1,0 +1,97 @@
+name: Frontend CI
+
+on:
+  push:
+    branches:
+      # push events to development
+      - development
+
+jobs:
+  lint-and-test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [12.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm install, cloc, lint and test
+        run: |
+          npm ci
+          npm run cloc
+          npm run eslint
+          npm test
+        env:
+          CI: true
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: output/test/code-coverage.html
+
+  build-backend:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [12.x]
+
+    needs: [lint-and-test]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: cd to backend, npm install and build
+        run: |
+          cd ./backend
+          npm ci
+          npm run build --if-present
+        env:
+          CI: true
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: output/test/code-coverage.html
+
+  build-frontend:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [12.x]
+
+    needs: [lint-and-test]
+
+     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: cd to backend, npm install and build
+        run: |
+          cd ./frontend
+          npm ci
+          npm run build --if-present
+        env:
+          CI: true
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v2
+        with:
+          name: code-coverage-report
+          path: output/test/code-coverage.html
