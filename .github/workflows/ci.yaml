@@ -25,7 +25,7 @@ jobs:
       - name: Install and run lerna
         run: |
           npm install -g lerna
-          lerna boostrap
+          lerna bootstrap
       - name: Run scripts - cloc, eslint and test
         run: |
           npm run cloc
