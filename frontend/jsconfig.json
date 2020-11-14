@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "esnext",
     "baseUrl": "src",
+    "outDir": "./build",
     "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "esModuleInterop": true,

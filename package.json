@@ -19,7 +19,7 @@
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules --exclude-list-file=.clocignore *",
     "eslint": "eslint backend frontend --ext .js,.jsx --color --fix-dry-run",
     "pre-commit": "npm run pretty-quick",
-    "pre-push": "run-s eslint test",
+    "pre-push": "npm-run-all eslint test",
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
@@ -66,7 +66,8 @@
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
-    "pretty-quick": "^3.1.0"
+    "pretty-quick": "^3.1.0",
+    "typescript": "^4.0.5"
   },
   "optionalDependencies": {
     "win-node-env": "^0.4.0"

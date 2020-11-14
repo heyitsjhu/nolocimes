@@ -24,7 +24,7 @@
     "project": ["./backend/jsconfig.json", "./frontend/jsconfig.json"],
     "sourceType": "module"
   },
-  "plugins": ["react"],
+  "plugins": ["react", "jest"],
   "rules": {
     "react/display-name": 0,
     "react/prop-types": 0,
@@ -32,6 +32,9 @@
   },
   "settings": {
     "react": {
+      "version": "detect"
+    },
+    "jest": {
       "version": "detect"
     }
   }
