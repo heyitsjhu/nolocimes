@@ -32,6 +32,10 @@
       "pre-push": "npm run pre-push"
     }
   },
+  "dependencies": {
+    "backend": "file:backend",
+    "frontend": "file:frontend"
+  },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
@@ -58,6 +62,7 @@
     "eslint-plugin-testing-library": "^3.10.0",
     "husky": "^4.3.0",
     "js-logger": "^1.6.0",
+    "lerna": "^3.22.1",
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
