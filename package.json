@@ -17,13 +17,13 @@
     "changelog": "auto-changelog --template changelog-template.hbs -p -u",
     "changelog-debug": "auto-changelog --template changelog-template.hbs -p --template json --output changelog-preview.json",
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules --exclude-list-file=.clocignore *",
-    "eslint": "eslint backend frontend --ext .js,.jsx --color --fix-dry-run",
-    "pre-commit": "npm run pretty-quick",
+    "lint": "lerna exec -- npm run lint",
+    "pre-commit": "npm run pretty-quick && npm test -- --changedFilesWithAncestor",
     "pre-push": "npm-run-all eslint test",
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
-    "test": "npm run test --prefix backend && npm run test --prefix frontend"
+    "test": "lerna exec -- npm run test"
   },
   "husky": {
     "hooks": {
