@@ -23,7 +23,7 @@
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
-    "test": "jest"
+    "test": "npm run test --prefix backend && npm run test --prefix frontend"
   },
   "husky": {
     "hooks": {
