@@ -29,9 +29,9 @@ jobs:
         # https://github.com/pascalgn/automerge-action
         uses: pascalgn/automerge-action@v0.12.0
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-          MERGE_LABELS: "automerge,!wip,!duplicate,!invalid,!wontfix"
-          MERGE_REMOVE_LABELS: "automerge",
-          MERGE_METHOD: "merge",
-          MERGE_FORKS: "false",
-          MERGE_DELETE_BRANCH: "true"
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          MERGE_LABELS: 'automerge,!wip,!duplicate,!invalid,!wontfix'
+          MERGE_REMOVE_LABELS: 'automerge'
+          MERGE_METHOD: 'merge'
+          MERGE_FORKS: 'false'
+          MERGE_DELETE_BRANCH: 'true'
