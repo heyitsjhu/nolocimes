@@ -6,7 +6,7 @@
     "lint": "eslint . --ext .js,.jsx --color",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --coverage --watchAll=false",
+    "test": "react-scripts test --coverage --watchAll=false --passWithNoTests  --transformIgnorePatterns \"node_modules/(?!use-reducer-logger)/\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
