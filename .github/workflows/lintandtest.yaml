@@ -1,9 +1,11 @@
-name: Development CI
+name: ghactions-lintandtest
 
-on:
+on: # push events on, and pull requests against, development branch
   push:
     branches:
-      # push events to development
+      - development
+  pull_request:
+    branches:
       - development
 
 jobs:
@@ -25,12 +27,13 @@ jobs:
       - name: Install and run lerna bootstrap
         run: |
           npm install -g lerna
-          lerna bootstrap
+        # TODO: lerna bootstrap doesn't install all dependencies at the moment
       - name: Run scripts - cloc, eslint and test
         run: |
           npm run cloc
+          lerna exec -- npm install
           lerna exec -- npm run lint
-          lerna exec -- npm run test
+          lerna exec -- npm test
         env:
           CI: true
       - name: Archive code coverage results
@@ -56,10 +59,8 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: cd to backend, npm install and build
-        run: |
-          cd ./backend
-          npm install
+      - name: cd to backend and build
+        run: cd ./backend
           npm run build --if-present
         env:
           CI: true
@@ -86,10 +87,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: cd to backend, npm install and build
+      - name: cd to backend and build
         run: |
           cd ./frontend
-          npm install
           npm run build --if-present
         env:
           CI: true

@@ -6,6 +6,7 @@
     "emmanuelbeziat.vscode-great-icons",
     "esbenp.prettier-vscode",
     "leizongmin.node-module-intellisense",
-    "orta.vscode-jest"
+    "orta.vscode-jest",
+    "redhat.vscode-yaml"
   ]
 }
