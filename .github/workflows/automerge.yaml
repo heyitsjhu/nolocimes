@@ -1,0 +1,37 @@
+name: ghactions-automerge
+
+on: # pull requests against development branch
+  pull_request:
+    branches-ignore:
+      - master
+      - staging
+    types:
+      - labeled
+      - unlabeled
+      - synchronize
+      - opened
+      - edited
+      - ready_for_review
+      - reopened
+      - unlocked
+  pull_request_review:
+    types:
+      - submitted
+  check_suite:
+    types:
+      - completed
+  status: {}
+jobs:
+  automerge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: automerge
+        # https://github.com/pascalgn/automerge-action
+        uses: 'pascalgn/automerge-action@v0.12.0'
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          MERGE_LABELS: 'automerge,!wip,!duplicate,!invalid,!wontfix'
+          MERGE_REMOVE_LABELS: 'automerge',
+          MERGE_METHOD: 'merge',
+          MERGE_FORKS: false,
+          MERGE_DELETE_BRANCH: true

@@ -1,9 +1,11 @@
-name: Development CI
+name: ghactions-lintandtest
 
-on:
+on: # push events on, and pull requests against, development branch
   push:
     branches:
-      # push events to development
+      - development
+  pull_request:
+    branches:
       - development
 
 jobs:
