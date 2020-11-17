@@ -23,7 +23,7 @@
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
-    "test": "lerna exec -- npm run test"
+    "test": "lerna exec -- npm test"
   },
   "husky": {
     "hooks": {

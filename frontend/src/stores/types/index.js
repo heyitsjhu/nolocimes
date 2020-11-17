@@ -1,0 +1,1 @@
+export const UPDATE_SPLASH_LOGO = 'UPDATE_SPLASH_LOGO';
