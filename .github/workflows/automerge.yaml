@@ -1,4 +1,4 @@
-name: ghactions-automerge
+name: gha-automerge
 
 on: # pull requests against development branch
   pull_request:
