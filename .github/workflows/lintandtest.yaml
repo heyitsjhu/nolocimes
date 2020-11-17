@@ -27,6 +27,7 @@ jobs:
       - name: Install and run lerna bootstrap
         run: |
           npm install -g lerna
+          npm install
         # TODO: lerna bootstrap doesn't install all dependencies at the moment
       - name: Run scripts - cloc, eslint and test
         run: |
