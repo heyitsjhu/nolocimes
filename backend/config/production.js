@@ -20,6 +20,7 @@ export default {
   contentfulHost: process.env.CONTENTFUL_HOST,
   contentfulSpace: process.env.CONTENTFUL_SPACE,
   contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
+  contentfulAccessTokenPreview: process.env.CONTENTFUL_ACCESS_TOKEN_PREVIEW,
   googleClientID: process.env.GOOGLE_CLIENT_ID,
   googleClientSecret: process.env.GOOGLE_CLIENT_SECRET,
   iexApiBaseUrl: process.env.IEX_API_BASE_URL,
