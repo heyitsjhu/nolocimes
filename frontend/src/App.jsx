@@ -1,15 +1,14 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
+import contentfulApi from './api/contentful';
 import { ParticleCanvas, SplashLogo } from 'components';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
 import * as Utils from 'utils';
-
-import './App.css';
 
 const useStyles = makeStyles(({ shared, spacing }) => ({
   app: {
@@ -42,6 +41,10 @@ const App = () => {
   const appRef = useRef();
 
   useScrollToTop(appRef);
+
+  useEffect(() => {
+    contentfulApi.getEntries({ content_type: 'blogPost' });
+  }, []);
 
   return (
     <>
