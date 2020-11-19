@@ -39,7 +39,7 @@ jobs:
         env:
           CI: false
       - name: Add automerge label
-        if: ${{ success() }}
+        if: ${{ success() && github.event.pull_request }}
         uses: actions-ecosystem/action-add-labels@v1
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
