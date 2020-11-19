@@ -38,7 +38,7 @@ jobs:
           lerna exec -- npm run build --if-present
         env:
           CI: false
-      - name: Add automerge label
+      - name: If pull request, add automerge label
         if: ${{ success() && github.event.pull_request }}
         uses: actions-ecosystem/action-add-labels@v1
         with:
