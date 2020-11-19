@@ -44,8 +44,13 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 
 #### Frontend
 
+[animejs](https://animejs.com/)
 [use-reducer-logger](https://github.com/jefflombard/use-reducer-logger)
 [why-did-you-render](https://github.com/welldone-software/why-did-you-render)
+
+#### Content Management
+
+[contentful](https://www.contentful.com/)
 
 ### References
 

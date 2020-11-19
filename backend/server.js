@@ -1,6 +1,6 @@
 import createError from 'http-errors';
-import Logger from './utils/logger';
 import path from 'path';
+import Logger, { rollbar } from './utils/logger';
 
 /*! - expressjs -- web framework (https://expressjs.com)
  * Express provides a set of features for web apps like routes and middleware Routes, which are
@@ -104,6 +104,8 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.use(rollbar.errorHandler());
 
 /*! - PORT
  * A port is defined as a communication endpoint and is always associated with an IP address of a host
