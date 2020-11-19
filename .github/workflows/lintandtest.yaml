@@ -38,8 +38,9 @@ jobs:
           lerna exec -- npm run build --if-present
         env:
           CI: false
-      - name: Archive code coverage results
-        uses: actions/upload-artifact@v2
+      - name: If pull request, add automerge label
+        if: ${{ success() && github.event.pull_request }}
+        uses: actions-ecosystem/action-add-labels@v1
         with:
-          name: code-coverage-report
-          path: output/test/code-coverage.html
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: automerge
