@@ -37,10 +37,10 @@ jobs:
           MERGE_FORKS: 'false'
           MERGE_DELETE_BRANCH: 'true'
       - name: If successful, add comment to pull request
-        if: ${{ success() }}
+        if: ${{ success() && github.event.pull_request.merged }}
         uses: mshick/add-pr-comment@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           message: |
-            This pull request was automatically merged by ${{ github.actor.login }}.
+            This pull request was automatically merged.
