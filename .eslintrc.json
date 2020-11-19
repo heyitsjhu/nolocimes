@@ -26,7 +26,14 @@
   },
   "plugins": ["react", "jest"],
   "rules": {
-    "no-unused-vars": "warn"
+    "import/no-anonymous-default-export": 0,
+    "no-unused-vars": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
   },
   "settings": {
     "react": {

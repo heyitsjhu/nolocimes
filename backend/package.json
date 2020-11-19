@@ -3,9 +3,9 @@
   "version": "0.0.1-alpha.0",
   "private": true,
   "scripts": {
-    "build": "babel ./bin/www --out-dir build",
-    "lint": "eslint . --ext .js,.jsx --color",
-    "start": "nodemon ./bin/www --exec babel-node",
+    "build": "babel server.js --out-dir build",
+    "lint": "eslint . --ext .js --color",
+    "start": "nodemon server.js --exec babel-node",
     "test": "jest --coverage"
   },
   "jest": {
@@ -13,17 +13,19 @@
     "testRegex": "((\\.|/*.)(spec|test))\\.js?$"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "contentful": "^7.14.13",
+    "cookie-session": "^1.4.0",
     "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "jade": "~1.11.0",
-    "morgan": "~1.9.1"
+    "http-errors": "^1.6.3",
+    "mongoose": "^5.10.15"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.6",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.13.0",
@@ -33,7 +35,7 @@
     "eslint-plugin-jest": "^24.1.3",
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.6.3",
-    "js-logger": "^1.6.0",
+    "js-logger": "^1.6.1",
     "nodemon": "^2.0.6",
     "prettier": "^2.1.2"
   }
