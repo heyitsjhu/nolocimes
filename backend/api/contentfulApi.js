@@ -2,6 +2,7 @@
 import * as contentful from 'contentful';
 
 import constants from '../const';
+import Logger from '../utils/logger';
 
 export class ContentfulAPI {
   constructor({ space, environment, accessToken, host }) {
@@ -26,7 +27,8 @@ export class ContentfulAPI {
   fetchHandler = async caller => {
     let response = await caller
       .then(resp => {
-        console.log(resp);
+        Logger.log(resp);
+
         return resp;
       })
       .catch(error =>
@@ -34,7 +36,7 @@ export class ContentfulAPI {
         // that's an object with info about the error
         // maybe from where (api vs backend), message,
         // stacktract (if from backend)
-        console.error('then erropr', error)
+        Logger.error('then erropr', error)
       );
 
     return response;
@@ -46,7 +48,7 @@ export class ContentfulAPI {
     return response;
   };
   getEntries = async query => {
-    console.log(JSON.parse(query));
+    Logger.log(JSON.parse(query));
     const response = await this.fetchHandler(this.client.getEntries(JSON.parse(query)));
 
     return response;
@@ -57,4 +59,5 @@ export class ContentfulAPI {
 export default new ContentfulAPI({
   space: constants.CONTENTFUL_SPACE,
   accessToken: constants.CONTENTFUL_ACCESS_TOKEN,
+  host: constants.CONTENTFUL_HOST,
 });
