@@ -1,5 +1,4 @@
 import express from 'express';
-
 import contentfulApi from '../api/contentfulApi';
 
 /**! - express.Router()
