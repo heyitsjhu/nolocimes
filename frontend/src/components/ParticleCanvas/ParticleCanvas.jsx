@@ -250,6 +250,8 @@ export default props => {
     <canvas
       id={getElId('site', 'particle-canvas')}
       className={classnames(getElClass('page', 'particleCanvas'), classes.canvas)}
+      data-credit="Nokey"
+      data-credit-url="https://codepen.io/jkiss/pen/OVEeqK"
       ref={canvasRef}
     />
   );

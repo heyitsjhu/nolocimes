@@ -1,4 +1,4 @@
-import * as Logger from 'js-logger';
+import Logger from 'js-logger';
 import Rollbar from 'rollbar';
 
 const consoleHandler = Logger.createDefaultHandler();
@@ -32,4 +32,5 @@ Logger.setHandler((messages, context) => {
   rollbarHandler(messages, context); // report to rollbar
 });
 
+export { rollbar };
 export default Logger;

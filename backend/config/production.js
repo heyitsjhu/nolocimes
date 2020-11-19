@@ -16,8 +16,6 @@
  */
 export default {
   baseUrl: process.env.BASE_URL,
-  contentfulUrl: process.env.CONTENTFUL_URL,
-  contentfulHost: process.env.CONTENTFUL_HOST,
   contentfulSpace: process.env.CONTENTFUL_SPACE,
   contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
   contentfulAccessTokenPreview: process.env.CONTENTFUL_ACCESS_TOKEN_PREVIEW,
@@ -30,4 +28,5 @@ export default {
   cookieKey1: process.env.COOKIE_KEY_1,
   cookieKey2: process.env.COOKIE_KEY_2,
   redirectDomain: process.env.REDIRECT_DOMAIN,
+  rollbarServerToken: process.env.ROLLBAR_SERVE_TOKEN,
 };
