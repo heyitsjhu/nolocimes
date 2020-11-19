@@ -37,11 +37,15 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 [Husky](https://github.com/typicode/husky)
 [Prettier](https://github.com/prettier/prettier) - [Homepage](https://prettier.io/)
 
+#### Logging
+
+[rollbar](https://rollbar.com)
+[js-logger](https://github.com/jonnyreeves/js-logger)
+
 #### Frontend
 
 [use-reducer-logger](https://github.com/jefflombard/use-reducer-logger)
 [why-did-you-render](https://github.com/welldone-software/why-did-you-render)
-[js-logger](https://github.com/jonnyreeves/js-logger)
 
 ### References
 
