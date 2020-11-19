@@ -2,16 +2,8 @@
   "compilerOptions": {
     "target": "es6",
     "module": "commonjs",
+    "lib": ["dom", "dom.iterable", "es6", "es2017", "esnext", "esnext.asynciterable"],
     "baseUrl": "./",
-    "outDir": "./build",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "es6",
-      "es2017",
-      "esnext",
-      "esnext.asynciterable"
-    ],
     "allowSyntheticDefaultImports": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -19,11 +11,18 @@
     "forceConsistentCasingInFileNames": true,
     "suppressImplicitAnyIndexErrors": true,
     "moduleResolution": "node",
+    "outDir": "./dist",
     "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "paths": {
-      "~routes/*": ["routes/*"]
+      "~app/*": ["app/*"],
+      "~middlewares/*": ["middlewares/*"],
+      "~models/*": ["models/*"],
+      "~routes/*": ["routes/*"],
+      "~services/*": ["services/*"],
+      "~types/*": ["types/*"],
+      "~utils/*": ["utils/*"]
     }
   },
   "exclude": ["node_modules"],
