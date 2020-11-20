@@ -41,6 +41,7 @@ jobs:
           npm run build
         env:
           SKIP_PREFLIGHT_CHECK: true
+          CI: false
       - name: If pull request, add automerge label
         if: ${{ success() && github.event.pull_request }}
         uses: actions-ecosystem/action-add-labels@v1
