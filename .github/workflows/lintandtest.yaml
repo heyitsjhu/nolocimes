@@ -27,17 +27,18 @@ jobs:
       - name: Install and run lerna bootstrap
         run: |
           npm install -g lerna
-          npm install
+          lerna bootstrap
         # TODO: lerna bootstrap doesn't install all dependencies at the moment
-      - name: Run scripts - cloc, eslint and test
+      - name: Run cloc, lint and test scripts
         run: |
           npm run cloc
-          lerna exec -- npm install
-          lerna exec -- npm run lint
-          lerna exec -- npm test
-          lerna exec -- npm run build --if-present
+          npm run lint
+          npm test
         env:
           CI: false
+      - name: Run build scripts
+        run: |
+          npm run build
       - name: If pull request, add automerge label
         if: ${{ success() && github.event.pull_request }}
         uses: actions-ecosystem/action-add-labels@v1
