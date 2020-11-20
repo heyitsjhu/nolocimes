@@ -36,6 +36,12 @@ jobs:
           npm test
         env:
           CI: false
+      - name: Send coverage to coveralls
+        if: ${{ success() }}
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: './coverage/lcov.info'
       - name: Run build scripts
         run: |
           npm run build
