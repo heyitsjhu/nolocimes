@@ -7,6 +7,7 @@
   "extends": [
     "eslint:recommended",
     "react-app",
+    "react-app/jest",
     "plugin:react/recommended",
     "prettier",
     "plugin:prettier/recommended",
@@ -27,13 +28,16 @@
   "plugins": ["react", "jest"],
   "rules": {
     "import/no-anonymous-default-export": 0,
+    "jest/no-disabled-tests": 0,
     "no-unused-vars": "warn",
     "prettier/prettier": [
       "error",
       {
         "endOfLine": "auto"
       }
-    ]
+    ],
+    "react/display-name": 0,
+    "react/prop-types": 0
   },
   "settings": {
     "react": {

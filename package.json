@@ -1,9 +1,8 @@
 {
   "name": "project-nolocimes",
-  "description": "The de facto development playground of heyitsjhu.",
-  "author": "Johnny Hu <johnny@dreamistlabs.com>",
-  "version": "0.0.1-alpha.1",
   "private": true,
+  "description": "The official development playground of Dreamist Labs' heyitsjhu",
+  "author": "Johnny Hu <johnny@dreamistlabs.com>",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
@@ -17,13 +16,14 @@
     "changelog": "auto-changelog --template changelog-template.hbs -p -u",
     "changelog-debug": "auto-changelog --template changelog-template.hbs -p --template json --output changelog-preview.json",
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules --exclude-list-file=.clocignore *",
-    "lint": "lerna exec -- npm run lint",
+    "lint": "eslint backend frontend --ext .js,.jsx --color --fix-dry-run",
     "pre-commit": "npm run pretty-quick && npm test -- --changedFilesWithAncestor",
     "pre-push": "npm-run-all eslint test",
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
-    "test": "lerna exec -- npm test"
+    "start": "lerna run start --stream",
+    "test": "jest --coverage --verbose"
   },
   "husky": {
     "hooks": {
@@ -32,21 +32,46 @@
       "pre-push": "npm run pre-push"
     }
   },
+  "jest": {
+    "verbose": true,
+    "moduleDirectories": [
+      "node_modules",
+      "backend",
+      "frontend/src"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "testRegex": "((\\.|/*.)(spec|test))\\.js?$",
+    "transformIgnorePatterns": [
+      "node_modules/(?!use-reducer-logger)"
+    ]
+  },
   "dependencies": {
     "backend": "file:backend",
+    "esm": "^3.2.25",
     "frontend": "file:frontend"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/node": "^7.12.6",
+    "@babel/plugin-proposal-class-properties": "^7.12.1",
+    "@babel/plugin-transform-runtime": "^7.12.1",
     "@babel/preset-env": "^7.12.1",
+    "@babel/preset-react": "^7.12.5",
+    "@babel/register": "^7.12.1",
     "@commitlint/cli": "^11.0.0",
     "@commitlint/config-conventional": "^11.0.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "@typescript-eslint/eslint-plugin": "^4.7.0",
     "@typescript-eslint/parser": "^4.7.0",
     "auto-changelog": "^2.2.1",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.3",
     "cloc": "^2.7.0",
     "eslint": "^7.13.0",
     "eslint-config-airbnb-base": "^14.2.1",
@@ -61,12 +86,18 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testing-library": "^3.10.0",
     "husky": "^4.3.0",
+    "jest": "^26.6.3",
     "js-logger": "^1.6.0",
     "lerna": "^3.22.1",
     "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
     "pretty-quick": "^3.1.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.0",
+    "react-test-renderer": "^17.0.1",
     "typescript": "^4.0.5"
   },
   "optionalDependencies": {

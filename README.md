@@ -1,4 +1,4 @@
-![Development CI Status](https://github.com/heyitsjhu/nolocimes/workflows/Development%20CI/badge.svg)
+![Development CI Status](https://github.com/heyitsjhu/nolocimes/workflows/Development%20CI/badge.svg) ![Last commit](https://img.shields.io/github/last-commit/heyitsjhu/nolocimes) [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
 # Project Nolocimes
 
@@ -35,6 +35,7 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 [EditorConfig](https://editorconfig.org/)
 [ESLint](https://github.com/eslint/eslint) - [Homepage](https://eslint.org/)
 [Husky](https://github.com/typicode/husky)
+[Jest](https://jestjs.io/)
 [Prettier](https://github.com/prettier/prettier) - [Homepage](https://prettier.io/)
 
 #### Logging

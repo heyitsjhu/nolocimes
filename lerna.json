@@ -1,12 +1,12 @@
 {
   "version": "0.0.1-alpha.1",
   "npmClient": "npm",
-  "packages": ["backend", "frontend"],
   "command": {
     "bootstrap": {
       "hoist": true
     }
   },
+  "packages": ["backend", "frontend"],
   "ignoreChanges": [
     "**/__fixtures__/**",
     "**/__tests__/**",

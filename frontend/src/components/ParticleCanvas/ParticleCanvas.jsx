@@ -120,7 +120,7 @@ export default props => {
   const renderParticles = () => {
     const { r, g, b } = particleColor;
     Array.prototype.forEach.call(particles, function (p, i) {
-      if (!p.hasOwnProperty('type')) {
+      if (!Object.prototype.hasOwnProperty.call(p, 'type')) {
         ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha})`;
         ctx.beginPath();
         ctx.arc(p.x, p.y, particleRadius, 0, Math.PI * 2, true);
@@ -193,7 +193,7 @@ export default props => {
   const handleMouseLeave = () => {
     let newParticles = [];
     Array.prototype.forEach.call(particles, p => {
-      if (!p.hasOwnProperty('type')) {
+      if (!Object.prototype.hasOwnProperty.call(p, 'type')) {
         newParticles.push(p);
       }
     });

@@ -1,3 +1,4 @@
+import React from 'react';
 import AppProvider from './providers/appProvider';
 
 const AppStores = ({ children }) => {
