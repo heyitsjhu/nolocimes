@@ -7,12 +7,14 @@ import * as TYPES from '../types';
 
 const initialState = {
   test: 'hidldsajfkl',
-  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
+  [STORE_KEYS.BUSINESS_CARD]: { show: false },
+  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
 };
 
 const staticState = {
   test: 'im static',
-  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
+  [STORE_KEYS.BUSINESS_CARD]: { show: false },
+  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
 };
 
 const reducer = (state, action) => {
@@ -22,11 +24,12 @@ const reducer = (state, action) => {
     case 'SET_LOADING':
       newState[action.key].loading = action.payload;
       break;
-    case 'UPDATE_STORE':
-      if (!action.outerKey || !action.innerKey) return state;
-      newState[action.outerKey] = {
-        ...newState[action.outerKey],
-        [action.innerKey]: action.payload,
+    case 'UPDATE_APP_STATE':
+      if (!action.firstLevelKey || !action.secondLevelKey) return state;
+
+      newState[action.firstLevelKey] = {
+        ...newState[action.firstLevelKey],
+        [action.secondLevelKey]: action.payload,
       };
       break;
     case TYPES.UPDATE_SPLASH_LOGO:

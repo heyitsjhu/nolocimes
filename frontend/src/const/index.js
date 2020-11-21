@@ -1,2 +1,8 @@
 export * from './constants';
 export { default as STORE_KEYS } from './storeKeys';
+
+export const LINKS = {
+  GITHUB_PROJECT_URL: 'https://github.com/heyitsjhu/nolocimes',
+  GITHUB_USER_URL: 'https://github.com/heyitsjhu/heyitsjhu',
+  LINKEDIN_URL: 'https://www.linkedin.com/in/jgeehenhu/',
+};
