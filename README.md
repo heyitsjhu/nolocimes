@@ -1,6 +1,6 @@
 [![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/) ![Last commit](https://img.shields.io/github/last-commit/heyitsjhu/nolocimes)
 
-![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/heyitsjhu/nolocimes/gha-lint-test-and-build/master) [![Coverage Status](https://coveralls.io/repos/github/heyitsjhu/nolocimes/badge.svg?branch=development)](https://coveralls.io/github/heyitsjhu/nolocimes?branch=master)
+![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/heyitsjhu/nolocimes/gha-lint-test-and-build/master) [![Coverage Status](https://coveralls.io/repos/github/heyitsjhu/nolocimes/badge.svg?branch=master)](https://coveralls.io/github/heyitsjhu/nolocimes?branch=master)
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/heyitsjhu/nolocimes/gha-lint-test-and-build/development) [![Coverage Status](https://coveralls.io/repos/github/heyitsjhu/nolocimes/badge.svg?branch=development)](https://coveralls.io/github/heyitsjhu/nolocimes?branch=development)
 
