@@ -23,6 +23,11 @@ export const greys = {
 
 export default {
   type: 'dark',
+  background: {
+    dark: 'rgba(0,0,0,0.6)',
+    darker: 'rgba(0,0,0,0.8)',
+    darkest: 'rgba(0,0,0,0.9)',
+  },
   common: {
     black,
     white,

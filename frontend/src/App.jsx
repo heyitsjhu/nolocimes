@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
@@ -9,7 +9,7 @@ import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
 import * as Utils from 'utils';
 
-const useStyles = makeStyles(({ shared, spacing, transitions }) => ({
+const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
   app: {
     position: 'relative',
     margin: 0,
@@ -28,7 +28,7 @@ const useStyles = makeStyles(({ shared, spacing, transitions }) => ({
       position: 'fixed',
       width: `calc(100% - ${spacing(10) + 2}px)`,
       height: `calc(100% - ${spacing(10) + 2}px)`,
-      backgroundColor: 'rgba(0,0,0,0.6)',
+      backgroundColor: palette.background.dark,
       zIndex: 2,
     },
   },

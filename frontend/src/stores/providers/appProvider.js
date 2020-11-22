@@ -1,4 +1,4 @@
-import { STORE_KEYS } from 'const';
+import { PARTICLE_CANVAS_DEFAULTS, STORE_KEYS } from 'const';
 import DLError from 'models/DLError';
 import { deepClone } from 'utils';
 
@@ -7,14 +7,14 @@ import * as TYPES from '../types';
 
 const initialState = {
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
-  [STORE_KEYS.PARTICLE_CANVAS]: { showSettings: false },
+  [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
 };
 
 const staticState = {
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
-  [STORE_KEYS.PARTICLE_CANVAS]: { showSettings: false },
+  [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
 };
@@ -29,10 +29,29 @@ const reducer = (state, action) => {
     case 'UPDATE_APP_STATE':
       if (!action.firstLevelKey || !action.secondLevelKey) return state;
 
-      newState[action.firstLevelKey] = {
-        ...newState[action.firstLevelKey],
-        [action.secondLevelKey]: action.payload,
-      };
+      if (!action.secondLevelKey && action.payload) {
+        // payload is implied to replace data at firstLevelKey
+        newState[action.firstLevelKey] = {
+          ...newState[action.firstLevelKey],
+          ...action.payload,
+        };
+      } else if (
+        action.secondLevelKey &&
+        typeof action.payload !== 'boolean' &&
+        typeof action.payload !== 'number'
+      ) {
+        // secondLevelKey is implied to replace data at firstLevelKey
+        newState[action.firstLevelKey] = {
+          ...newState[action.firstLevelKey],
+          ...action.secondLevelKey,
+        };
+      } else {
+        newState[action.firstLevelKey] = {
+          ...newState[action.firstLevelKey],
+          [action.secondLevelKey]: action.payload,
+        };
+      }
+
       break;
     case TYPES.UPDATE_SPLASH_LOGO:
       if (action.payload === 'start') {

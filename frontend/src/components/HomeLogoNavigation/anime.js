@@ -10,7 +10,7 @@ export default (onStart = undefined, onEnd = undefined) => {
   return anime
     .timeline({
       autoplay: false,
-      // delay: 4000,
+      delay: 4000,
       duration: 5000,
       easing: 'easeInOutQuad',
       begin: onStart,

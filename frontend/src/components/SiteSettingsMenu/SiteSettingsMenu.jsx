@@ -1,38 +1,50 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import Grow from '@material-ui/core/Grow';
 import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
-import MenuItem from '@material-ui/core/MenuItem';
-import MenuList from '@material-ui/core/MenuList';
 import TuneIcon from '@material-ui/icons/Tune';
-import { makeStyles } from '@material-ui/core/styles';
+import StyleIcon from '@material-ui/icons/Style';
 
-import { STORE_KEYS } from 'const';
+import { ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
 import { updateAppState } from 'stores/actions/appActions';
 import { IconButton } from '..';
+import ParticleCanvasControls from './ParticleCanvasControls';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
+  paper: {
+    backgroundColor: theme.palette.background.darkest,
+    border: `1px solid ${theme.palette.grey[600]}`,
   },
   settingsMenuContainer: {
-    padding: theme.spacing(1),
+    padding: theme.spacing(2),
+    '& > *': {
+      width: '100%',
+      '&:not(:first-child)': {
+        paddingTop: theme.spacing(1),
+      },
+      '&:not(:last-child)': {
+        borderBottom: `1px solid ${theme.palette.grey[600]}`,
+      },
+    },
   },
-  paper: {
-    marginRight: theme.spacing(2),
+  darkModeContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    aliginItems: 'center',
   },
 }));
 
-export default props => {
+export default () => {
   const classes = useStyles();
+  const history = useHistory();
   const { t } = useCopy();
   const [appState, dispatch] = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
@@ -57,6 +69,11 @@ export default props => {
     }
   };
 
+  const handleStyleGuideClick = event => {
+    history.push(ROUTES.STYLE_GUIDE);
+    handleClose(event);
+  };
+
   // return focus to the button when we transitioned from !open -> open
   const prevOpen = React.useRef(open);
   React.useEffect(() => {
@@ -68,13 +85,13 @@ export default props => {
   }, [open]);
 
   return (
-    <div className={classes.root}>
+    <Box>
       <IconButton
         aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
         aria-label={t('a11y.ariaLabel.siteSettingsButton')}
-        onClick={handleToggle}
         noPadding
+        onClick={handleToggle}
       >
         <TuneIcon ref={anchorRef} fontSize="small" />
       </IconButton>
@@ -85,26 +102,36 @@ export default props => {
             {...TransitionProps}
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
-            <Paper>
+            <Paper className={classes.paper}>
               <ClickAwayListener onClickAway={handleClose}>
                 <Box className={classes.settingsMenuContainer}>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={darkMode}
-                        color="primary"
-                        name="darkMode"
-                        onChange={handleSettingsChange}
-                      />
-                    }
-                    label="Dark Mode"
-                  />
+                  <Box className={classes.darkModeContainer}>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={darkMode}
+                          color="primary"
+                          name="darkMode"
+                          value={appState[STORE_KEYS.SITE_SETTINGS].darkMode}
+                          onChange={handleSettingsChange}
+                        />
+                      }
+                      label={t('common.darkMode')}
+                    />
+                    <IconButton
+                      aria-label={t('a11y.ariaLabel.styleGuideButton')}
+                      onClick={handleStyleGuideClick}
+                    >
+                      <StyleIcon fontSize="small" />
+                    </IconButton>
+                  </Box>
+                  <ParticleCanvasControls />
                 </Box>
               </ClickAwayListener>
             </Paper>
           </Grow>
         )}
       </Popper>
-    </div>
+    </Box>
   );
 };

@@ -7,6 +7,7 @@ const rollbar = new Rollbar({
   accessToken: process.env.REACT_APP_ROLLBAR_CLIENT_TOKEN,
   captureUncaught: true,
   captureUnhandledRejections: true,
+  enabled: process.env.NODE_ENV === 'production',
   environment: process.env.NODE_ENV,
   logLevel: 'info',
   reportLevel: 'error',

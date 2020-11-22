@@ -1,8 +1,9 @@
 /** Particle Canvas - Credit: Nokey (https://codepen.io/jkiss/pen/OVEeqK) */
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
+import { STORE_KEYS } from 'const';
 import { useEventListener } from 'hooks/useEventListener';
 import { AppContext } from 'stores/providers/appProvider';
 import { getElClass, getElId } from 'utils';
@@ -25,7 +26,6 @@ const useStyles = makeStyles(theme => ({
 export default props => {
   const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
-  const canvasRef = useRef(null);
   const [canvas, setCanvas] = useState(null);
   const [canvasLeft, setCanvasLeft] = useState(0);
   const [canvasTop, setCanvasTop] = useState(0);
@@ -33,97 +33,94 @@ export default props => {
   const [canvasWidth, setCanvasWidth] = useState(600);
   const [canvasHeight, setCanvasHeight] = useState(400);
 
-  const [slowMultiplier, setSlowMultiplier] = useState(30);
-  let particles = [];
+  const canvasRef = useRef(null);
+  const requestRef = useRef(null);
+  const particleState = useRef(appState[STORE_KEYS.PARTICLE_CANVAS]);
+  const trackedParticles = useRef([]);
 
-  const particleRadius = props.radius || 2;
-  const particlePulseFreq = props.pulseFrequency || 0.02;
-  const particleColor = props.color || { r: 204, g: 152, b: 81 };
-  const particleCount = props.count || 40;
-  const particleThreshold = props.countThreshold || 40;
-  const linkLineColor = props.linkColor || { r: 204, g: 152, b: 81 };
-  const linkLineWidth = props.linkWidth || 0.8;
-  const linkLineDistantLimit = props.linkDistanceLimit || 260;
-  // const slowMultiplier = props.slowMultiplier || 1;
   const cursorParticle = { x: 0, y: 0, vx: 0, vy: 0, r: 0, type: 'mouse' };
 
-  const initCanvas = () => {
+  const initCanvas = useCallback(() => {
     canvas.setAttribute('width', window.innerWidth);
     canvas.setAttribute('height', window.innerHeight);
 
     setCanvasWidth(parseInt(canvas.getAttribute('width')));
     setCanvasHeight(parseInt(canvas.getAttribute('height')));
-  };
+  }, [canvas]);
 
   const initParticles = numSize => {
+    const particles = [];
     for (let i = 1; i <= numSize; i++) {
+      const position = randomArrayItem(['top', 'right', 'bottom', 'left']);
       particles.push({
+        pos: position,
         x: randomSidePos(canvasWidth),
         y: randomSidePos(canvasHeight),
-        vx: getRandomSpeed('top')[0] / slowMultiplier,
-        vy: getRandomSpeed('top')[1] / slowMultiplier,
-        r: particleRadius,
+        r: particleState.current.particleRadius,
         alpha: 1,
         phase: randomNumFrom(0, 10),
       });
     }
+
+    trackedParticles.current = particles;
+  };
+
+  const setParticleSpeed = () => {
+    Array.prototype.forEach.call(trackedParticles.current, (p, i) => {
+      if (!Object.prototype.hasOwnProperty.call(p, 'type')) {
+        p.vx = getRandomSpeed(p.pos)[0] / particleState.current.slowMultiplier;
+        p.vy = getRandomSpeed(p.pos)[1] / particleState.current.slowMultiplier;
+      }
+    });
   };
 
   const getRandomParticle = () => {
-    const pos = randomArrayItem(['top', 'right', 'bottom', 'left']);
-    switch (pos) {
-      case 'top':
-        return {
-          x: randomSidePos(canvasWidth),
-          y: -particleRadius,
-          vx: getRandomSpeed(pos)[0] / slowMultiplier,
-          vy: getRandomSpeed(pos)[1] / slowMultiplier,
-          r: particleRadius,
-          alpha: 1,
-          phase: randomNumFrom(0, 10),
-        };
-      case 'right':
-        return {
-          x: canvasWidth + particleRadius,
-          y: randomSidePos(canvasHeight),
-          vx: getRandomSpeed(pos)[0] / slowMultiplier,
-          vy: getRandomSpeed(pos)[1] / slowMultiplier,
-          r: particleRadius,
-          alpha: 1,
-          phase: randomNumFrom(0, 10),
-        };
-      case 'bottom':
-        return {
-          x: randomSidePos(canvasWidth),
-          y: canvasHeight + particleRadius,
-          vx: getRandomSpeed(pos)[0] / slowMultiplier,
-          vy: getRandomSpeed(pos)[1] / slowMultiplier,
-          r: particleRadius,
-          alpha: 1,
-          phase: randomNumFrom(0, 10),
-        };
-      case 'left':
-        return {
-          x: -particleRadius,
-          y: randomSidePos(canvasHeight),
-          vx: getRandomSpeed(pos)[0] / slowMultiplier,
-          vy: getRandomSpeed(pos)[1] / slowMultiplier,
-          r: particleRadius,
-          alpha: 1,
-          phase: randomNumFrom(0, 10),
-        };
-      default:
-        return;
-    }
+    const position = randomArrayItem(['top', 'right', 'bottom', 'left']);
+    const particleMapping = {
+      top: {
+        pos: position,
+        x: randomSidePos(canvasWidth),
+        y: -particleState.current.particleRadius,
+        r: particleState.current.particleRadius,
+        alpha: 1,
+        phase: randomNumFrom(0, 10),
+      },
+      right: {
+        pos: position,
+        x: canvasWidth + particleState.current.particleRadius,
+        y: randomSidePos(canvasHeight),
+        r: particleState.current.particleRadius,
+        alpha: 1,
+        phase: randomNumFrom(0, 10),
+      },
+      bottom: {
+        pos: position,
+        x: randomSidePos(canvasWidth),
+        y: canvasHeight + particleState.current.particleRadius,
+        r: particleState.current.particleRadius,
+        alpha: 1,
+        phase: randomNumFrom(0, 10),
+      },
+      left: {
+        pos: position,
+        x: -particleState.current.particleRadius,
+        y: randomSidePos(canvasHeight),
+        r: particleState.current.particleRadius,
+        alpha: 1,
+        phase: randomNumFrom(0, 10),
+      },
+    };
+
+    return particleMapping[position];
   };
 
   const renderParticles = () => {
-    const { r, g, b } = particleColor;
-    Array.prototype.forEach.call(particles, function (p, i) {
+    const { r, g, b } = particleState.current.particleColor;
+    Array.prototype.forEach.call(trackedParticles.current, function (p, i) {
       if (!Object.prototype.hasOwnProperty.call(p, 'type')) {
         ctx.fillStyle = `rgba(${r},${g},${b},${p.alpha})`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, particleRadius, 0, Math.PI * 2, true);
+        ctx.arc(p.x, p.y, particleState.current.particleRadius, 0, Math.PI * 2, true);
         ctx.closePath();
         ctx.fill();
       }
@@ -131,18 +128,21 @@ export default props => {
   };
 
   const renderLines = () => {
-    const { r, g, b } = linkLineColor;
+    const { r, g, b } = particleState.current.linkColor;
     let fraction, alpha;
-    for (let i = 0; i < particles.length; i++) {
-      for (let j = i + 1; j < particles.length; j++) {
-        fraction = getDisOf(particles[i], particles[j]) / linkLineDistantLimit;
+    for (let i = 0; i < trackedParticles.current.length; i++) {
+      for (let j = i + 1; j < trackedParticles.current.length; j++) {
+        fraction =
+          getDisOf(trackedParticles.current[i], trackedParticles.current[j]) /
+          particleState.current.linkDistanceLimit;
+
         if (fraction < 1) {
           alpha = (1 - fraction).toString();
           ctx.strokeStyle = `rgba(${r},${g},${b},${alpha})`;
-          ctx.lineWidth = linkLineWidth;
+          ctx.lineWidth = particleState.current.linkWidth;
           ctx.beginPath();
-          ctx.moveTo(particles[i].x, particles[i].y);
-          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.moveTo(trackedParticles.current[i].x, trackedParticles.current[i].y);
+          ctx.lineTo(trackedParticles.current[j].x, trackedParticles.current[j].y);
           ctx.stroke();
           ctx.closePath();
         }
@@ -152,7 +152,7 @@ export default props => {
 
   const updateParticles = () => {
     const newParticles = [];
-    Array.prototype.forEach.call(particles, p => {
+    Array.prototype.forEach.call(trackedParticles.current, p => {
       p.x += p.vx;
       p.y += p.vy;
 
@@ -160,44 +160,47 @@ export default props => {
         newParticles.push(p);
       }
 
-      p.phase += particlePulseFreq;
+      p.phase += particleState.current.particlePulseFrequency;
       p.alpha = Math.abs(Math.cos(p.phase));
     });
 
-    particles = newParticles.slice(0);
+    trackedParticles.current = newParticles.slice(0);
   };
 
   const addParticleify = () => {
-    if (particles.length < particleThreshold) {
-      particles.push(getRandomParticle());
+    const noOfParticles = trackedParticles.current.length;
+    const { particleCount, particleThreshold } = particleState.current;
+
+    if (noOfParticles < particleCount && noOfParticles < particleThreshold) {
+      trackedParticles.current.push(getRandomParticle());
     }
   };
 
   const renderParticleCanvas = () => {
     if (ctx) {
       ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+      setParticleSpeed();
       renderParticles();
       renderLines();
       updateParticles();
       addParticleify();
-      const reqId = window.requestAnimationFrame(renderParticleCanvas);
 
-      return () => window.cancelAnimationFrame(reqId);
+      requestRef.current = window.requestAnimationFrame(renderParticleCanvas);
     }
   };
 
   const handleMouseEnter = () => {
-    particles.push(cursorParticle);
+    trackedParticles.current.push(particleState.current.cursorParticle);
   };
 
   const handleMouseLeave = () => {
     let newParticles = [];
-    Array.prototype.forEach.call(particles, p => {
+    Array.prototype.forEach.call(trackedParticles.current, p => {
       if (!Object.prototype.hasOwnProperty.call(p, 'type')) {
         newParticles.push(p);
       }
     });
-    particles = newParticles.slice(0);
+    trackedParticles.current = newParticles.slice(0);
   };
 
   const handleMouseMove = e => {
@@ -212,12 +215,6 @@ export default props => {
   useEventListener('mousemove', handleMouseMove, canvas);
 
   useEffect(() => {
-    if (props.slowMultiplier && slowMultiplier !== props.slowMultiplier) {
-      setSlowMultiplier(props.slowMultiplier);
-    }
-  }, [props.slowMultiplier, slowMultiplier]);
-
-  useEffect(() => {
     setCanvas(canvasRef.current);
   }, [canvasRef]);
 
@@ -228,12 +225,22 @@ export default props => {
       setCtx(canvas.getContext('2d'));
       initCanvas();
     }
-  }, [ctx, canvas]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [ctx, canvas, initCanvas]);
 
   useEffect(() => {
-    initParticles(particleCount);
-    window.requestAnimationFrame(renderParticleCanvas);
+    initParticles(particleState.current.particleCount);
+    setParticleSpeed();
+
+    requestRef.current = window.requestAnimationFrame(renderParticleCanvas);
+
+    return () => window.cancelAnimationFrame(requestRef.current);
   }, [canvasWidth, canvasHeight]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (appState[STORE_KEYS.PARTICLE_CANVAS] !== particleState.current) {
+      particleState.current = appState[STORE_KEYS.PARTICLE_CANVAS];
+    }
+  }, [appState]);
 
   useEffect(() => {
     if (appState.splashLogo.finished) {
@@ -241,10 +248,6 @@ export default props => {
       animation.play();
     }
   }, [appState.splashLogo.finished]);
-
-  // useEffect(() => {
-  //   updateParticleSpeed();
-  // }, [slowMultiplier]);
 
   return (
     <canvas

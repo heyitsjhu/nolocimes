@@ -7,4 +7,6 @@ export { default as IconButton } from './IconButton/IconButton';
 export { default as ParticleCanvas } from './ParticleCanvas/ParticleCanvas';
 export { default as SiteLogo } from './SiteLogo/SiteLogo';
 export { default as SiteSettingsMenu } from './SiteSettingsMenu/SiteSettingsMenu';
+export { default as Slider } from './Slider/Slider';
 export { default as SplashLogo } from './SplashLogo/SplashLogo';
+export { default as Tooltip } from './Tooltip/Tooltip';

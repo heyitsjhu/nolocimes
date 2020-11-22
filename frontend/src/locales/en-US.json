@@ -8,8 +8,13 @@
         "githubUserUrl": "Visit Johnny's Github profile",
         "linkedInUrl": "Visit Johnny's Linkedin profile",
         "navigateToPage": "Navigate to {{name}} page",
-        "siteSettingsButton": "Open site settings"
+        "siteSettingsButton": "Open site settings",
+        "styleGuideButton": "View the site's style guide"
       }
+    },
+    "common": {
+      "darkMode": "Dark Mode",
+      "reset": "Reset {{name}}"
     },
     "components": {
       "BusinessCard": {
@@ -32,6 +37,16 @@
           "navId7": "Blog",
           "navId8": "sdfd"
         }
+      },
+      "ParticleCanvasControls": {
+        "particleCanvasControls": "Particle Canvas Controls",
+        "particleCount": "Particle Count",
+        "particleThreshold": "Particle Threshold",
+        "particleRadius": "Particle Radius",
+        "particlePulseFrequency": "Particle Pulse Frequency",
+        "linkWidth": "Link Width",
+        "linkDistanceLimit": "Link Distance Limit",
+        "slowMultiplier": "Slow Multiplier"
       }
     }
   }
