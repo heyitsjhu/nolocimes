@@ -3,10 +3,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
-import TuneIcon from '@material-ui/icons/Tune';
 
-import { LINKS } from 'const';
+import { SiteSettingsMenu } from 'components';
+import { LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
+
 import * as Utils from 'utils';
 
 import { IconButton } from '..';
@@ -37,14 +38,7 @@ export default () => {
   return (
     <>
       <Box id={Utils.getElId('site', 'footer')} className={classes.footer} component="footer">
-        <IconButton
-          aria-label={t('a11y.ariaLabel.siteSettingsButton')}
-          // onClick={openPurposeCard}
-          noPadding
-        >
-          <TuneIcon fontSize="small" />
-        </IconButton>
-
+        <SiteSettingsMenu />
         <Typography variant="caption">{t('components.Footer.copyright')}</Typography>
         <Box className={classes.iconSet}>
           <IconButton

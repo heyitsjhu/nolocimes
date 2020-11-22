@@ -6,14 +6,16 @@ import createStore from '../storeCreator';
 import * as TYPES from '../types';
 
 const initialState = {
-  test: 'hidldsajfkl',
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
+  [STORE_KEYS.PARTICLE_CANVAS]: { showSettings: false },
+  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
 };
 
 const staticState = {
-  test: 'im static',
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
+  [STORE_KEYS.PARTICLE_CANVAS]: { showSettings: false },
+  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
 };
 

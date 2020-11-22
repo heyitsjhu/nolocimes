@@ -13,16 +13,17 @@ import { AppContext } from 'stores';
 import * as Utils from 'utils';
 
 import getAnimation from './anime';
+import NavigationPopper from './NavigationPopper';
 import navMapping from './navMapping';
 import paths from './paths';
 
 const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   homeLogoContainer: {
-    display: 'none',
     position: 'fixed',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
+    transition: `opacity ${transitions.duration.long}ms ${transitions.easing.easeOut}`,
     opacity: 0,
     zIndex: zIndex.homeLogo,
   },
@@ -57,73 +58,31 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
       cursor: 'pointer',
     },
   },
-  popperContainer: {
-    display: 'none',
-  },
-  popper: {
-    marginLeft: spacing(3),
-    marginRight: spacing(3),
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      right: spacing(2),
-      top: '50%',
-      width: spacing(6),
-      borderBottom: `1px solid ${palette.grey[100]}`,
-    },
-  },
-  popperLeft: {
-    marginRight: spacing(10),
-    '&::before': { right: spacing(2) },
-  },
-  popperRight: {
-    marginLeft: spacing(10),
-    '&::before': { left: spacing(2) },
-  },
-  isHome: { display: 'block' },
-  comingSoon: {
-    position: 'relative',
-    textAlign: 'center',
-    '& > *': {
-      color: palette.grey[300],
-      opacity: 0,
-    },
-    '& span:last-child': {
-      position: 'absolute',
-      top: '50%',
-      right: 0,
-      transform: 'translate(-50%,-50%)',
-      fontStyle: 'italic',
-      color: palette.grey[600],
-    },
+  isNotHome: {
+    opacity: '0.1 !important',
   },
 }));
 
 export default props => {
   const classes = useStyles();
   const { t } = useCopy();
-  const [appState, dispatch] = useContext(AppContext);
-
   const history = useHistory();
   const isHome = useIsHome();
+  const [appState, dispatch] = useContext(AppContext);
   const viewBox = props.viewBox || '0 0 528 566';
   const [anchorEl, setAnchorEl] = useState(null);
-  const [popperPlacement, setPopperPlacement] = useState('left');
-  const [popperText, setPopperText] = useState('');
   const [isInteractive, setIsInteractive] = useState(false);
-  const open = Boolean(anchorEl);
-  const id = open ? 'transitions-popper' : undefined;
+  const [popper, setPopper] = useState(null);
 
   const handleMouseOver = event => {
     if (!anchorEl) {
-      const popper = navMapping[event.currentTarget.id];
-      setPopperPlacement(popper.placement);
-      setPopperText(popper.text);
+      setPopper(navMapping[event.currentTarget.id]);
       setAnchorEl(event.currentTarget);
     }
   };
 
   const handleMouseLeave = event => {
+    setPopper(null);
     setAnchorEl(null);
   };
 
@@ -147,7 +106,7 @@ export default props => {
         className={classnames(
           Utils.getElClass('comp', 'homeLogo-container'),
           classes.homeLogoContainer,
-          isHome && classes.isHome
+          !isHome && classes.isNotHome
         )}
       >
         <svg
@@ -160,12 +119,14 @@ export default props => {
 
               return (
                 <path
-                  aria-label={t('a11y.ariaLabel.navigateTo', {
+                  aria-label={t('a11y.ariaLabel.navigateToPage', {
                     name: t(navMapping[path.navId].text),
                   })}
                   className={classnames(
                     Utils.getElClass('comp', 'homeLogo-path'),
                     classes.svgPath,
+                    path.group === 'set1' && Utils.getElClass(null, 'logo__set--1'),
+                    path.group === 'set2' && Utils.getElClass(null, 'logo__set--2'),
                     path.css && classes[path.css],
                     isInteractive && !isDisabled && 'interactive'
                   )}
@@ -184,31 +145,7 @@ export default props => {
           </g>
         </svg>
       </Box>
-      <Popper
-        anchorEl={anchorEl}
-        className={classnames(classes.popperContainer, isHome && classes.isHome)}
-        id={id}
-        open={open}
-        placement={popperPlacement}
-        transition
-      >
-        {({ TransitionProps }) => (
-          <Fade {...TransitionProps} timeout={350}>
-            <div
-              className={classnames(
-                Utils.getElClass('comp', 'homeLogo-popper'),
-                classes.popper,
-                popperPlacement === 'left' && classes.popperLeft,
-                popperPlacement === 'right' && classes.popperRight
-              )}
-            >
-              <Typography color="textPrimary" variant="overline">
-                {t(popperText)}
-              </Typography>
-            </div>
-          </Fade>
-        )}
-      </Popper>
+      <NavigationPopper anchorEl={anchorEl} popper={popper} />
     </Fragment>
   );
 };

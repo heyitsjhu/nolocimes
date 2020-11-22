@@ -1,17 +1,7 @@
+// Major Third Type Scale (https://type-scale.com/)
 export default {
   htmlFontSize: 16,
-  fontFamily: [
-    'Nunito Sans',
-    'Courier New',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    'sans-serif',
-  ].join(','),
+  fontFamily: ['Nunito Sans', 'sans-serif'].join(', '),
   fontSize: 16,
   fontWeightLight: 300,
   fontWeightRegular: 400,
@@ -43,4 +33,16 @@ export default {
     fontWeight: 600,
     textTransform: 'uppercase',
   },
+  subtitle1: {},
+  subtitle2: {},
+  body1: {
+    fontSize: '1rem',
+  },
+  body2: {},
+  button: {},
+  caption: {
+    // fontSize: '0.875rem',
+    // textTransform: 'uppercase',
+  },
+  overline: {},
 };

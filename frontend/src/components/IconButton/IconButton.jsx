@@ -29,7 +29,7 @@ const useStyles = makeStyles(({ palette, transitions, spacing, zIndex }) => ({
   },
 }));
 
-export default ({ children, className, noPadding, ...otherProps }) => {
+export default React.forwardRef(({ children, className, noPadding, ...otherProps }) => {
   const classes = useStyles();
 
   return (
@@ -42,4 +42,4 @@ export default ({ children, className, noPadding, ...otherProps }) => {
       {children}
     </IconButton>
   );
-};
+});

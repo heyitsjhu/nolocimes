@@ -1,4 +1,4 @@
-import { ROUTES } from '../../const';
+import { ROUTES } from 'const';
 
 export default {
   'nav-id-1': {
@@ -54,8 +54,8 @@ export default {
     placement: 'right',
     text: 'components.HomeLogoNavigation.navMapping.navId7',
     title: '',
-    url: ROUTES.JOTTINGPAD,
-    disabled: true,
+    url: ROUTES.BLOG,
+    disabled: false,
   },
   'nav-id-8': {
     altText: '',

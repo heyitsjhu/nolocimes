@@ -3,20 +3,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import contentfulApi from './api/contentful';
 import { Footer, Header, HomeLogoNavigation, ParticleCanvas, SplashLogo } from 'components';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
 import * as Utils from 'utils';
 
-const useStyles = makeStyles(({ shared, spacing }) => ({
+const useStyles = makeStyles(({ shared, spacing, transitions }) => ({
   app: {
     position: 'relative',
     margin: 0,
     height: 'inherit',
     border: shared.borderUncolored,
-    transition: `all 600ms linear`,
+    transition: `all ${transitions.duration.longest}ms ${transitions.easing.easeInOut}`,
     overflow: 'auto',
   },
   isNotHome: {
@@ -29,7 +28,7 @@ const useStyles = makeStyles(({ shared, spacing }) => ({
       position: 'fixed',
       width: `calc(100% - ${spacing(10) + 2}px)`,
       height: `calc(100% - ${spacing(10) + 2}px)`,
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: 'rgba(0,0,0,0.6)',
       zIndex: 2,
     },
   },
@@ -41,10 +40,6 @@ const App = () => {
   const appRef = useRef();
 
   useScrollToTop(appRef);
-
-  useEffect(() => {
-    // contentfulApi.getEntries({ content_type: 'blogPost' });
-  }, []);
 
   return (
     <>
