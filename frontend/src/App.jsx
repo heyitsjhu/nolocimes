@@ -1,22 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import contentfulApi from './api/contentful';
-import { ParticleCanvas, SplashLogo } from 'components';
+import { Footer, Header, HomeLogoNavigation, ParticleCanvas, SplashLogo } from 'components';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
 import * as Utils from 'utils';
 
-const useStyles = makeStyles(({ shared, spacing }) => ({
+const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
   app: {
     position: 'relative',
     margin: 0,
     height: 'inherit',
     border: shared.borderUncolored,
-    transition: `all 600ms linear`,
+    transition: `all ${transitions.duration.longest}ms ${transitions.easing.easeInOut}`,
     overflow: 'auto',
   },
   isNotHome: {
@@ -29,7 +28,7 @@ const useStyles = makeStyles(({ shared, spacing }) => ({
       position: 'fixed',
       width: `calc(100% - ${spacing(10) + 2}px)`,
       height: `calc(100% - ${spacing(10) + 2}px)`,
-      backgroundColor: 'rgba(0,0,0,0.5)',
+      backgroundColor: palette.background.dark,
       zIndex: 2,
     },
   },
@@ -42,10 +41,6 @@ const App = () => {
 
   useScrollToTop(appRef);
 
-  useEffect(() => {
-    contentfulApi.getEntries({ content_type: 'blogPost' });
-  }, []);
-
   return (
     <>
       <Box
@@ -54,7 +49,10 @@ const App = () => {
         ref={appRef}
       >
         <ParticleCanvas />
+        <Header />
         <AppRoutes />
+        <HomeLogoNavigation />
+        <Footer />
       </Box>
       <SplashLogo />
     </>

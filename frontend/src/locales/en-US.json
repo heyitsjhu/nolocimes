@@ -1,0 +1,53 @@
+{
+  "translation": {
+    "a11y": {
+      "ariaLabel": {
+        "businessCardButton": "Show digital business card",
+        "businessCardEmail": "Reach out to Johnny via email",
+        "githubSourceUrl": "View source code on Github",
+        "githubUserUrl": "Visit Johnny's Github profile",
+        "linkedInUrl": "Visit Johnny's Linkedin profile",
+        "navigateToPage": "Navigate to {{name}} page",
+        "siteSettingsButton": "Open site settings",
+        "styleGuideButton": "View the site's style guide"
+      }
+    },
+    "common": {
+      "darkMode": "Dark Mode",
+      "reset": "Reset {{name}}"
+    },
+    "components": {
+      "BusinessCard": {
+        "companyName": "Dreamist Labs",
+        "emailAddress": "johnny@dreamistlabs.com",
+        "name": "Johnny Hu",
+        "title": "Software Engineer"
+      },
+      "Footer": {
+        "copyright": "© 2020 Dreamist Labs"
+      },
+      "HomeLogoNavigation": {
+        "navMapping": {
+          "navId1": "sdfd",
+          "navId2": "sdfd",
+          "navId3": "sdfd",
+          "navId4": "sdfd",
+          "navId5": "sdfd",
+          "navId6": "sdfd",
+          "navId7": "Blog",
+          "navId8": "sdfd"
+        }
+      },
+      "ParticleCanvasControls": {
+        "particleCanvasControls": "Particle Canvas Controls",
+        "particleCount": "Particle Count",
+        "particleThreshold": "Particle Threshold",
+        "particleRadius": "Particle Radius",
+        "particlePulseFrequency": "Particle Pulse Frequency",
+        "linkWidth": "Link Width",
+        "linkDistanceLimit": "Link Distance Limit",
+        "slowMultiplier": "Slow Multiplier"
+      }
+    }
+  }
+}

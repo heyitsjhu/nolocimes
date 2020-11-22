@@ -1,17 +1,9 @@
+// Major Third Type Scale (https://type-scale.com/)
+import { greys } from './palette';
+
 export default {
   htmlFontSize: 16,
-  fontFamily: [
-    'Nunito Sans',
-    'Courier New',
-    '-apple-system',
-    'BlinkMacSystemFont',
-    'Ubuntu',
-    'Cantarell',
-    'Fira Sans',
-    'Droid Sans',
-    'Helvetica Neue',
-    'sans-serif',
-  ].join(','),
+  fontFamily: ['Nunito Sans', 'sans-serif'].join(', '),
   fontSize: 16,
   fontWeightLight: 300,
   fontWeightRegular: 400,
@@ -41,6 +33,26 @@ export default {
   h6: {
     fontSize: '1rem',
     fontWeight: 600,
-    textTransform: 'uppercase',
+  },
+  subtitle1: {},
+  subtitle2: {},
+  body1: {
+    fontSize: '1rem',
+  },
+  body2: {},
+  button: {
+    textTransform: 'none',
+  },
+  caption: {
+    fontSize: '0.875rem',
+    lineHeight: 1.66,
+    letterSpacing: '0.03333em',
+  },
+  overline: {
+    fontSize: '0.75rem',
+    fontWeight: 800,
+    color: greys[600],
+    letterSpacing: '0.05em',
+    lineHeight: 1.1,
   },
 };

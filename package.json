@@ -23,7 +23,7 @@
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
-    "start": "lerna run start --stream",
+    "start": "lerna exec -- npm run start --stream",
     "test": "jest --coverage --verbose"
   },
   "husky": {
