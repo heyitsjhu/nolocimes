@@ -1,3 +1,4 @@
+export const LOCAL_STORAGE_KEY = 'dl_heyitsjhu';
 export const PAGE_LAYOUT_FADE_TIMEOUT = 1500;
 export const PARTICLE_CANVAS_DEFAULTS = {
   particleColor: { r: 204, g: 152, b: 81 },
