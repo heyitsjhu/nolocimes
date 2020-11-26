@@ -1,4 +1,5 @@
 export { default as BlogHero } from './BlogHero/BlogHero';
+export { default as Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
 export { default as BusinessCard } from './BusinessCard/BusinessCard';
 export { default as Footer } from './Footer/Footer';
 export { default as Header } from './Header/Header';

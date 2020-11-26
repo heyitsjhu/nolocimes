@@ -1,18 +1,19 @@
 import anime from 'animejs/lib/anime.es.js';
+import { getElClass } from 'utils';
 
 // fades in the header and footer sections
-export const getAnimation = (onStart = undefined, onEnd = undefined) => {
+export const getAnimation = (opts = {}) => {
   return anime
     .timeline({
       autoplay: false,
-      delay: 7000,
-      duration: 5000,
+      delay: opts.skipDelay ? 0 : 4000,
+      duration: opts.skipDelay ? 2500 : 5000,
       easing: 'easeInOutQuad',
-      begin: onStart,
-      complete: onEnd,
+      begin: opts.onStart,
+      complete: opts.onEnd,
     })
     .add({
-      targets: ['header', 'footer', '.dl-breadcrumbs'],
+      targets: ['header', 'footer', `.${getElClass('comp', 'breadcrumb')}`],
       opacity: 1,
     });
 };

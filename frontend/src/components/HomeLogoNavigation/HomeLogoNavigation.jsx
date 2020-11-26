@@ -2,11 +2,9 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Fade from '@material-ui/core/Fade';
-import Popper from '@material-ui/core/Popper';
-import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
 
+import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
 import { AppContext } from 'stores';
@@ -94,8 +92,12 @@ export default props => {
   };
 
   useEffect(() => {
-    if (appState.splashLogo.finished) {
-      const animation = getAnimation(null, () => setIsInteractive(true));
+    if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
+      const animation = getAnimation({
+        onEnd: () => setIsInteractive(true),
+        skipDelay: appState.localStorage.introViewed,
+      });
+
       animation.play();
     }
   }, [appState.splashLogo.finished]);

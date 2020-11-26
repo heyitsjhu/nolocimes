@@ -6,15 +6,15 @@ const HOME_LOGO_CONTAINER = `.${getElClass('comp', 'homeLogo-container')}`;
 const LOGO_SET_1 = getElClass(null, 'logo__set--1');
 const LOGO_SET_2 = getElClass(null, 'logo__set--2');
 
-export default (onStart = undefined, onEnd = undefined) => {
+export default (opts = {}) => {
   return anime
     .timeline({
       autoplay: false,
-      delay: 4000,
-      duration: 5000,
+      delay: opts.skipDelay ? 0 : 4000,
+      duration: opts.skipDelay ? 2500 : 5000,
       easing: 'easeInOutQuad',
-      begin: onStart,
-      complete: onEnd,
+      begin: opts.onStart,
+      complete: opts.onEnd,
     })
     .add({
       targets: HOME_LOGO_CONTAINER,
