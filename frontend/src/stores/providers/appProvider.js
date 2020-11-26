@@ -1,4 +1,4 @@
-import { PARTICLE_CANVAS_DEFAULTS, STORE_KEYS } from 'const';
+import { LOCAL_STORAGE_KEY, PARTICLE_CANVAS_DEFAULTS, STORE_KEYS } from 'const';
 import DLError from 'models/DLError';
 import { deepClone } from 'utils';
 
@@ -7,30 +7,28 @@ import * as TYPES from '../types';
 
 const initialState = {
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
+  [STORE_KEYS.LOCAL_STORAGE]: { introViewed: false },
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
-  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
+  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 
 const staticState = {
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
+  [STORE_KEYS.LOCAL_STORAGE]: { introViewed: false },
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
-  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: true },
+  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 
 const reducer = (state, action) => {
   const newState = deepClone(state);
 
   switch (action.type) {
-    case 'SET_LOADING':
-      newState[action.key].loading = action.payload;
-      break;
-    case 'UPDATE_APP_STATE':
-      if (!action.firstLevelKey || !action.secondLevelKey) return state;
+    case TYPES.UPDATE_APP_STATE:
+      if (!action.firstLevelKey && !action.secondLevelKey) return state;
 
       if (!action.secondLevelKey && action.payload) {
-        // payload is implied to replace data at firstLevelKey
         newState[action.firstLevelKey] = {
           ...newState[action.firstLevelKey],
           ...action.payload,
@@ -52,16 +50,22 @@ const reducer = (state, action) => {
         };
       }
 
+      // update client's local storage object
+      if (action.firstLevelKey === STORE_KEYS.LOCAL_STORAGE && action.payload) {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState.localStorage));
+      }
+
       break;
     case TYPES.UPDATE_SPLASH_LOGO:
-      if (action.payload === 'start') {
+      if (action.payload === 'started') {
         newState.splashLogo = {
           ...newState.splashLogo,
           started: true,
           playing: true,
         };
-      } else if (action.payload === 'finish') {
+      } else if (action.payload === 'finished') {
         newState.splashLogo = {
+          ...newState.splashLogo,
           started: false,
           playing: false,
           finished: true,

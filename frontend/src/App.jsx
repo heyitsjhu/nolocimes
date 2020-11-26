@@ -1,12 +1,23 @@
-import React, { useRef } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import { Footer, Header, HomeLogoNavigation, ParticleCanvas, SplashLogo } from 'components';
+import {
+  Breadcrumbs,
+  Footer,
+  Header,
+  HomeLogoNavigation,
+  ParticleCanvas,
+  SplashLogo,
+} from 'components';
+
+import { LOCAL_STORAGE_KEY, STORE_KEYS } from 'const';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
+import { AppContext } from 'stores';
+import { updateAppState, updateSplashLogo } from 'stores/actions/appActions';
 import * as Utils from 'utils';
 
 const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
@@ -37,9 +48,23 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
 const App = () => {
   const classes = useStyles();
   const isHome = useIsHome();
+  const [appState, dispatch] = useContext(AppContext);
   const appRef = useRef();
 
   useScrollToTop(appRef);
+
+  useEffect(() => {
+    // localStorage.removeItem(LOCAL_STORAGE_KEY);
+    const payload = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    // skips intro if local storage exist in user's browser
+    if (payload && payload.introViewed) {
+      dispatch(updateAppState(STORE_KEYS.LOCAL_STORAGE, null, payload));
+      dispatch(updateSplashLogo('finished'));
+    } else if (!isHome && !appState.splashLogo.finished) {
+      // if user arrives without visiting the homepage first
+      dispatch(updateSplashLogo('finished'));
+    }
+  }, []);
 
   return (
     <>
@@ -50,6 +75,7 @@ const App = () => {
       >
         <ParticleCanvas />
         <Header />
+        <Breadcrumbs />
         <AppRoutes />
         <HomeLogoNavigation />
         <Footer />

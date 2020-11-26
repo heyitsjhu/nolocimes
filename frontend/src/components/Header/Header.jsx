@@ -40,12 +40,13 @@ export default () => {
   const [appState, dispatch] = useContext(AppContext);
 
   useEffect(() => {
-    if (appState[STORE_KEYS.SPLASH_LOGO].finished && !appState.viewedIntro) {
-      // dispatch(updateLocalStorage("introViewed", true));
-      const animation = getAnimation();
-      animation.play(); // plays particle canvas and homelogo animation
+    if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
+      const animation = getAnimation({ skipDelay: appState.localStorage.introViewed });
+      animation.play();
+
+      dispatch(updateAppState(STORE_KEYS.LOCAL_STORAGE, 'introViewed', true));
     }
-  }, [appState, dispatch]);
+  }, [appState[STORE_KEYS.SPLASH_LOGO].finished, dispatch]);
 
   const openBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', true));
   const closeBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', false));

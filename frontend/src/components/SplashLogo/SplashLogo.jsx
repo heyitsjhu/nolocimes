@@ -9,6 +9,7 @@ import { getElClass } from 'utils';
 
 import getAnimation from './anime';
 import paths from './paths';
+import { STORE_KEYS } from 'const';
 
 const useStyles = makeStyles(theme => ({
   splashLogoContainer: {
@@ -80,15 +81,15 @@ export default props => {
   const splashCurtainLeft = getElClass('comp', 'splash-curtain-left');
   const splashCurtainRight = getElClass('comp', 'splash-curtain-right');
 
-  const onStartAnimation = useCallback(() => dispatch(updateSplashLogo('start')), [dispatch]);
-  const onEndAnimation = useCallback(() => dispatch(updateSplashLogo('finish')), [dispatch]);
+  const onStartAnimation = useCallback(() => dispatch(updateSplashLogo('started')), [dispatch]);
+  const onEndAnimation = useCallback(() => dispatch(updateSplashLogo('finished')), [dispatch]);
 
   useEffect(() => {
-    if (!appState.splashLogo.finished) {
+    if (!appState[STORE_KEYS.SPLASH_LOGO].finished) {
       const animation = getAnimation(onStartAnimation, onEndAnimation);
       animation.play();
     }
-  }, [appState.splashLogo.finished, onStartAnimation, onEndAnimation]);
+  }, [onStartAnimation, onEndAnimation, dispatch]);
 
   return (
     !appState.splashLogo.finished && (
