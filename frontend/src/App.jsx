@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import { Footer, Header, HomeLogoNavigation, ParticleCanvas, SplashLogo } from 'components';
+import { Footer, Header, Helmet, HomeLogoNavigation, ParticleCanvas, SplashLogo } from 'components';
+import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
@@ -36,6 +37,7 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
 
 const App = () => {
   const classes = useStyles();
+  const { t } = useCopy();
   const isHome = useIsHome();
   const appRef = useRef();
 
@@ -48,6 +50,10 @@ const App = () => {
         className={classnames([classes.app, !isHome && classes.isNotHome])}
         ref={appRef}
       >
+        <Helmet
+          title={t('components.Helmet.home.title')}
+          meta={[{ name: 'description', content: t('components.Helmet.home.meta.description') }]}
+        />
         <ParticleCanvas />
         <Header />
         <AppRoutes />

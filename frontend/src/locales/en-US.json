@@ -26,6 +26,26 @@
       "Footer": {
         "copyright": "© 2020 Dreamist Labs"
       },
+      "Helmet": {
+        "blog": {
+          "title": "Blog - A place of musings | Johnny Hu - Software Engineer",
+          "meta": {
+            "description": "Get inside the head of Johnny Hu, Software Engineer. He writes about web development, his learnings, reflections, and musings."
+          }
+        },
+        "home": {
+          "title": "Johnny Hu | Software Engineer | San Francisco Bay Area",
+          "meta": {
+            "description": "I'm a software engineer with a focus on web applications. My primary language is JavaScript. Welcome to my digital playground."
+          }
+        },
+        "styleGuide": {
+          "title": "Style Guide | Johnny Hu - Software Engineer",
+          "meta": {
+            "description": "A visual style guide for this site."
+          }
+        }
+      },
       "HomeLogoNavigation": {
         "navMapping": {
           "navId1": "sdfd",
