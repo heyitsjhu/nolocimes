@@ -7,11 +7,12 @@ import {
   Breadcrumbs,
   Footer,
   Header,
+  Helmet,
   HomeLogoNavigation,
   ParticleCanvas,
   SplashLogo,
 } from 'components';
-
+import { useCopy } from 'hooks/useCopy';
 import { LOCAL_STORAGE_KEY, STORE_KEYS } from 'const';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
@@ -47,6 +48,7 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
 
 const App = () => {
   const classes = useStyles();
+  const { t } = useCopy();
   const isHome = useIsHome();
   const [appState, dispatch] = useContext(AppContext);
   const appRef = useRef();
@@ -73,6 +75,10 @@ const App = () => {
         className={classnames([classes.app, !isHome && classes.isNotHome])}
         ref={appRef}
       >
+        <Helmet
+          title={t('components.Helmet.home.title')}
+          meta={[{ name: 'description', content: t('components.Helmet.home.meta.description') }]}
+        />
         <ParticleCanvas />
         <Header />
         <Breadcrumbs />

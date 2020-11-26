@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 // import JottingPadHero from '../../components/JottingPadHero/JottingPadHero';
 // import JottingPadTabs from '../../components/JottingPadTabs/JottingPadTabs';
 // import JottingPadExcerpt from '../../components/JottingPadExcerpt/JottingPadExcerpt';
-import { BlogHero } from 'components';
+import { BlogHero, Helmet } from 'components';
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { BlogContext } from 'stores';
@@ -75,6 +75,10 @@ export default props => {
 
   return (
     <PageLayout pageName="blog" className={classes.blogLayout}>
+      <Helmet
+        title={t('components.Helmet.blog.title')}
+        meta={[{ name: 'description', content: t('components.Helmet.blog.meta.description') }]}
+      />
       <BlogHero />
       <Box className={classes.excerptsContainer}>
         <Typography>

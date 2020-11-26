@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
+import { Helmet } from 'components';
 import { useCopy } from 'hooks/useCopy';
 import theme from 'theme';
 import { formatThemeProperty } from 'utils';
@@ -74,21 +75,32 @@ export default props => {
         const settings = theme.typography[type];
 
         return (
-          <Box className={classes.typographySegment} key={type}>
-            <Box display="flex" alignItems="center">
-              <Typography variant={type}>{textMapping[type]}</Typography>
+          <>
+            <Helmet
+              title={t('components.Helmet.styleGuide.title')}
+              meta={[
+                {
+                  name: 'description',
+                  content: t('components.Helmet.styleGuide.meta.description'),
+                },
+              ]}
+            />
+            <Box className={classes.typographySegment} key={type}>
+              <Box display="flex" alignItems="center">
+                <Typography variant={type}>{textMapping[type]}</Typography>
+              </Box>
+              <Box>
+                {Object.keys(settings)
+                  .filter(property => !property.includes('@media'))
+                  .map(property => (
+                    <Box key={`${type}-${property}`}>
+                      <Typography variant="overline">{formatThemeProperty(property)}</Typography>
+                      <Typography>{settings[property]}</Typography>
+                    </Box>
+                  ))}
+              </Box>
             </Box>
-            <Box>
-              {Object.keys(settings)
-                .filter(property => !property.includes('@media'))
-                .map(property => (
-                  <Box key={`${type}-${property}`}>
-                    <Typography variant="overline">{formatThemeProperty(property)}</Typography>
-                    <Typography>{settings[property]}</Typography>
-                  </Box>
-                ))}
-            </Box>
-          </Box>
+          </>
         );
       });
   };
