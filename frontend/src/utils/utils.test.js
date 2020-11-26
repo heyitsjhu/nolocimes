@@ -45,7 +45,30 @@ describe('dom - getElId', () => {
   });
 });
 
+describe('formatters - formatThemeProperty', () => {
+  test('it formats material ui theme properties correctly for style guide', () => {
+    const property1 = Utils.formatThemeProperty('fontSize');
+    const property2 = Utils.formatThemeProperty('textTransform');
+    const property3 = Utils.formatThemeProperty('letterSpacing');
+    const property4 = Utils.formatThemeProperty();
+
+    expect(property1).toMatch('Font Size');
+    expect(property2).toMatch('Text Transform');
+    expect(property3).toMatch('Letter Spacing');
+    expect(property4).toMatch('');
+  });
+});
+
 describe('log - logging', () => {
+  test('console.debug outputs expected message through logger', () => {
+    const message = 'this is a debug log message';
+    console.debug = jest.fn();
+
+    log.debug(message);
+
+    expect(console.debug).toHaveBeenCalledWith(message);
+  });
+
   test('console.info outputs expected message through logger', () => {
     const message = 'this is an info log message';
     console.info = jest.fn();

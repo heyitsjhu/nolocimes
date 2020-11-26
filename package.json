@@ -35,6 +35,9 @@
   },
   "jest": {
     "verbose": true,
+    "collectCoverageFrom": [
+      "{backend,frontend}/**/*.{js,jsx}"
+    ],
     "moduleDirectories": [
       "node_modules",
       "backend",
@@ -43,6 +46,10 @@
     "moduleFileExtensions": [
       "js",
       "jsx"
+    ],
+    "roots": [
+      "<rootDir>/backend",
+      "<rootDir>/frontend"
     ],
     "testRegex": "((\\.|/*.)(spec|test))\\.js?$",
     "transformIgnorePatterns": [
