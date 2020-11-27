@@ -9,7 +9,7 @@ const initialState = {
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
   [STORE_KEYS.LOCAL_STORAGE]: { introViewed: false },
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
-  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
+  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true, controlsEnabled: false },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 
@@ -17,7 +17,7 @@ const staticState = {
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
   [STORE_KEYS.LOCAL_STORAGE]: { introViewed: false },
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
-  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true },
+  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true, controlsEnabled: false },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 

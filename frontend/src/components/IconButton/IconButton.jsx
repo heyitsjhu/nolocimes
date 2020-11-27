@@ -15,6 +15,12 @@ const useStyles = makeStyles(({ palette, transitions, spacing, zIndex }) => ({
     },
     '&:hover, &.Mui-focusVisible': {
       backgroundColor: 'transparent',
+      cursor: 'default',
+    },
+  },
+  isInteractive: {
+    '&:hover, &.Mui-focusVisible': {
+      cursor: 'pointer',
       "& svg:not([class*='siteLogo'])": { fill: palette.grey[600] },
       "& svg[class*='siteLogo'] path": {
         fill: palette.grey[600],
@@ -34,7 +40,12 @@ export default React.forwardRef(({ children, className, noPadding, ...otherProps
 
   return (
     <IconButton
-      className={classnames([classes.iconButton, noPadding && classes.noPadding, className])}
+      className={classnames([
+        classes.iconButton,
+        noPadding && classes.noPadding,
+        (otherProps.onClick || otherProps.href) && classes.isInteractive,
+        className,
+      ])}
       // disableFocusRipple
       disableRipple
       {...otherProps}

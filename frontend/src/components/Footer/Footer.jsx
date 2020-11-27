@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
@@ -7,6 +7,7 @@ import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
 import { SiteSettingsMenu } from 'components';
 import { LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
+import { AppContext } from 'stores';
 
 import * as Utils from 'utils';
 
@@ -34,6 +35,8 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
 export default () => {
   const classes = useStyles();
   const { t } = useCopy();
+  const [appState, dispatch] = useContext(AppContext);
+  const { controlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
 
   return (
     <>
@@ -43,7 +46,7 @@ export default () => {
         <Box className={classes.iconSet}>
           <IconButton
             aria-label={t('a11y.ariaLabel.githubSourceUrl')}
-            href={LINKS.GITHUB_PROJECT_URL}
+            href={controlsEnabled ? LINKS.GITHUB_PROJECT_URL : undefined}
             noPadding
             target="_blank"
           >
