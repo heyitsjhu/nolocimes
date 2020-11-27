@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import MUIBreadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
+import PinDropIcon from '@material-ui/icons/PinDrop';
 import classnames from 'classnames';
 
 import * as Utils from '../../utils';
@@ -41,6 +42,12 @@ const useStyles = makeStyles(({ palette, spacing, transitions, typography, zInde
     transition: `all ${transitions.duration.complex}ms ${transitions.easing.sharp}`,
     transitionDelay: `${transitions.duration.standard}ms`,
     zIndex: 1,
+    '&.is-active': {
+      '& ~ span': {
+        padding: spacing(1),
+        paddingLeft: spacing(1) / 2,
+      },
+    },
     '&.animate-in': {
       '&.is-active:not(:hover)': {
         backgroundColor: palette.grey[800],
@@ -91,10 +98,13 @@ const useStyles = makeStyles(({ palette, spacing, transitions, typography, zInde
     },
   },
   linkText: {
+    display: 'flex',
+    flexWrap: 'nowrap',
+    alignItems: 'center',
     position: 'absolute',
     left: spacing(1),
-    bottom: -1,
-    padding: `${spacing(1)}px ${spacing(2)}px`,
+    bottom: -3,
+    padding: `${spacing(1)}px ${spacing(1)}px`,
     backgroundColor: palette.primary.dark,
     color: palette.common.white,
     letterSpacing: 1.25,
@@ -104,6 +114,10 @@ const useStyles = makeStyles(({ palette, spacing, transitions, typography, zInde
     zIndex: 0,
     visibility: 'hidden',
     whiteSpace: 'nowrap',
+  },
+  youAreHerePin: {
+    marginRight: spacing(1) / 2,
+    fontSize: 16,
   },
 }));
 
@@ -168,6 +182,7 @@ export default () => {
               )}
             />
             <Typography className={classes.linkText} variant="overline">
+              {isActive && <PinDropIcon className={classes.youAreHerePin} />}
               {urlSegment.replace(/-/gi, ' ')}
             </Typography>
           </Box>
