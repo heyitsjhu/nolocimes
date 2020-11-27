@@ -6,9 +6,7 @@ import { useEffect, useState } from 'react';
  * @param {*} handler
  * @param {*} element
  */
-
-export const useDebounce = (value, delay) => {
-  // State and setters for debounced value
+export const useDebounce = (value, delay = 0) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
@@ -19,7 +17,7 @@ export const useDebounce = (value, delay) => {
     return () => {
       clearTimeout(handler);
     };
-  }, [value, delay]);
+  }, [value, delay, debouncedValue]);
 
   return debouncedValue;
 };

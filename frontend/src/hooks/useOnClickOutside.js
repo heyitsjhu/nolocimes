@@ -7,6 +7,13 @@ const elementsToTriggerClose = [
   Utils.getElId('site', 'footer'),
 ];
 
+/**
+ * Calls the provided callback function if the user clicks or
+ * touches outside of the provided reference object.
+ * @param {object} ref - Reference object to test against.
+ * @param {Function} handler - Callback function to trigger.
+ */
+
 export const useOnClickOutside = (ref, handler) => {
   useEffect(() => {
     const listener = event => {

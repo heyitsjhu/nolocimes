@@ -5,8 +5,9 @@ export const useScrollToTop = (ref, handler) => {
   const location = useLocation();
 
   useEffect(() => {
-    if (ref.current) {
-      ref.current.scrollTo(0, 0); // TODO: animate the scroll
-    }
+    ref && ref.current && ref.current.scrollTo(0, 0); // TODO: animate the scroll
+    handler && handler();
   }, [ref, handler, location.pathname]);
+
+  return ref;
 };

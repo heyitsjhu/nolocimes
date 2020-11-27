@@ -16,6 +16,7 @@ describe('dom - getElClass', () => {
     expect(str4).toEqual('DLChart-line');
     expect(str5).toEqual('DL-typeless');
   });
+
   test('it throws an error if name is empty', () => {
     expect(() => {
       Utils.getElClass('comp');
