@@ -1,7 +1,7 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { ROUTES } from 'const';
-import { BlogPage, PhotographyPage, StyleGuidePage } from 'pages';
+import { BlogPage, PageNotFoundPage, PhotographyPage, StyleGuidePage } from 'pages';
 
 const AppRoutes = () => (
   <Switch>
@@ -12,9 +12,20 @@ const AppRoutes = () => (
     <Route exact path={ROUTES.PHOTOGRAPHY}>
       <PhotographyPage />
     </Route>
-    <Route path={ROUTES.STYLE_GUIDE}>
+    <Route exact path={ROUTES.STYLE_GUIDE}>
       <StyleGuidePage />
     </Route>
+
+    <Route exact path={ROUTES.PAGE_NOT_FOUND}>
+      <PageNotFoundPage />
+    </Route>
+    <Redirect
+      from="*"
+      to={{
+        pathname: ROUTES.PAGE_NOT_FOUND,
+        state: { unfoundPath: useLocation().pathname },
+      }}
+    />
   </Switch>
 );
 

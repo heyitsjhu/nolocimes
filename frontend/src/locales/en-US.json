@@ -68,6 +68,13 @@
         "linkDistanceLimit": "Link Distance Limit",
         "slowMultiplier": "Slow Multiplier"
       }
+    },
+    "pages": {
+      "PageNotFound": {
+        "missingDestination": "Uh oh, looks like this destination is missing. Was it a typo?",
+        "theresNothingHere": "There's nothing here.",
+        "backHomeButton": "Back to Home"
+      }
     }
   }
 }
