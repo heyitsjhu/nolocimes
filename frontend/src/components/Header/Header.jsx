@@ -38,6 +38,7 @@ export default () => {
   const { t } = useCopy();
   const history = useHistory();
   const [appState, dispatch] = useContext(AppContext);
+  const { controlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
 
   useEffect(() => {
     if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
@@ -56,12 +57,15 @@ export default () => {
       <Box id={Utils.getElId('site', 'header')} className={classes.header} component="header">
         <IconButton
           aria-label={t('a11y.ariaLabel.siteHomeUrl')}
-          onClick={() => history.push(ROUTES.HOME)}
+          onClick={controlsEnabled ? () => history.push(ROUTES.HOME) : undefined}
         >
           <SiteLogo id={Utils.getElId('site', 'logo')} size={20} />
         </IconButton>
 
-        <IconButton aria-label={t('a11y.ariaLabel.businessCardButton')} onClick={openBusinessCard}>
+        <IconButton
+          aria-label={t('a11y.ariaLabel.businessCardButton')}
+          onClick={controlsEnabled ? openBusinessCard : undefined}
+        >
           <PersonIcon fontSize="small" />
         </IconButton>
       </Box>

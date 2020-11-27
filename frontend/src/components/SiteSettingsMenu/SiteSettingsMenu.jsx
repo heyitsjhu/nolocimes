@@ -49,7 +49,7 @@ export default () => {
   const [appState, dispatch] = useContext(AppContext);
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
-  const darkMode = appState[STORE_KEYS.SITE_SETTINGS].darkMode;
+  const { controlsEnabled, darkMode } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -91,7 +91,7 @@ export default () => {
         aria-haspopup="true"
         aria-label={t('a11y.ariaLabel.siteSettingsButton')}
         noPadding
-        onClick={handleToggle}
+        onClick={controlsEnabled ? handleToggle : undefined}
       >
         <TuneIcon ref={anchorRef} fontSize="small" />
       </IconButton>

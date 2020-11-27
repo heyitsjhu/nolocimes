@@ -63,6 +63,6 @@ export default {
     text: 'components.HomeLogoNavigation.navMapping.navId8',
     title: '',
     url: ROUTES.PHOTOGRAPHY,
-    disabled: true,
+    disabled: false,
   },
 };

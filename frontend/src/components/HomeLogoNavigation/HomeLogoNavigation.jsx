@@ -14,6 +14,7 @@ import getAnimation from './anime';
 import NavigationPopper from './NavigationPopper';
 import navMapping from './navMapping';
 import paths from './paths';
+import { updateAppState } from 'stores/actions/appActions';
 
 const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   homeLogoContainer: {
@@ -42,7 +43,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   },
   pathSet1: {
     fill: palette.grey[600],
-    '&.interactive:hover, &.interactive:focus': {
+    '&.is-interactive:hover, &.is-interactive:focus': {
       fill: palette.grey[100],
       outline: 'none',
       cursor: 'pointer',
@@ -50,7 +51,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   },
   pathSet2: {
     fill: palette.primary.dark,
-    '&.interactive:hover,     &.interactive:focus': {
+    '&.is-interactive:hover, &.is-interactive:focus': {
       fill: palette.primary.main,
       outline: 'none',
       cursor: 'pointer',
@@ -69,8 +70,8 @@ export default props => {
   const [appState, dispatch] = useContext(AppContext);
   const viewBox = props.viewBox || '0 0 528 566';
   const [anchorEl, setAnchorEl] = useState(null);
-  const [isInteractive, setIsInteractive] = useState(false);
   const [popper, setPopper] = useState(null);
+  const { controlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const handleMouseOver = event => {
     if (!anchorEl) {
@@ -94,13 +95,13 @@ export default props => {
   useEffect(() => {
     if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
       const animation = getAnimation({
-        onEnd: () => setIsInteractive(true),
+        onEnd: () => dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'controlsEnabled', true)),
         skipDelay: appState.localStorage.introViewed,
       });
 
       animation.play();
     }
-  }, [appState.splashLogo.finished]);
+  }, [appState.splashLogo.finished, dispatch]);
 
   return (
     <Fragment>
@@ -130,7 +131,7 @@ export default props => {
                     path.group === 'set1' && Utils.getElClass(null, 'logo__set--1'),
                     path.group === 'set2' && Utils.getElClass(null, 'logo__set--2'),
                     path.css && classes[path.css],
-                    isInteractive && !isDisabled && 'interactive'
+                    controlsEnabled && !isDisabled && 'is-interactive'
                   )}
                   d={path.d}
                   id={path.navId}
@@ -139,8 +140,8 @@ export default props => {
                   tabIndex={!isDisabled ? 0 : -1}
                   onClick={!isDisabled ? handleClick(path.navId) : undefined}
                   onKeyDown={!isDisabled ? handleClick(path.navId) : undefined}
-                  onMouseOver={!isDisabled && isInteractive ? handleMouseOver : undefined}
-                  onMouseLeave={!isDisabled && isInteractive ? handleMouseLeave : undefined}
+                  onMouseOver={!isDisabled && controlsEnabled ? handleMouseOver : undefined}
+                  onMouseLeave={!isDisabled && controlsEnabled ? handleMouseLeave : undefined}
                 />
               );
             })}

@@ -1,16 +1,16 @@
 import React from 'react';
 import AppProvider from './providers/appProvider';
-import BlogProvider from './providers/blogProvider';
+import ContentProvider from './providers/contentProvider';
 
 const AppStores = ({ children }) => {
   return (
     <AppProvider>
-      <BlogProvider>{children}</BlogProvider>
+      <ContentProvider>{children}</ContentProvider>
     </AppProvider>
   );
 };
 
 export { AppContext } from './providers/appProvider';
-export { BlogContext } from './providers/blogProvider';
+export { ContentContext } from './providers/contentProvider';
 
 export default AppStores;

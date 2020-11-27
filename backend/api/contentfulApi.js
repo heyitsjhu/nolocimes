@@ -42,11 +42,24 @@ export class ContentfulAPI {
     return response;
   };
 
+  getAsset = async id => {
+    const response = await this.fetchHandler(this.client.getContentType(id));
+
+    return response;
+  };
+
+  getAssets = async () => {
+    const response = await this.fetchHandler(this.client.getAssets());
+
+    return response;
+  };
+
   getContentType = async id => {
     const response = await this.fetchHandler(this.client.getContentType(id));
 
     return response;
   };
+
   getEntries = async query => {
     Logger.log(JSON.parse(query));
     const response = await this.fetchHandler(this.client.getEntries(JSON.parse(query)));

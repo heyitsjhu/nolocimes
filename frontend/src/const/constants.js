@@ -17,5 +17,7 @@ export const ROUTES = {
   BLOG: '/blog',
   BLOG_POST: '/blog/:postId',
   BLOG_TAGS: '/blog/tags?tag=:tagId',
+  PAGE_NOT_FOUND: '/404',
+  PHOTOGRAPHY: '/photography',
   STYLE_GUIDE: '/style-guide',
 };
