@@ -12,6 +12,19 @@ import contentfulApi from '../api/contentfulApi';
  */
 const router = express.Router();
 
+router.get('/api/contentful/asset', async (req, res) => {
+  const { id } = req.query;
+  const response = await contentfulApi.getAsset(id);
+
+  res.send(response);
+});
+
+router.get('/api/contentful/assets', async (req, res) => {
+  const response = await contentfulApi.getAssets();
+
+  res.send(response);
+});
+
 // get content type
 router.get('/api/contentful/contentType', async (req, res) => {
   const { id } = req.query;

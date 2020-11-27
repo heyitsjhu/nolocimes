@@ -9,8 +9,8 @@ import Typography from '@material-ui/core/Typography';
 import { BlogHero, Helmet } from 'components';
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { BlogContext } from 'stores';
-import { fetchBlogPosts } from 'stores/actions/blogActions';
+import { ContentContext } from 'stores';
+import { fetchContentPosts } from 'stores/actions/contentActions';
 // import * as PostUtils from 'utils/postHelpers';
 
 import { PageLayout } from '..';
@@ -52,20 +52,20 @@ const useStyles = makeStyles(({ breakpoints, palette, spacing }) => ({
 // };
 
 export default props => {
-  const [blogState, dispatch] = useContext(BlogContext);
+  const [contentState, dispatch] = useContext(ContentContext);
   const { t } = useCopy();
   const classes = useStyles();
-  const [posts, setPosts] = useState(blogState[STORE_KEYS.POSTS]);
+  const [posts, setPosts] = useState(contentState[STORE_KEYS.POSTS]);
 
   useEffect(() => {
     if (posts && posts.length === 0) {
-      fetchBlogPosts().then(dispatch);
+      fetchContentPosts().then(dispatch);
     }
   }, [dispatch]);
 
   useEffect(() => {
-    setPosts(blogState[STORE_KEYS.POSTS]);
-  }, [blogState[STORE_KEYS.POSTS]]);
+    setPosts(contentState[STORE_KEYS.POSTS]);
+  }, [contentState[STORE_KEYS.POSTS]]);
 
   // useEffect(() => {
   //   // const { activeTag, posts } = appState[STORE_KEYS.JOTTING_PAD];
