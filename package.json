@@ -35,9 +35,6 @@
   },
   "jest": {
     "verbose": true,
-    "collectCoverageFrom": [
-      "{backend,frontend}/**/*.{js,jsx}"
-    ],
     "moduleDirectories": [
       "node_modules",
       "backend",
