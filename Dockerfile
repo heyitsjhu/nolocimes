@@ -24,5 +24,8 @@ COPY lerna.json .
 
 RUN lerna bootstrap
 
+RUN npm run bootstrap
+
 EXPOSE 3001
+
 EXPOSE 5001
