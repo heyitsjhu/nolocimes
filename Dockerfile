@@ -29,3 +29,5 @@ RUN npm run bootstrap
 EXPOSE 3001
 
 EXPOSE 5001
+
+EXPOSE 8080
