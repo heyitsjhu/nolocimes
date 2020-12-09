@@ -23,6 +23,9 @@
         "name": "Johnny Hu",
         "title": "Software Engineer"
       },
+      "CookiesBanner": {
+        "alertMessage": "Hi! I use browser cookies to improve your experience on this site. You're free to manage this via your browser setting at any time. To learn more about how I use the cookies, please see the site's cookies policy."
+      },
       "Footer": {
         "copyright": "© 2020 Dreamist Labs"
       },

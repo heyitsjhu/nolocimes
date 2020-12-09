@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[components] - BusinessCard it renders without failing snapshot 1`] = `
+<div
+  aria-hidden="true"
+/>
+`;

@@ -46,6 +46,24 @@ describe('dom - getElId', () => {
   });
 });
 
+describe('dom - getElTestId', () => {
+  test('it returns a prefixed HTML id string', () => {
+    const id1 = Utils.getElTestId('form-button');
+    const id2 = Utils.getElTestId('my-custom-test-id');
+    const id3 = Utils.getElTestId('another-test-component');
+
+    expect(id1).toEqual('dlabs-test-id-form-button');
+    expect(id2).toEqual('dlabs-test-id-my-custom-test-id');
+    expect(id3).toEqual('dlabs-test-id-another-test-component');
+  });
+
+  test('it throws an error if name is empty', () => {
+    expect(() => {
+      Utils.getElTestId();
+    }).toThrow(DLError);
+  });
+});
+
 describe('formatters - formatThemeProperty', () => {
   test('it formats material ui theme properties correctly for style guide', () => {
     const property1 = Utils.formatThemeProperty('fontSize');

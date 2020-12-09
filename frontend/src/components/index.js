@@ -1,6 +1,8 @@
+export { default as BlogExcerpt } from './BlogExcerpt/BlogExcerpt';
 export { default as BlogHero } from './BlogHero/BlogHero';
 export { default as Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
 export { default as BusinessCard } from './BusinessCard/BusinessCard';
+export { default as CookiesBanner } from './CookiesBanner/CookiesBanner';
 export { default as Footer } from './Footer/Footer';
 export { default as GalleryImage } from './GalleryImage/GalleryImage';
 export { default as Header } from './Header/Header';
@@ -13,3 +15,4 @@ export { default as SiteSettingsMenu } from './SiteSettingsMenu/SiteSettingsMenu
 export { default as Slider } from './Slider/Slider';
 export { default as SplashLogo } from './SplashLogo/SplashLogo';
 export { default as Tooltip } from './Tooltip/Tooltip';
+export { default as TruncateText } from './TruncateText/TruncateText';

@@ -11,8 +11,9 @@ import EmailIcon from '@material-ui/icons/Email';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
-import { IconButton, SiteLogo } from 'components';
-import { LINKS } from 'const';
+import IconButton from 'components/IconButton/IconButton';
+import SiteLogo from 'components/SiteLogo/SiteLogo';
+import { LINKS, TEST_IDS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 
 const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex }) => ({
@@ -109,6 +110,7 @@ export default props => {
   const { t } = useCopy();
 
   const closeBusinessCard = () => props.onClose();
+
   return (
     <Modal
       // need to associate with content in business card

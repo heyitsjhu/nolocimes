@@ -1,5 +1,6 @@
 export * from './dom';
 export * from './formatters';
+export * from './postHelpers';
 export * from './rfdc';
 
 /**

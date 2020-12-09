@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import classnames from 'classnames';
 
+import { CookiesBanner } from 'components';
 import { PAGE_LAYOUT_FADE_TIMEOUT, ROUTES } from '../../const';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import * as Utils from '../../utils';
@@ -47,6 +48,7 @@ export default ({ children, className, pageActions, pageName, ...otherProps }) =
       className={classnames([classes.pageLayout, className])}
       ref={layoutRef}
     >
+      <CookiesBanner />
       <Box className={classes.pageActions}>{pageActions && pageActions}</Box>
       <Fade in={fadeIn} timeout={PAGE_LAYOUT_FADE_TIMEOUT}>
         <Box height="100%" {...otherProps}>

@@ -37,7 +37,7 @@ export const fetchContentImages = async contentState => {
 
 export const fetchContentPosts = async () => {
   try {
-    const resp = await contentfulApi.getEntries({ content_type: 'blogPost' });
+    const resp = await contentfulApi.getEntries({ content_type: 'blogPost', include: 2 });
     const posts = resp.data.items;
 
     return { type: TYPES.FETCH_CONTENT_POSTS, payload: posts };

@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 // import JottingPadHero from '../../components/JottingPadHero/JottingPadHero';
 // import JottingPadTabs from '../../components/JottingPadTabs/JottingPadTabs';
 // import JottingPadExcerpt from '../../components/JottingPadExcerpt/JottingPadExcerpt';
-import { BlogHero, Helmet } from 'components';
+import { BlogExcerpt, BlogHero, Helmet } from 'components';
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { ContentContext } from 'stores';
@@ -16,7 +16,7 @@ import { fetchContentPosts } from 'stores/actions/contentActions';
 import { PageLayout } from '..';
 
 const useStyles = makeStyles(({ breakpoints, palette, spacing }) => ({
-  blogLayout: { padding: 0 },
+  blogLayout: { padding: '0 !important' },
   excerptsContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -61,7 +61,7 @@ export default props => {
     if (posts && posts.length === 0) {
       fetchContentPosts().then(dispatch);
     }
-  }, [dispatch]);
+  }, [dispatch, posts]);
 
   useEffect(() => {
     setPosts(contentState[STORE_KEYS.POSTS]);
@@ -92,17 +92,12 @@ export default props => {
       {/* <JottingPadTabs
         activeTab={appState[STORE_KEYS.JOTTING_PAD].activeTag}
         tabOptions={appState[STORE_KEYS.JOTTING_PAD].tags}
-      />
+      /> */}
       <Box className={classes.excerptsContainer} component="ul">
         {posts.map((post, i) => (
-          <JottingPadExcerpt
-            key={i}
-            post={post}
-            component="li"
-            reverseLayout={i % 2 !== 0}
-          />
+          <BlogExcerpt component="li" key={i} post={post} reverseLayout={i % 2 !== 0} />
         ))}
-      </Box> */}
+      </Box>
     </PageLayout>
   );
 };

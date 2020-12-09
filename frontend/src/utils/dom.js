@@ -25,4 +25,17 @@ export const getElId = (type, name) => {
   return `dlabs-${type}${name || Math.round(Math.random() * 100000)}`;
 };
 
+/**
+ *
+ * @param {*} type
+ * @param {*} name
+ */
+export const getElTestId = name => {
+  if (!name) {
+    throw new DLError('Name parameter cannot be empty');
+  }
+
+  return `dlabs-test-id-${name}`;
+};
+
 // export const preventDefault = event => event.preventDefault();
