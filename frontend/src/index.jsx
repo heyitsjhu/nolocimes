@@ -7,7 +7,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import App from './App';
 import ApplicationProviders from 'stores';
-import Theme from './theme';
+import theme from './theme';
 
 import reportWebVitals from './reportWebVitals';
 import './index.css';
@@ -15,7 +15,7 @@ import './index.css';
 ReactDOM.render(
   <React.StrictMode>
     <ApplicationProviders>
-      <ThemeProvider theme={Theme}>
+      <ThemeProvider theme={theme}>
         <BrowserRouter>
           <CssBaseline />
           <App />

@@ -1,5 +1,6 @@
 export * from './constants';
 export { default as STORE_KEYS } from './storeKeys';
+export { default as TEST_IDS } from './testIds';
 
 export const LINKS = {
   GITHUB_PROJECT_URL: 'https://github.com/heyitsjhu/nolocimes',

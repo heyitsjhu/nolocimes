@@ -21,14 +21,16 @@ import { AppContext } from 'stores';
 import { updateAppState, updateSplashLogo } from 'stores/actions/appActions';
 import * as Utils from 'utils';
 
-const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
+const useStyles = makeStyles(({ palette, shared, spacing, transitions, zIndex }) => ({
   app: {
     position: 'relative',
     margin: 0,
     height: 'inherit',
     border: shared.borderUncolored,
     transition: `all ${transitions.duration.longest}ms ${transitions.easing.easeInOut}`,
-    overflow: 'auto',
+    overflowX: 'auto',
+    overflowY: 'auto',
+    zIndex: zIndex.appContainer,
   },
   isNotHome: {
     display: 'block',
@@ -60,7 +62,7 @@ const App = () => {
     const payload = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     // skips intro if local storage exist in user's browser
     if (payload && payload.introViewed) {
-      dispatch(updateAppState(STORE_KEYS.LOCAL_STORAGE, null, payload));
+      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, null, payload));
       dispatch(updateSplashLogo('finished'));
     } else if (!isHome && !appState.splashLogo.finished) {
       // if user arrives without visiting the homepage first
@@ -79,13 +81,14 @@ const App = () => {
           title={t('components.Helmet.home.title')}
           meta={[{ name: 'description', content: t('components.Helmet.home.meta.description') }]}
         />
-        <ParticleCanvas />
+
         <Header />
         <Breadcrumbs />
         <AppRoutes />
         <HomeLogoNavigation />
         <Footer />
       </Box>
+      <ParticleCanvas />
       <SplashLogo />
     </>
   );

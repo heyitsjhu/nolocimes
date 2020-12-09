@@ -42,10 +42,10 @@ export default () => {
 
   useEffect(() => {
     if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
-      const animation = getAnimation({ skipDelay: appState.localStorage.introViewed });
+      const animation = getAnimation({ skipDelay: appState[STORE_KEYS.SITE_SETTINGS].introViewed });
       animation.play();
 
-      dispatch(updateAppState(STORE_KEYS.LOCAL_STORAGE, 'introViewed', true));
+      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'introViewed', true));
     }
   }, [appState[STORE_KEYS.SPLASH_LOGO].finished, dispatch]);
 

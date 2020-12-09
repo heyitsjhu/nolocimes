@@ -12,6 +12,19 @@ export const PARTICLE_CANVAS_DEFAULTS = {
   slowMultiplier: 30,
   cursorParticle: { x: 0, y: 0, vx: 0, vy: 0, r: 0, type: 'mouse' },
 };
+export const POSTS = {
+  EXCERPT_DESCRIPTION: 'excerptDescription',
+  EXCERPT_TITLE: 'excerptTitle',
+  POST_BLOCKQUOTE: 'postBlockQuote',
+  POST_CONTENT: 'postContent',
+  POST_DATE: 'postDate',
+  POST_HEADING: 'postHeading',
+  POST_HERO_IMAGE: 'postHeroImage',
+  POST_IMAGE: 'postImage',
+  POST_LIST: 'postList',
+  POST_TAGS: 'postTags',
+  POST_TITLE: 'postTitle',
+};
 export const ROUTES = {
   HOME: '/',
   BLOG: '/blog',

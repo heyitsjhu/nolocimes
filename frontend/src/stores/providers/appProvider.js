@@ -6,18 +6,28 @@ import createStore from '../storeCreator';
 import * as TYPES from '../types';
 
 const initialState = {
+  [STORE_KEYS.BLOG]: { activeTag: 'all', tags: ['all', 'tag1', 'tag2', 'tag3'] },
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
-  [STORE_KEYS.LOCAL_STORAGE]: { introViewed: false },
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
-  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true, controlsEnabled: false },
+  [STORE_KEYS.SITE_SETTINGS]: {
+    cookiesAcknowledged: false,
+    controlsEnabled: false,
+    darkMode: true,
+    introViewed: false,
+  },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 
 const staticState = {
+  [STORE_KEYS.BLOG]: { activeTag: 'all', tags: ['all', 'tag1', 'tag2', 'tag3'] },
   [STORE_KEYS.BUSINESS_CARD]: { show: false },
-  [STORE_KEYS.LOCAL_STORAGE]: { introViewed: false },
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
-  [STORE_KEYS.SITE_SETTINGS]: { darkMode: true, controlsEnabled: false },
+  [STORE_KEYS.SITE_SETTINGS]: {
+    cookiesAcknowledged: false,
+    controlsEnabled: false,
+    darkMode: true,
+    introViewed: false,
+  },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 
@@ -51,8 +61,8 @@ const reducer = (state, action) => {
       }
 
       // update client's local storage object
-      if (action.firstLevelKey === STORE_KEYS.LOCAL_STORAGE && action.payload) {
-        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState.localStorage));
+      if (action.firstLevelKey === STORE_KEYS.SITE_SETTINGS && action.payload) {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState[STORE_KEYS.SITE_SETTINGS]));
       }
 
       break;

@@ -35,11 +35,12 @@ const useStyles = makeStyles(({ palette, transitions, spacing, zIndex }) => ({
   },
 }));
 
-export default React.forwardRef(({ children, className, noPadding, ...otherProps }) => {
+export default React.forwardRef(({ children, className, noPadding, ...otherProps }, ref) => {
   const classes = useStyles();
 
   return (
     <IconButton
+      ref={ref}
       className={classnames([
         classes.iconButton,
         noPadding && classes.noPadding,

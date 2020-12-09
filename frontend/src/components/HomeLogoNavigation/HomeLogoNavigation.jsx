@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -16,7 +16,7 @@ import navMapping from './navMapping';
 import paths from './paths';
 import { updateAppState } from 'stores/actions/appActions';
 
-const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
+const useStyles = makeStyles(({ palette, transitions, zIndex }) => ({
   homeLogoContainer: {
     position: 'fixed',
     top: '50%',
@@ -43,7 +43,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   },
   pathSet1: {
     fill: palette.grey[600],
-    '&.is-interactive:hover, &.is-interactive:focus': {
+    '&.is-interactive:hover, &.is-interactive:focus, &.is-hinting': {
       fill: palette.grey[100],
       outline: 'none',
       cursor: 'pointer',
@@ -51,7 +51,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   },
   pathSet2: {
     fill: palette.primary.dark,
-    '&.is-interactive:hover, &.is-interactive:focus': {
+    '&.is-interactive:hover, &.is-interactive:focus, &.is-hinting': {
       fill: palette.primary.main,
       outline: 'none',
       cursor: 'pointer',
@@ -68,10 +68,12 @@ export default props => {
   const history = useHistory();
   const isHome = useIsHome();
   const [appState, dispatch] = useContext(AppContext);
+  const { controlsEnabled, cookiesAcknowledged, introViewed } = appState[STORE_KEYS.SITE_SETTINGS];
   const viewBox = props.viewBox || '0 0 528 566';
   const [anchorEl, setAnchorEl] = useState(null);
   const [popper, setPopper] = useState(null);
-  const { controlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
+  const [hintStatus, setHintStatus] = useState({});
+  const navElRefs = useRef({});
 
   const handleMouseOver = event => {
     if (!anchorEl) {
@@ -92,11 +94,49 @@ export default props => {
     }
   };
 
+  const addToHintQueue = (navSet, isOn) => () => {
+    const set = {
+      set1: Object.keys(navMapping).slice(0, 5),
+      set2: Object.keys(navMapping).slice(5),
+    };
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        setHintStatus({
+          ...hintStatus,
+          ...set[navSet].reduce((acc, curr) => {
+            acc[curr] = isOn;
+            return acc;
+          }, {}),
+        });
+        // setPopper(isOn ? navMapping[navId] : null);
+        // setAnchorEl(isOn ? navRef : null);
+        resolve();
+      }, 800);
+    });
+  };
+
+  const showNavigationHints = () => {
+    Promise.resolve()
+      .then(addToHintQueue('set1', true))
+      .then(addToHintQueue('set1', false))
+      .then(addToHintQueue('set2', true))
+      .then(addToHintQueue('set2', false));
+  };
+
+  const handleOnAnimationEnd = () => {
+    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'controlsEnabled', true));
+
+    if (isHome && !cookiesAcknowledged) {
+      showNavigationHints();
+    }
+  };
+
   useEffect(() => {
     if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
       const animation = getAnimation({
-        onEnd: () => dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'controlsEnabled', true)),
-        skipDelay: appState.localStorage.introViewed,
+        onEnd: handleOnAnimationEnd,
+        skipDelay: appState[STORE_KEYS.SITE_SETTINGS].introViewed,
       });
 
       animation.play();
@@ -117,7 +157,7 @@ export default props => {
           viewBox={viewBox}
         >
           <g className={classes.svgGroup}>
-            {paths.map(path => {
+            {paths.map((path, i) => {
               const isDisabled = navMapping[path.navId].disabled;
 
               return (
@@ -131,11 +171,13 @@ export default props => {
                     path.group === 'set1' && Utils.getElClass(null, 'logo__set--1'),
                     path.group === 'set2' && Utils.getElClass(null, 'logo__set--2'),
                     path.css && classes[path.css],
-                    controlsEnabled && !isDisabled && 'is-interactive'
+                    controlsEnabled && !isDisabled && 'is-interactive',
+                    hintStatus[path.navId] && 'is-hinting'
                   )}
                   d={path.d}
                   id={path.navId}
                   key={path.d}
+                  ref={ref => (navElRefs.current[path.navId] = ref)}
                   role={!isDisabled ? 'button' : null}
                   tabIndex={!isDisabled ? 0 : -1}
                   onClick={!isDisabled ? handleClick(path.navId) : undefined}

@@ -115,8 +115,8 @@ export default props => {
             {paths.map(path => (
               <path
                 className={classnames([
-                  path.className === 'set1' && getElClass(null, 'logo__set--1'),
-                  path.className === 'set2' && getElClass(null, 'logo__set--2'),
+                  path.group === 'set1' && getElClass(null, 'logo__set--1'),
+                  path.group === 'set2' && getElClass(null, 'logo__set--2'),
                   classes.svgPath,
                 ])}
                 d={path.d}

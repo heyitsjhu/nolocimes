@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[components] - BlogHero it renders without failing snapshot 1`] = `
+<div
+  className="MuiBox-root MuiBox-root-2 makeStyles-jottingPadHeroComponent-1"
+  style={
+    Object {
+      "backgroundImage": "url('')",
+    }
+  }
+/>
+`;

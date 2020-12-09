@@ -17,7 +17,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
 
 export default props => {
   const classes = useStyles();
-  const imgUrl = props.postPart ? props.postPart.src : heroImage;
+  const imgUrl = heroImage;
 
   return (
     <Box

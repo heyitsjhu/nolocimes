@@ -1,4 +1,5 @@
 export default {
+  appContainer: 1,
   breadcrumbs: 100,
   footer: 100,
   header: 100,
