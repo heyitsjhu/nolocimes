@@ -71,56 +71,36 @@ app.use(
   })
 );
 
+// points to react folder's build (dist) assets
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
 // app.use(passport.initialize());
 // app.use(passport.session());
 
 // app.use('/', authenticationRoutes);
 app.use('/', contentfulRoutes);
 
-// production configuration to properly handle client-side routes
-if (process.env.NODE_ENV === 'production') {
-  //TODO: express serves react production assets (js, css, etc)
-  app.use(express.static('frontend/build')); // points to react folder's build (dist) assets
-  //TODO: express serve index.html if route requested in not found
-  // wildcard route
-  app.get('*', (req, res) => {
-    // defers all unknown server-side routes to the client-side code via index.html file in the client build folder
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
-}
-
-// catch 404 and forward to error handler
-app.use(function (req, res, next) {
-  next(createError(404));
+app.get('*', (req, res) => {
+  // defers all unknown server-side routes to the client-side code via index.html file in the client build folder
+  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
 });
 
-// error handler
-app.use(function (err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+// // catch 404 and forward to error handler
+// app.use(function (req, res, next) {
+//   next(createError(404));
+// });
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
+// // error handler
+// app.use(function (err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.send('error');
+// });
 
 app.use(rollbar.errorHandler());
 
-/*! - PORT
- * A port is defined as a communication endpoint and is always associated with an IP address of a host
- * and the protocol type of the communication. For example, on most local environments, the host is
- * oftentimes 'localhost' and the default port assigned is 3000. Therefore, to access your application
- * you would navigate to http://localhost:3000.
- *
- * Here, we are using the OR (||) operator to dynamically assign our PORT depending on the environment
- * our application is running in. If it's in a production environment, our constant variable will be
- * assigned to a port defined by our host provider (i.e., Heroku), via the process.env.PORT environment
- * variable. If it's in a development environment, then process.env.PORT would be undefined, and as a
- * result, port 5000 will be assigned to the constant variable.
- */
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  Logger.info(`[server] running on PORT ${PORT}...`);
-});
+export default app;
