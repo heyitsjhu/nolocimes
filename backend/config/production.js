@@ -14,7 +14,7 @@
  * should be different from the ones you use in development.
  *
  */
-export default {
+module.exports = {
   baseUrl: process.env.BASE_URL,
   contentfulSpace: process.env.CONTENTFUL_SPACE,
   contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
