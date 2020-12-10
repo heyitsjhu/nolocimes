@@ -1,3 +1,6 @@
+import express from 'express';
+import path from 'path';
+
 import app from './backend/server';
 
 /*! - PORT
@@ -14,6 +17,16 @@ import app from './backend/server';
  */
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, '0.0.0.0', () => {
+// app.set('port', PORT);
+
+// points to react folder's build (dist) assets
+app.use(express.static(path.join(__dirname, 'frontend/build')));
+
+app.get('*', (req, res) => {
+  // defers all unknown server-side routes to the client-side code via index.html file in the client build folder
+  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+});
+
+app.listen(PORT, () => {
   console.log(`[server] running on PORT ${PORT}...`);
 });

@@ -71,19 +71,11 @@ app.use(
   })
 );
 
-// points to react folder's build (dist) assets
-app.use(express.static(path.join(__dirname, 'frontend/build')));
-
 // app.use(passport.initialize());
 // app.use(passport.session());
 
 // app.use('/', authenticationRoutes);
 app.use('/', contentfulRoutes);
-
-app.get('*', (req, res) => {
-  // defers all unknown server-side routes to the client-side code via index.html file in the client build folder
-  res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-});
 
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
