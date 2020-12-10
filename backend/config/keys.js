@@ -1,5 +1,3 @@
-import DEVELOPMENT_KEYS from './development';
-import PRODUCTION_KEYS from './production';
 /*! - keys.js
  * In this file, we use a conditional statement to load api keys,
  * database uri and other sensitive information depending on whether
@@ -23,6 +21,7 @@ import PRODUCTION_KEYS from './production';
  * Read more about NODE_ENV here: https://stackoverflow.com/questions/16978256/what-is-node-env-in-express
  */
 
-const KEYS = process.env.NODE_ENV !== 'production' ? DEVELOPMENT_KEYS : PRODUCTION_KEYS;
+const KEYS =
+  process.env.NODE_ENV !== 'production' ? require('./development') : require('./production');
 
 export default KEYS;
