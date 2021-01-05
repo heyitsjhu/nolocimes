@@ -17,6 +17,7 @@ import { getTestElId } from 'utils';
 jest.mock('const', () => ({
   LINKS: { GITHUB_USER_URL: '' },
   TEST_IDS: { BUSINESS_CARD_MODAL: '' },
+  STORE_KEYS: { BLOG: '' },
 }));
 
 describe('[components] - BusinessCard', () => {

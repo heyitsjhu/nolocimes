@@ -59,6 +59,12 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 
 [contentful](https://www.contentful.com/)
 
+## Troubleshooting
+
+### Failing Tests
+
+If the test suites begin failing, especially in tests for files you didn't modify, try running `lerna bootstrap` in the repo's root. This can happen if you run `npm install` to add a new package instead of using lerna.
+
 ### References
 
 [Automating Changelog in Node Project](https://medium.com/@tiagoboeing/automating-changelog-in-your-nodejs-project-c54bdbb56e57)

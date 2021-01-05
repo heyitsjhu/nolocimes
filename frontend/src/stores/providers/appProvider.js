@@ -11,7 +11,7 @@ const initialState = {
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: {
     cookiesAcknowledged: false,
-    controlsEnabled: false,
+    navControlsEnabled: false,
     darkMode: true,
     introViewed: false,
   },
@@ -24,7 +24,7 @@ const staticState = {
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: {
     cookiesAcknowledged: false,
-    controlsEnabled: false,
+    navControlsEnabled: false,
     darkMode: true,
     introViewed: false,
   },

@@ -1,6 +1,6 @@
 const STORE_KEYS = {
   ASSETS: 'assets',
-  BLOG: 'BLOG',
+  BLOG: 'blog',
   BUSINESS_CARD: 'businessCard',
   LANGUAGE: 'language',
   IMAGES: 'images',

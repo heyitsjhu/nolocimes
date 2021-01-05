@@ -36,7 +36,7 @@ export default () => {
   const classes = useStyles();
   const { t } = useCopy();
   const [appState, dispatch] = useContext(AppContext);
-  const { controlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { navControlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
 
   return (
     <>
@@ -46,7 +46,7 @@ export default () => {
         <Box className={classes.iconSet}>
           <IconButton
             aria-label={t('a11y.ariaLabel.githubSourceUrl')}
-            href={controlsEnabled ? LINKS.GITHUB_PROJECT_URL : undefined}
+            href={navControlsEnabled ? LINKS.GITHUB_PROJECT_URL : undefined}
             noPadding
             target="_blank"
           >

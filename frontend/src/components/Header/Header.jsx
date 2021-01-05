@@ -2,7 +2,6 @@ import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import PersonIcon from '@material-ui/icons/Person';
 
 import { getAnimation } from 'animations';
 import { ROUTES, STORE_KEYS } from 'const';
@@ -38,7 +37,7 @@ export default () => {
   const { t } = useCopy();
   const history = useHistory();
   const [appState, dispatch] = useContext(AppContext);
-  const { controlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { navControlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
 
   useEffect(() => {
     if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
@@ -49,27 +48,18 @@ export default () => {
     }
   }, [appState[STORE_KEYS.SPLASH_LOGO].finished, dispatch]);
 
-  const openBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', true));
-  const closeBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', false));
-
   return (
     <>
       <Box id={Utils.getElId('site', 'header')} className={classes.header} component="header">
         <IconButton
           aria-label={t('a11y.ariaLabel.siteHomeUrl')}
-          onClick={controlsEnabled ? () => history.push(ROUTES.HOME) : undefined}
+          onClick={navControlsEnabled ? () => history.push(ROUTES.HOME) : undefined}
         >
           <SiteLogo id={Utils.getElId('site', 'logo')} size={20} />
         </IconButton>
 
-        <IconButton
-          aria-label={t('a11y.ariaLabel.businessCardButton')}
-          onClick={controlsEnabled ? openBusinessCard : undefined}
-        >
-          <PersonIcon fontSize="small" />
-        </IconButton>
+        <BusinessCard />
       </Box>
-      <BusinessCard open={appState[STORE_KEYS.BUSINESS_CARD].show} onClose={closeBusinessCard} />
     </>
   );
 };

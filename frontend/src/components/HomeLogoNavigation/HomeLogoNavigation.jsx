@@ -68,7 +68,9 @@ export default props => {
   const history = useHistory();
   const isHome = useIsHome();
   const [appState, dispatch] = useContext(AppContext);
-  const { controlsEnabled, cookiesAcknowledged, introViewed } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { navControlsEnabled, cookiesAcknowledged, introViewed } = appState[
+    STORE_KEYS.SITE_SETTINGS
+  ];
   const viewBox = props.viewBox || '0 0 528 566';
   const [anchorEl, setAnchorEl] = useState(null);
   const [popper, setPopper] = useState(null);
@@ -125,7 +127,7 @@ export default props => {
   };
 
   const handleOnAnimationEnd = () => {
-    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'controlsEnabled', true));
+    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'navControlsEnabled', true));
 
     if (isHome && !cookiesAcknowledged) {
       showNavigationHints();
@@ -171,7 +173,7 @@ export default props => {
                     path.group === 'set1' && Utils.getElClass(null, 'logo__set--1'),
                     path.group === 'set2' && Utils.getElClass(null, 'logo__set--2'),
                     path.css && classes[path.css],
-                    controlsEnabled && !isDisabled && 'is-interactive',
+                    navControlsEnabled && !isDisabled && 'is-interactive',
                     hintStatus[path.navId] && 'is-hinting'
                   )}
                   d={path.d}
@@ -182,8 +184,8 @@ export default props => {
                   tabIndex={!isDisabled ? 0 : -1}
                   onClick={!isDisabled ? handleClick(path.navId) : undefined}
                   onKeyDown={!isDisabled ? handleClick(path.navId) : undefined}
-                  onMouseOver={!isDisabled && controlsEnabled ? handleMouseOver : undefined}
-                  onMouseLeave={!isDisabled && controlsEnabled ? handleMouseLeave : undefined}
+                  onMouseOver={!isDisabled && navControlsEnabled ? handleMouseOver : undefined}
+                  onMouseLeave={!isDisabled && navControlsEnabled ? handleMouseLeave : undefined}
                 />
               );
             })}

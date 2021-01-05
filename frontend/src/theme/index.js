@@ -1,5 +1,6 @@
 import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
+import breakpoints from './breakpoints';
 import palette from './palette';
 import shared from './shared';
 import transitions from './transitions';
@@ -8,6 +9,7 @@ import zIndex from './zIndex';
 
 export default responsiveFontSizes(
   createMuiTheme({
+    breakpoints,
     palette,
     shared,
     transitions,

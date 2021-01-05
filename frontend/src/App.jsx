@@ -12,8 +12,8 @@ import {
   ParticleCanvas,
   SplashLogo,
 } from 'components';
-import { useCopy } from 'hooks/useCopy';
 import { LOCAL_STORAGE_KEY, STORE_KEYS } from 'const';
+import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
@@ -58,7 +58,9 @@ const App = () => {
   useScrollToTop(appRef);
 
   useEffect(() => {
+    // force remove local storage - for dev purposes
     // localStorage.removeItem(LOCAL_STORAGE_KEY);
+
     const payload = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
     // skips intro if local storage exist in user's browser
     if (payload && payload.introViewed) {

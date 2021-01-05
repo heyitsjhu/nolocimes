@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -47,9 +47,9 @@ export default () => {
   const history = useHistory();
   const { t } = useCopy();
   const [appState, dispatch] = useContext(AppContext);
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const { controlsEnabled, darkMode } = appState[STORE_KEYS.SITE_SETTINGS];
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+  const { navControlsEnabled, darkMode } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -91,7 +91,7 @@ export default () => {
         aria-haspopup="true"
         aria-label={t('a11y.ariaLabel.siteSettingsButton')}
         noPadding
-        onClick={controlsEnabled ? handleToggle : undefined}
+        onClick={navControlsEnabled ? handleToggle : undefined}
       >
         <TuneIcon ref={anchorRef} fontSize="small" />
       </IconButton>

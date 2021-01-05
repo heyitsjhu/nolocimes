@@ -1,11 +1,13 @@
 /** Particle Canvas - Credit: Nokey (https://codepen.io/jkiss/pen/OVEeqK) */
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import { isMobile } from 'react-device-detect';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
-import { STORE_KEYS } from 'const';
+import { PARTICLE_CANVAS_MOBILE_DEFAULTS, STORE_KEYS } from 'const';
 import { useEventListener } from 'hooks/useEventListener';
 import { AppContext } from 'stores/providers/appProvider';
+import { updateAppState } from 'stores/actions/appActions';
 import { getElClass, getElId } from 'utils';
 
 import getAnimation from './anime';
@@ -26,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 export default props => {
   const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
+  const [isReady, setIsReady] = useState(false);
   const [canvas, setCanvas] = useState(null);
   const [canvasLeft, setCanvasLeft] = useState(0);
   const [canvasTop, setCanvasTop] = useState(0);
@@ -215,32 +218,46 @@ export default props => {
   useEventListener('mousemove', handleMouseMove, canvas);
 
   useEffect(() => {
-    setCanvas(canvasRef.current);
-  }, [canvasRef]);
+    if (isMobile) {
+      dispatch(updateAppState(STORE_KEYS.PARTICLE_CANVAS, null, PARTICLE_CANVAS_MOBILE_DEFAULTS));
+    }
+    setIsReady(true);
+  }, [dispatch, isMobile]);
 
   useEffect(() => {
+    if (!isReady) return;
+    setCanvas(canvasRef.current);
+  }, [isReady, canvasRef]);
+
+  useEffect(() => {
+    if (!isReady) return;
+
     if (!ctx && canvas) {
       setCanvasLeft(canvas.offsetLeft + canvas.clientLeft);
       setCanvasTop(canvas.offsetTop + canvas.clientTop);
       setCtx(canvas.getContext('2d'));
       initCanvas();
     }
-  }, [ctx, canvas, initCanvas]);
+  }, [isReady, ctx, canvas, initCanvas]);
 
   useEffect(() => {
+    if (!isReady) return;
+
     initParticles(particleState.current.particleCount);
     setParticleSpeed();
 
     requestRef.current = window.requestAnimationFrame(renderParticleCanvas);
 
     return () => window.cancelAnimationFrame(requestRef.current);
-  }, [canvasWidth, canvasHeight]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isReady, canvasWidth, canvasHeight]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (!isReady) return;
+
     if (appState[STORE_KEYS.PARTICLE_CANVAS] !== particleState.current) {
       particleState.current = appState[STORE_KEYS.PARTICLE_CANVAS];
     }
-  }, [appState]);
+  }, [isReady, appState[STORE_KEYS.PARTICLE_CANVAS]]);
 
   useEffect(() => {
     if (appState.splashLogo.finished) {
