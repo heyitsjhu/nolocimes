@@ -9,6 +9,7 @@ export { default as Header } from './Header/Header';
 export { default as Helmet } from './Helmet/Helmet';
 export { default as HomeLogoNavigation } from './HomeLogoNavigation/HomeLogoNavigation';
 export { default as IconButton } from './IconButton/IconButton';
+export { default as MobileNavigation } from './MobileNavigation/MobileNavigation';
 export { default as ParticleCanvas } from './ParticleCanvas/ParticleCanvas';
 export { default as SiteLogo } from './SiteLogo/SiteLogo';
 export { default as SiteSettingsMenu } from './SiteSettingsMenu/SiteSettingsMenu';

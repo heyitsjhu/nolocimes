@@ -7,6 +7,7 @@
         "githubSourceUrl": "View source code on Github",
         "githubUserUrl": "Visit Johnny's Github profile",
         "linkedInUrl": "Visit Johnny's Linkedin profile",
+        "mobileMenuButton": "Open mobile navigation menu",
         "navigateToPage": "Navigate to {{name}} page",
         "siteSettingsButton": "Open site settings",
         "styleGuideButton": "View the site's style guide"
@@ -51,10 +52,10 @@
       },
       "HomeLogoNavigation": {
         "navMapping": {
-          "navId1": "sdfd",
-          "navId2": "sdfd",
-          "navId3": "sdfd",
-          "navId4": "sdfd",
+          "navId1": "Powered by Scroll",
+          "navId2": "Coronavirus",
+          "navId3": "Nolocimes",
+          "navId4": "Candle Monkeys",
           "navId5": "sdfd",
           "navId6": "sdfd",
           "navId7": "Blog",

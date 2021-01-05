@@ -1,6 +1,5 @@
 /** Particle Canvas - Credit: Nokey (https://codepen.io/jkiss/pen/OVEeqK) */
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
-import { isMobile } from 'react-device-detect';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
@@ -41,7 +40,7 @@ export default props => {
   const particleState = useRef(appState[STORE_KEYS.PARTICLE_CANVAS]);
   const trackedParticles = useRef([]);
 
-  const cursorParticle = { x: 0, y: 0, vx: 0, vy: 0, r: 0, type: 'mouse' };
+  const cursorParticle = particleState.cursorParticle;
 
   const initCanvas = useCallback(() => {
     canvas.setAttribute('width', window.innerWidth);
@@ -218,11 +217,11 @@ export default props => {
   useEventListener('mousemove', handleMouseMove, canvas);
 
   useEffect(() => {
-    if (isMobile) {
+    if (appState[STORE_KEYS.SITE_SETTINGS].userIsOnMobile) {
       dispatch(updateAppState(STORE_KEYS.PARTICLE_CANVAS, null, PARTICLE_CANVAS_MOBILE_DEFAULTS));
     }
     setIsReady(true);
-  }, [dispatch, isMobile]);
+  }, [dispatch, appState[STORE_KEYS.SITE_SETTINGS].userIsOnMobile]);
 
   useEffect(() => {
     if (!isReady) return;

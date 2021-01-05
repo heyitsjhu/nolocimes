@@ -37,7 +37,7 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
     boxShadow: '0.125rem 0.375rem 0.5rem 0 rgba(0,0,0,0.6)',
     outline: 'none',
     zIndex: zIndex.businessCard,
-    [`${breakpoints.down('lg')} and (orientation: landscape)`]: {
+    [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
       maxWidth: '66vw',
     },
   },
@@ -45,7 +45,7 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
     backgroundColor: 'rgba(0,0,0,0.75)',
   },
   logoTitleContainer: {
-    [`${breakpoints.down('lg')} and (orientation: landscape)`]: {
+    [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
       display: 'flex',
       alignItems: 'flex-end',
     },
@@ -54,9 +54,6 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
     flex: 'none',
     marginTop: 'auto',
     padding: 0,
-    [`${breakpoints.down('lg')} and (orientation: landscape)`]: {
-      alignSelf: 'flex-end',
-    },
   },
   siteLogo: {
     marginTop: spacing(1),
@@ -71,7 +68,7 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
     marginTop: spacing(1),
     marginBottom: 'auto',
     padding: 0,
-    [`${breakpoints.down('lg')} and (orientation: landscape)`]: {
+    [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
       marginLeft: spacing(3),
       marginTop: spacing(2),
     },
@@ -99,10 +96,10 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
 }));
 
 export default () => {
+  const { t } = useCopy();
+  const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
   const { navControlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
-  const classes = useStyles();
-  const { t } = useCopy();
 
   const openBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', true));
   const closeBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', false));

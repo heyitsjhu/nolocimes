@@ -13,7 +13,6 @@ import { AppContext } from 'stores';
 import * as Utils from 'utils';
 
 import getAnimation from './anime';
-import navMapping from './navMapping';
 import paths from './paths';
 
 const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({

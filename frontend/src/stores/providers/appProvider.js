@@ -14,6 +14,7 @@ const initialState = {
     navControlsEnabled: false,
     darkMode: true,
     introViewed: false,
+    userIsOnMobile: false,
   },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
@@ -27,6 +28,7 @@ const staticState = {
     navControlsEnabled: false,
     darkMode: true,
     introViewed: false,
+    userIsOnMobile: false,
   },
   [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };

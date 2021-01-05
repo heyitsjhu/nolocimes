@@ -7,12 +7,11 @@ import { getAnimation } from 'animations';
 import { ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
+import { updateAppState } from 'stores/actions/appActions';
 
 import * as Utils from 'utils';
 
-import { BusinessCard, IconButton, SiteLogo } from '..';
-import { updateAppState } from 'stores/actions/appActions';
-// import PurposeCard from '../PurposeCard/PurposeCard';
+import { BusinessCard, IconButton, MobileNavigation, SiteLogo } from '..';
 
 const useStyles = makeStyles(({ palette, shared, spacing, zIndex }) => ({
   header: {
@@ -57,8 +56,10 @@ export default () => {
         >
           <SiteLogo id={Utils.getElId('site', 'logo')} size={20} />
         </IconButton>
-
-        <BusinessCard />
+        <Box>
+          <BusinessCard />
+          <MobileNavigation />
+        </Box>
       </Box>
     </>
   );

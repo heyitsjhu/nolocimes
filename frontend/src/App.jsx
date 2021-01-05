@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef } from 'react';
+import { isMobile } from 'react-device-detect';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
@@ -70,6 +71,8 @@ const App = () => {
       // if user arrives without visiting the homepage first
       dispatch(updateSplashLogo('finished'));
     }
+
+    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'userIsOnMobile', isMobile));
   }, []);
 
   return (

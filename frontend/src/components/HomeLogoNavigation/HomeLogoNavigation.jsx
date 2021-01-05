@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import { STORE_KEYS } from 'const';
+import { SITE_NAVIGATION, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
 import { AppContext } from 'stores';
@@ -12,7 +12,6 @@ import * as Utils from 'utils';
 
 import getAnimation from './anime';
 import NavigationPopper from './NavigationPopper';
-import navMapping from './navMapping';
 import paths from './paths';
 import { updateAppState } from 'stores/actions/appActions';
 
@@ -79,7 +78,7 @@ export default props => {
 
   const handleMouseOver = event => {
     if (!anchorEl) {
-      setPopper(navMapping[event.currentTarget.id]);
+      setPopper(SITE_NAVIGATION.mapping.find(item => item.id === event.currentTarget.id));
       setAnchorEl(event.currentTarget);
     }
   };
@@ -91,15 +90,17 @@ export default props => {
 
   const handleClick = navId => event => {
     if ((event.type === 'keydown' && event.keyCode === 13) || event.type === 'click') {
-      history.push(navMapping[navId].url, { fromNav: true });
+      history.push(SITE_NAVIGATION.mapping.find(item => item.id === navId).url, {
+        fromNav: true,
+      });
       setAnchorEl(null);
     }
   };
 
   const addToHintQueue = (navSet, isOn) => () => {
     const set = {
-      set1: Object.keys(navMapping).slice(0, 5),
-      set2: Object.keys(navMapping).slice(5),
+      set1: SITE_NAVIGATION.mapping.slice(0, 5).map(item => item.id),
+      set2: SITE_NAVIGATION.mapping.slice(5).map(item => item.id),
     };
 
     return new Promise(resolve => {
@@ -111,7 +112,7 @@ export default props => {
             return acc;
           }, {}),
         });
-        // setPopper(isOn ? navMapping[navId] : null);
+        // setPopper(isOn ? SITE_NAVIGATION[navId] : null);
         // setAnchorEl(isOn ? navRef : null);
         resolve();
       }, 800);
@@ -160,12 +161,13 @@ export default props => {
         >
           <g className={classes.svgGroup}>
             {paths.map((path, i) => {
-              const isDisabled = navMapping[path.navId].disabled;
+              const navItem = SITE_NAVIGATION.mapping.find(item => item.id === path.navId);
+              const isDisabled = navItem.disabled;
 
               return (
                 <path
                   aria-label={t('a11y.ariaLabel.navigateToPage', {
-                    name: t(navMapping[path.navId].text),
+                    name: t(navItem.text),
                   })}
                   className={classnames(
                     Utils.getElClass('comp', 'homeLogo-path'),
