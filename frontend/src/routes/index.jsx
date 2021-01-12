@@ -1,13 +1,22 @@
 import React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { ROUTES } from 'const';
-import { BlogPage, PageNotFoundPage, PhotographyPage, StyleGuidePage } from 'pages';
+import {
+  BlogPage,
+  CoronavirusPage,
+  PageNotFoundPage,
+  PhotographyPage,
+  StyleGuidePage,
+} from 'pages';
 
 const AppRoutes = () => (
   <Switch>
     <Route exact path={ROUTES.HOME} />
     <Route path={ROUTES.BLOG}>
       <BlogPage />
+    </Route>
+    <Route path={ROUTES.CORONAVIRUS}>
+      <CoronavirusPage />
     </Route>
     <Route exact path={ROUTES.PHOTOGRAPHY}>
       <PhotographyPage />

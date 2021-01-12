@@ -18,7 +18,7 @@ const useStyles = makeStyles(({ spacing, zIndex }) => ({
     height: '100%',
     zIndex: zIndex.pageLayout,
   },
-  pageActions: {
+  pageActionsContainer: {
     display: 'flex',
     position: 'absolute',
     top: 0,
@@ -49,7 +49,7 @@ export default ({ children, className, pageActions, pageName, ...otherProps }) =
       ref={layoutRef}
     >
       <CookiesBanner />
-      <Box className={classes.pageActions}>{pageActions && pageActions}</Box>
+      <Box className={classes.pageActionsContainer}>{pageActions && pageActions}</Box>
       <Fade in={fadeIn} timeout={PAGE_LAYOUT_FADE_TIMEOUT}>
         <Box height="100%" {...otherProps}>
           {children}

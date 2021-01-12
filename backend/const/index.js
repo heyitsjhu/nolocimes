@@ -13,5 +13,8 @@ export default {
   // iexBaseUrl: 'https://cloud.iexapis.com/stable',
   iexBaseUrl: keys.iexApiBaseUrl,
   iexToken: keys.iexClientPublishable,
+  RAPIDAPI_COVID_DATA_URL: keys.rapidApiCovidDataUrl,
+  RAPIDAPI_COVID_COUNTRY_LIST_URL: keys.rapidApiCovidCountryListUrl,
+  RAPIDAPI_KEY: keys.rapidApiKey,
   ROLLBAR_SERVER_TOKEN: keys.rollbarServerToken,
 };

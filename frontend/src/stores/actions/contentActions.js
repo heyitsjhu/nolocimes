@@ -1,4 +1,5 @@
 import contentfulApi from 'api/contentful';
+import covidApi from 'api/covid';
 import Logger from 'utils/logger';
 
 import * as TYPES from '../types';

@@ -3,7 +3,7 @@ const PORT = process.env.PORT || 5000;
 
 module.exports = function (app) {
   app.use(
-    createProxyMiddleware('/api/contentful/*', {
+    createProxyMiddleware('/api', {
       target: `http://localhost:${PORT}`,
       changeOrigin: true,
     })

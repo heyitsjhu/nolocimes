@@ -1,5 +1,10 @@
+export const BIG_NUMBER_PREFIXES = [
+  { number: 1e3, suffix: 'K' },
+  { number: 1e6, suffix: 'M' },
+  { number: 1e9, suffix: 'B' },
+  { number: 1e12, suffix: 'T' },
+];
 export const LOCAL_STORAGE_KEY = 'dl_heyitsjhu';
-
 export const PAGE_LAYOUT_FADE_TIMEOUT = 1500;
 export const PARTICLE_CANVAS_DEFAULTS = {
   particleColor: { r: 204, g: 152, b: 81 },
@@ -43,6 +48,7 @@ export const ROUTES = {
   BLOG: '/blog',
   BLOG_POST: '/blog/:postId',
   BLOG_TAGS: '/blog/tags?tag=:tagId',
+  CORONAVIRUS: '/coronavirus',
   PAGE_NOT_FOUND: '/404',
   PHOTOGRAPHY: '/photography',
   STYLE_GUIDE: '/style-guide',
@@ -64,7 +70,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: true,
+      disabled: false,
       grouping: 1,
       icon: 'coronavirus',
       id: 'nav-id-2',
@@ -141,69 +147,3 @@ export const SITE_NAVIGATION = {
     },
   ],
 };
-// export const SITE_NAVIGATION = {
-//   'nav-id-1': {
-//     altText: '',
-//     placement: 'left',
-//     text: 'components.HomeLogoNavigation.navMapping.navId1',
-//     title: '',
-//     url: ROUTES.POWERED_BY_SCROLL,
-//     disabled: true,
-//   },
-//   'nav-id-2': {
-//     altText: '',
-//     placement: 'right',
-//     text: 'components.HomeLogoNavigation.navMapping.navId2',
-//     title: '',
-//     url: ROUTES.CORONAVIRUS,
-//     disabled: true,
-//   },
-//   'nav-id-3': {
-//     altText: '',
-//     placement: 'left',
-//     text: 'components.HomeLogoNavigation.navMapping.navId3',
-//     title: '',
-//     url: ROUTES.PROJECT_NOLOCIMES,
-//     disabled: true,
-//   },
-//   'nav-id-4': {
-//     altText: '',
-//     placement: 'left',
-//     text: 'components.HomeLogoNavigation.navMapping.navId4',
-//     title: '',
-//     url: ROUTES.CANDLEMONKEYS,
-//     disabled: true,
-//   },
-//   'nav-id-5': {
-//     altText: '',
-//     placement: 'right',
-//     text: 'components.HomeLogoNavigation.navMapping.navId5',
-//     title: '',
-//     url: ROUTES.DRUNKEN_NAVIGATOR,
-//     disabled: true,
-//   },
-//   'nav-id-6': {
-//     altText: '',
-//     placement: 'left',
-//     text: 'components.HomeLogoNavigation.navMapping.navId6',
-//     title: '',
-//     url: ROUTES.PROFILE,
-//     disabled: true,
-//   },
-//   'nav-id-7': {
-//     altText: '',
-//     placement: 'right',
-//     text: 'components.HomeLogoNavigation.navMapping.navId7',
-//     title: '',
-//     url: ROUTES.BLOG,
-//     disabled: false,
-//   },
-//   'nav-id-8': {
-//     altText: '',
-//     placement: 'left',
-//     text: 'components.HomeLogoNavigation.navMapping.navId8',
-//     title: '',
-//     url: ROUTES.PHOTOGRAPHY,
-//     disabled: false,
-//   },
-// };

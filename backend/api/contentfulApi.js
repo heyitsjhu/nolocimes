@@ -61,7 +61,6 @@ export class ContentfulAPI {
   };
 
   getEntries = async query => {
-    Logger.log(JSON.parse(query));
     const response = await this.fetchHandler(this.client.getEntries(JSON.parse(query)));
 
     return response;

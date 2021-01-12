@@ -134,7 +134,7 @@ const PostDate = ({ date, ...otherProps }) => {
   );
 };
 
-const PostCoverImage = ({ postPart, ...otherProps }) => {
+const PostCoverImage = ({ postPart, heroImage, ...otherProps }) => {
   const url = (postPart && postPart.src) || 'https:///placehold.it/800x300';
   return <Box {...otherProps} style={{ backgroundImage: `url('${url}')` }}></Box>;
 };

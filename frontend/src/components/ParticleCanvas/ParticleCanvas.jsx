@@ -207,8 +207,8 @@ export default props => {
 
   const handleMouseMove = e => {
     const event = e || window.event;
-    cursorParticle.x = event.pageX;
-    cursorParticle.y = event.pageY;
+    particleState.current.cursorParticle.x = event.pageX;
+    particleState.current.cursorParticle.y = event.pageY;
   };
 
   useEventListener('resize', initCanvas);

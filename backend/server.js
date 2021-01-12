@@ -43,8 +43,11 @@ import keys from './config/keys';
 
 // import authenticationRoutes from './routes/authenticationRoutes';
 import contentfulRoutes from './routes/contentfulRoutes';
+import covidRoutes from './routes/covidRoutes';
 // import './services/passport';
+// import C19Api from './api/covidApi';
 
+// C19Api.getStatistics();
 // mongoose
 //   .connect(keys.mongoURI, {
 //     useNewUrlParser: true,
@@ -76,6 +79,7 @@ app.use(
 
 // app.use('/', authenticationRoutes);
 app.use('/', contentfulRoutes);
+app.use('/', covidRoutes);
 
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

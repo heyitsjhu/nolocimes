@@ -21,6 +21,7 @@ import AppRoutes from 'routes';
 import { AppContext } from 'stores';
 import { updateAppState, updateSplashLogo } from 'stores/actions/appActions';
 import * as Utils from 'utils';
+import covidApi from 'api/covid';
 
 const useStyles = makeStyles(({ palette, shared, spacing, transitions, zIndex }) => ({
   app: {
