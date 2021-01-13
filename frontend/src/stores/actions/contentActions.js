@@ -1,15 +1,19 @@
 import contentfulApi from 'api/contentful';
-import covidApi from 'api/covid';
+import { STORE_KEYS } from 'const';
 import Logger from 'utils/logger';
 
 import * as TYPES from '../types';
+
+export const updateContentState = (firstLevelKey, secondLevelKey, payload) => {
+  return { type: TYPES.UPDATE_APP_STATE, firstLevelKey, secondLevelKey, payload };
+};
 
 export const fetchContentAssets = async () => {
   try {
     const resp = await contentfulApi.getAssets();
     const assets = resp.data.items;
 
-    return { type: TYPES.FETCH_CONTENT_ASSETS, payload: assets };
+    return updateContentState(STORE_KEYS.CONTENT, STORE_KEYS.ASSETS, assets);
   } catch (error) {
     Logger.error(error);
   }
@@ -17,20 +21,20 @@ export const fetchContentAssets = async () => {
 
 export const fetchContentImages = async contentState => {
   const imageTypes = ['image/jpeg'];
+  let assets;
+
   try {
-    let assets;
     if (contentState && contentState.assets.length > 0) {
       assets = contentState.assets;
     } else {
       const resp = await contentfulApi.getAssets();
       assets = resp.data.items;
 
-      return { type: TYPES.FETCH_CONTENT_IMAGES, payload: assets };
+      return updateContentState(STORE_KEYS.CONTENT, STORE_KEYS.ASSETS, assets);
     }
-
     const images = assets.filter(asset => imageTypes.includes(asset.fields.file.contentType));
 
-    return { type: TYPES.FETCH_CONTENT_IMAGES, payload: images };
+    return updateContentState(STORE_KEYS.CONTENT, STORE_KEYS.IMAGES, images);
   } catch (error) {
     Logger.error(error);
   }
@@ -41,7 +45,7 @@ export const fetchContentPosts = async () => {
     const resp = await contentfulApi.getEntries({ content_type: 'blogPost', include: 2 });
     const posts = resp.data.items;
 
-    return { type: TYPES.FETCH_CONTENT_POSTS, payload: posts };
+    return updateContentState(STORE_KEYS.CONTENT, STORE_KEYS.POSTS, posts);
   } catch (error) {
     Logger.error(error);
   }

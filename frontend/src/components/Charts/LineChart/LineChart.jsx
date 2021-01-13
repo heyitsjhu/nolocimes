@@ -7,8 +7,8 @@ import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
 import { Loader } from 'components';
-import { BIG_NUMBER_PREFIXES } from 'const';
-import { CoronavirusContext } from 'stores';
+import { BIG_NUMBER_PREFIXES, STORE_KEYS } from 'const';
+import { AppContext } from 'stores';
 import palette from 'theme/palette';
 
 am4core.useTheme(am4themes_animated);
@@ -29,9 +29,9 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
 
 export default props => {
   const classes = useStyles();
-  const [c19State, dispatch] = useContext(CoronavirusContext);
+  const [appState, dispatch] = useContext(AppContext);
   const [chartData, setChartData] = useState([]);
-  const { chartMetric } = c19State.controlPanel;
+  const { chartMetric } = appState[STORE_KEYS.CORONAVIRUS].controlPanel;
   const chart = useRef({});
 
   const setDateAxis = chart => {
@@ -204,21 +204,25 @@ export default props => {
   }, []);
 
   useEffect(() => {
-    if (props.data && !chart.current.data.length) {
-      chart.current.data = props.data.history;
+    // TODO: Use amcharts way of updating data set
+    // if (props.data && !chart.current.data.length) {
+    //   chart.current.data = props.data.history;
+    //   setChartData(props.data.history);
+    //   // console.log(
+    //   //   "incoming new data, should update current data",
+    //   //   props.data,
+    //   //   chart.current.data
+    //   // );
+    // } else {
+    //   am4core.array.each(chart.current.data, (dataRow, i) => {
+    //     // console.log("Data Row " + i, dataRow);
+    //   });
 
-      // console.log(
-      //   "incoming new data, should update current data",
-      //   props.data,
-      //   chart.current.data
-      // );
-    } else {
-      am4core.array.each(chart.current.data, (dataRow, i) => {
-        // console.log("Data Row " + i, dataRow);
-      });
+    //   // setIsLoading(true);
+    // }
 
-      // setIsLoading(true);
-    }
+    chart.current.data = props.data.history;
+    setChartData(props.data.history);
   }, [props.data.history]);
 
   useEffect(() => {
@@ -242,7 +246,7 @@ export default props => {
 
   return (
     <>
-      <Loader isLoading={c19State.isLoading} />
+      <Loader isLoading={appState[STORE_KEYS.CORONAVIRUS].isLoading} />
       <Box id={props.id} className={classnames(classes.covidLineChartContainer)} />
     </>
   );

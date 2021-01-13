@@ -48,7 +48,6 @@ export default ({ children, className, pageActions, pageName, ...otherProps }) =
       className={classnames([classes.pageLayout, className])}
       ref={layoutRef}
     >
-      <CookiesBanner />
       <Box className={classes.pageActionsContainer}>{pageActions && pageActions}</Box>
       <Fade in={fadeIn} timeout={PAGE_LAYOUT_FADE_TIMEOUT}>
         <Box height="100%" {...otherProps}>

@@ -43,7 +43,7 @@ export default props => {
   const { t } = useCopy();
   const history = useHistory();
   const [appState, dispatch] = useContext(AppContext);
-  const { navControlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
   const [open, setOpen] = useState(false);
 
   const PROJECTS_NAV_SET = SITE_NAVIGATION.mapping.filter(item => item.grouping === 1);
@@ -108,7 +108,7 @@ export default props => {
     <>
       <IconButton
         aria-label={t('a11y.ariaLabel.mobileMenuButton')}
-        onClick={navControlsEnabled ? toggleMenu(true) : undefined}
+        onClick={isInteractive ? toggleMenu(true) : undefined}
       >
         <MenuIcon />
       </IconButton>

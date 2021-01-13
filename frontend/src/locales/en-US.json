@@ -15,6 +15,7 @@
     },
     "common": {
       "darkMode": "Dark Mode",
+      "dismiss": "Dismiss",
       "reset": "Reset {{name}}"
     },
     "components": {

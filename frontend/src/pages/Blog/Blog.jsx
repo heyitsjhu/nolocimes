@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import { BlogExcerpt, BlogHero, Helmet } from 'components';
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { ContentContext } from 'stores';
+import { AppContext } from 'stores';
 import { fetchContentPosts } from 'stores/actions/contentActions';
 // import * as PostUtils from 'utils/postHelpers';
 
@@ -52,10 +52,10 @@ const useStyles = makeStyles(({ breakpoints, palette, spacing }) => ({
 // };
 
 export default props => {
-  const [contentState, dispatch] = useContext(ContentContext);
   const { t } = useCopy();
   const classes = useStyles();
-  const [posts, setPosts] = useState(contentState[STORE_KEYS.POSTS]);
+  const [appState, dispatch] = useContext(AppContext);
+  const [posts, setPosts] = useState(appState[STORE_KEYS.CONTENT][STORE_KEYS.POSTS]);
 
   useEffect(() => {
     if (posts && posts.length === 0) {
@@ -64,8 +64,8 @@ export default props => {
   }, [dispatch, posts]);
 
   useEffect(() => {
-    setPosts(contentState[STORE_KEYS.POSTS]);
-  }, [contentState[STORE_KEYS.POSTS]]);
+    setPosts(appState[STORE_KEYS.CONTENT][STORE_KEYS.POSTS]);
+  }, [appState[STORE_KEYS.CONTENT][STORE_KEYS.POSTS]]);
 
   // useEffect(() => {
   //   // const { activeTag, posts } = appState[STORE_KEYS.JOTTING_PAD];

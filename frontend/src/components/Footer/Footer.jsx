@@ -23,6 +23,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
     left: 0,
     padding: spacing(1),
     width: '100%',
+    height: 40,
     color: palette.grey[800],
     opacity: 0,
     zIndex: zIndex.footer,
@@ -36,7 +37,7 @@ export default () => {
   const classes = useStyles();
   const { t } = useCopy();
   const [appState, dispatch] = useContext(AppContext);
-  const { navControlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
 
   return (
     <>
@@ -46,7 +47,7 @@ export default () => {
         <Box className={classes.iconSet}>
           <IconButton
             aria-label={t('a11y.ariaLabel.githubSourceUrl')}
-            href={navControlsEnabled ? LINKS.GITHUB_PROJECT_URL : undefined}
+            href={isInteractive ? LINKS.GITHUB_PROJECT_URL : undefined}
             noPadding
             target="_blank"
           >

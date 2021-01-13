@@ -4,6 +4,12 @@ export const BIG_NUMBER_PREFIXES = [
   { number: 1e9, suffix: 'B' },
   { number: 1e12, suffix: 'T' },
 ];
+export const DEFAULT_NOTIFICATION_DELAY = 1000;
+export const DEFAULT_NOTISTACK_PROPS = {
+  anchorOrigin: { horizontal: 'right', vertical: 'bottom' },
+  maxSnack: 3,
+  preventDuplicate: true,
+};
 export const LOCAL_STORAGE_KEY = 'dl_heyitsjhu';
 export const PAGE_LAYOUT_FADE_TIMEOUT = 1500;
 export const PARTICLE_CANVAS_DEFAULTS = {

@@ -23,6 +23,7 @@ const useStyles = makeStyles(({ palette, shared, spacing, zIndex }) => ({
     left: 0,
     padding: spacing(1),
     width: '100%',
+    height: 40,
     opacity: 0,
     zIndex: zIndex.header,
   },
@@ -36,7 +37,7 @@ export default () => {
   const { t } = useCopy();
   const history = useHistory();
   const [appState, dispatch] = useContext(AppContext);
-  const { navControlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
 
   useEffect(() => {
     if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
@@ -52,7 +53,7 @@ export default () => {
       <Box id={Utils.getElId('site', 'header')} className={classes.header} component="header">
         <IconButton
           aria-label={t('a11y.ariaLabel.siteHomeUrl')}
-          onClick={navControlsEnabled ? () => history.push(ROUTES.HOME) : undefined}
+          onClick={isInteractive ? () => history.push(ROUTES.HOME) : undefined}
         >
           <SiteLogo id={Utils.getElId('site', 'logo')} size={20} />
         </IconButton>

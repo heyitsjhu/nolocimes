@@ -2,9 +2,8 @@ import React, { createContext, useReducer } from 'react';
 import ReducerLogger from 'use-reducer-logger';
 
 /**
- * Creates a new React context and provider with the given initial state
- * and reducer, and staticState (if provided). The context and provider is
- * then returned in an array, in its respective order.
+ * Creates a new React context and provider with the given initial state and reducer, and
+ * staticState (if provided). The context and provider is then returned in an array.
  * @param {Object} initialState
  * @param {Function} reducer - A reducer function.
  * @param {Object} [staticState]

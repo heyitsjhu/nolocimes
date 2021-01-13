@@ -6,7 +6,7 @@ import Carousel, { Modal, ModalGateway } from 'react-images';
 import { GalleryImage } from 'components';
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { ContentContext } from 'stores';
+import { AppContext } from 'stores';
 import { fetchContentImages } from 'stores/actions/contentActions';
 import PageLayout from '../PageLayout/PageLayout';
 
@@ -21,11 +21,11 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
 export default () => {
   const { t } = useCopy();
   const classes = useStyles();
-  const [contentState, dispatch] = useContext(ContentContext);
+  const [appState, dispatch] = useContext(AppContext);
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [photos, setPhotos] = useState([]);
-  const images = contentState[STORE_KEYS.IMAGES];
+  const images = appState[STORE_KEYS.CONTENT][STORE_KEYS.IMAGES];
 
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImage(index);
@@ -38,7 +38,7 @@ export default () => {
   };
 
   useEffect(() => {
-    fetchContentImages().then(dispatch);
+    fetchContentImages(appState[STORE_KEYS.CONTENT]).then(dispatch);
   }, [dispatch]);
 
   useEffect(() => {

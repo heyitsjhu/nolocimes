@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import Box from '@material-ui/core/Box';
@@ -99,16 +99,17 @@ export default () => {
   const { t } = useCopy();
   const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
-  const { navControlsEnabled } = appState[STORE_KEYS.SITE_SETTINGS];
+  const [open, setOpen] = useState(false);
+  const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
 
-  const openBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', true));
-  const closeBusinessCard = () => dispatch(updateAppState(STORE_KEYS.BUSINESS_CARD, 'show', false));
+  const openBusinessCard = () => setOpen(true);
+  const closeBusinessCard = () => setOpen(false);
 
   return (
     <>
       <IconButton
         aria-label={t('a11y.ariaLabel.businessCardButton')}
-        onClick={navControlsEnabled ? openBusinessCard : undefined}
+        onClick={isInteractive ? openBusinessCard : undefined}
       >
         <PersonIcon fontSize="small" />
       </IconButton>
@@ -116,7 +117,7 @@ export default () => {
         // need to associate with content in business card
         aria-labelledby="business-card-modal-title"
         aria-describedby="business-card-modal-description"
-        open={appState[STORE_KEYS.BUSINESS_CARD].show}
+        open={open}
         onClose={closeBusinessCard}
         closeAfterTransition
         BackdropComponent={Backdrop}
@@ -125,7 +126,7 @@ export default () => {
           className: classes.backdrop,
         }}
       >
-        <Fade in={appState[STORE_KEYS.BUSINESS_CARD].show}>
+        <Fade in={open}>
           <Box className={classes.businessCardLayout}>
             <Box className={classes.logoTitleContainer}>
               <SiteLogo className={classes.siteLogo} size={100} />

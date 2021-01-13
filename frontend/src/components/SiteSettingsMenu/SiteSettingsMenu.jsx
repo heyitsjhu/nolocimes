@@ -49,7 +49,7 @@ export default () => {
   const [appState, dispatch] = useContext(AppContext);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-  const { navControlsEnabled, darkMode } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isInteractive, darkMode } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -91,7 +91,7 @@ export default () => {
         aria-haspopup="true"
         aria-label={t('a11y.ariaLabel.siteSettingsButton')}
         noPadding
-        onClick={navControlsEnabled ? handleToggle : undefined}
+        onClick={isInteractive ? handleToggle : undefined}
       >
         <TuneIcon ref={anchorRef} fontSize="small" />
       </IconButton>

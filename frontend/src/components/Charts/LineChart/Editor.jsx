@@ -14,7 +14,7 @@ import TextField from '@material-ui/core/TextField';
 
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { CoronavirusContext } from 'stores';
+import { AppContext } from 'stores';
 import { updateAppState } from 'stores/actions/appActions';
 
 import CHART_METRICS from './options/chartMetrics.json';
@@ -46,15 +46,12 @@ const stateReducer = (state, action) => {
 export default props => {
   const classes = useStyles();
   const { t } = useCopy();
-  const [coronavirusState, dispatch] = useContext(CoronavirusContext);
-
-  const { controlPanel, countries, history } = coronavirusState;
-
+  const [appState, dispatch] = useContext(AppContext);
+  const { controlPanel, countries, history } = appState[STORE_KEYS.CORONAVIRUS];
   const [state, dispatchState] = useReducer(stateReducer, controlPanel);
 
   const stateHandler = (key, value) => (event, autocompleteValue, autocompleteReason) => {
     const newState = Object.assign({}, state);
-    console.log('update something');
     if (['showGlobalTotals'].includes(key)) {
       newState[key] = event.target.checked;
     } else if (key === 'countrySelect') {

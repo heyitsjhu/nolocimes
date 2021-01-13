@@ -47,7 +47,6 @@ export default React.forwardRef(({ children, className, noPadding, ...otherProps
         (otherProps.onClick || otherProps.href) && classes.isInteractive,
         className,
       ])}
-      // disableFocusRipple
       disableRipple
       {...otherProps}
     >

@@ -11,7 +11,7 @@ import { STORE_KEYS } from 'const';
 import { LineChart, MapChart, Toggle } from 'components';
 import LineChartEditor from 'components/Charts/LineChart/Editor';
 import { useCopy } from 'hooks/useCopy';
-import { CoronavirusContext } from 'stores';
+import { AppContext } from 'stores';
 import { getInitialC19Data } from 'stores/actions/coronavirusActions';
 
 import PageLayout from '../PageLayout/PageLayout';
@@ -89,7 +89,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
 export default props => {
   const classes = useStyles();
   const { t } = useCopy();
-  const [coronavirusState, dispatch] = useContext(CoronavirusContext);
+  const [appState, dispatch] = useContext(AppContext);
 
   const handleExpansionPanelChange = (event, expanded) => {
     if (!expanded) {
@@ -107,7 +107,10 @@ export default props => {
       className={classes.coronavirusLayout}
       pageActions={<PageActions />}
     >
-      <LineChart id={getElId('chart', 'covid-historical')} data={coronavirusState} />
+      <LineChart
+        id={getElId('chart', 'covid-historical')}
+        data={appState[STORE_KEYS.CORONAVIRUS]}
+      />
 
       <Accordion className={classes.expansionPanel} onChange={handleExpansionPanelChange} square>
         <AccordionSummary
@@ -118,7 +121,7 @@ export default props => {
           id="covid-expansion-panel-header"
         >
           <Typography className={classes.AccordionSummaryText} variant="caption">
-            Showing: sadfjsladkfjdlsak; fsadkljfdsk
+            Showing:
             {/* {t("pages.Coronavirus.ControlPanel.controlPanel")} */}
           </Typography>
 
