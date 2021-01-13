@@ -80,6 +80,9 @@
         "theresNothingHere": "There's nothing here.",
         "backHomeButton": "Back to Home"
       }
+    },
+    "tooltips": {
+      "githubIconButton": "View repo on GitHub"
     }
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import classnames from 'classnames';
+import { Tooltip } from 'components';
 
 const useStyles = makeStyles(({ palette, transitions, spacing, zIndex }) => ({
   iconButton: {
@@ -35,22 +36,26 @@ const useStyles = makeStyles(({ palette, transitions, spacing, zIndex }) => ({
   },
 }));
 
-export default React.forwardRef(({ children, className, noPadding, ...otherProps }, ref) => {
-  const classes = useStyles();
+export default React.forwardRef(
+  ({ children, className, noPadding, tooltip, TooltipProps, ...otherProps }, ref) => {
+    const classes = useStyles();
 
-  return (
-    <IconButton
-      ref={ref}
-      className={classnames([
-        classes.iconButton,
-        noPadding && classes.noPadding,
-        (otherProps.onClick || otherProps.href) && classes.isInteractive,
-        className,
-      ])}
-      disableRipple
-      {...otherProps}
-    >
-      {children}
-    </IconButton>
-  );
-});
+    return (
+      <Tooltip title={tooltip} {...TooltipProps}>
+        <IconButton
+          ref={ref}
+          className={classnames([
+            classes.iconButton,
+            noPadding && classes.noPadding,
+            (otherProps.onClick || otherProps.href) && classes.isInteractive,
+            className,
+          ])}
+          disableRipple
+          {...otherProps}
+        >
+          {children}
+        </IconButton>
+      </Tooltip>
+    );
+  }
+);

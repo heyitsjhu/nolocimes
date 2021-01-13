@@ -10,6 +10,8 @@ export const DEFAULT_NOTISTACK_PROPS = {
   maxSnack: 3,
   preventDuplicate: true,
 };
+export const DEFAULT_TOOLTIP_ENTER_DELAY = 500;
+export const DEFAULT_TOOLTIP_LEAVE_DELAY = 200;
 export const LOCAL_STORAGE_KEY = 'dl_heyitsjhu';
 export const PAGE_LAYOUT_FADE_TIMEOUT = 1500;
 export const PARTICLE_CANVAS_DEFAULTS = {

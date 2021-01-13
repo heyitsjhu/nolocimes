@@ -60,7 +60,7 @@
     ],
     "testRegex": "((\\.|/*.)(spec|test))\\.js?$",
     "transformIgnorePatterns": [
-      "node_modules/(?!use-reducer-logger)"
+      "node_modules/(?!(use-reducer-logger|animejs|@amcharts))"
     ]
   },
   "dependencies": {

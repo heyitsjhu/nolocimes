@@ -50,6 +50,7 @@ export default () => {
             href={isInteractive ? LINKS.GITHUB_PROJECT_URL : undefined}
             noPadding
             target="_blank"
+            tooltip={t('tooltips.githubIconButton')}
           >
             <CodeRoundedIcon fontSize="small" />
           </IconButton>
