@@ -24,8 +24,6 @@ export const convertCovidHistoricalData = (state, countriesData) => {
       newState._retrievedCountries.push(countryData[0].country);
     }
 
-    console.log('ajsdfkldsjf', countryData.reduce(getEndOfDayStatistic, []));
-
     countryData.reduce(getEndOfDayStatistic, []).forEach(dataPoint => {
       const country = dataPoint.country;
 

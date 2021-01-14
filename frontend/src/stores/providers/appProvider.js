@@ -53,7 +53,6 @@ const initialState = {
     isInteractive: false,
     userIsOnMobile: false,
   },
-  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 
 const staticState = {
@@ -89,7 +88,6 @@ const staticState = {
     isInteractive: false,
     userIsOnMobile: false,
   },
-  [STORE_KEYS.SPLASH_LOGO]: { started: false, playing: false, finished: false },
 };
 
 const reducer = (state, action) => {
@@ -118,22 +116,6 @@ const reducer = (state, action) => {
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState[STORE_KEYS.SITE_SETTINGS]));
       }
 
-      break;
-    case TYPES.UPDATE_SPLASH_LOGO:
-      if (action.payload === 'started') {
-        newState.splashLogo = {
-          ...newState.splashLogo,
-          started: true,
-          playing: true,
-        };
-      } else if (action.payload === 'finished') {
-        newState.splashLogo = {
-          ...newState.splashLogo,
-          started: false,
-          playing: false,
-          finished: true,
-        };
-      }
       break;
     default:
       throw new DLError('Did not find match for reducer action: ' + action.type);

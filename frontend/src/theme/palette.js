@@ -24,15 +24,19 @@ export const greys = {
 export default {
   type: 'dark',
   background: {
-    dark: 'rgba(0,0,0,0.6)',
-    darker: 'rgba(0,0,0,0.8)',
-    darkest: 'rgba(0,0,0,0.9)',
+    default: greys[1300],
+    // paper
   },
   common: {
     black,
     white,
   },
   grey: greys,
+  overlay: {
+    dark: 'rgba(0,0,0,0.6)',
+    darker: 'rgba(0,0,0,0.8)',
+    darkest: 'rgba(0,0,0,0.9)',
+  },
   primary: {
     light: '#ffc97f',
     main: '#cc9851',

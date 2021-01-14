@@ -6,7 +6,6 @@ export { default as Footer } from './Footer/Footer';
 export { default as GalleryImage } from './GalleryImage/GalleryImage';
 export { default as Header } from './Header/Header';
 export { default as Helmet } from './Helmet/Helmet';
-export { default as HomeLogoNavigation } from './HomeLogoNavigation/HomeLogoNavigation';
 export { default as IconButton } from './IconButton/IconButton';
 export { default as Loader } from './Loader/Loader';
 export { default as LineChart } from './Charts/LineChart/LineChart';

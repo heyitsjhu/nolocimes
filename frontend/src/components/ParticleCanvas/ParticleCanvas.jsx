@@ -9,7 +9,6 @@ import { AppContext } from 'stores/providers/appProvider';
 import { updateAppState } from 'stores/actions/appActions';
 import { getElClass, getElId } from 'utils';
 
-import getAnimation from './anime';
 import { getDisOf, getRandomSpeed, randomArrayItem, randomNumFrom, randomSidePos } from './utils';
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +23,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default props => {
+export default () => {
   const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
   const [isReady, setIsReady] = useState(false);
@@ -257,13 +256,6 @@ export default props => {
       particleState.current = appState[STORE_KEYS.PARTICLE_CANVAS];
     }
   }, [isReady, appState[STORE_KEYS.PARTICLE_CANVAS]]);
-
-  useEffect(() => {
-    if (appState.splashLogo.finished) {
-      const animation = getAnimation();
-      animation.play();
-    }
-  }, [appState.splashLogo.finished]);
 
   return (
     <canvas

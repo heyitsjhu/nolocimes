@@ -20,7 +20,7 @@ import ParticleCanvasControls from './ParticleCanvasControls';
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    backgroundColor: theme.palette.background.darkest,
+    backgroundColor: theme.palette.overlay.darkest,
     border: `1px solid ${theme.palette.grey[600]}`,
   },
   settingsMenuContainer: {

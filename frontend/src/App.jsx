@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { isMobile } from 'react-device-detect';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
+import getAnimation from 'animations';
 import {
   Breadcrumbs,
   Footer,
   Header,
   Helmet,
-  HomeLogoNavigation,
   NotificationBanner,
   ParticleCanvas,
   SplashLogo,
@@ -21,7 +21,7 @@ import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
 import { AppContext } from 'stores';
-import { updateAppState, updateSplashLogo } from 'stores/actions/appActions';
+import { updateAppState } from 'stores/actions/appActions';
 import * as Utils from 'utils';
 
 const useStyles = makeStyles(({ palette, shared, spacing, transitions, zIndex }) => ({
@@ -45,7 +45,7 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions, zIndex })
       position: 'fixed',
       width: `calc(100% - ${spacing(10) + 2}px)`,
       height: `calc(100% - ${spacing(10) + 2}px)`,
-      backgroundColor: palette.background.dark,
+      backgroundColor: palette.overlay.dark,
       zIndex: 2,
     },
   },
@@ -57,8 +57,18 @@ const App = () => {
   const isHome = useIsHome();
   const [appState, dispatch] = useContext(AppContext);
   const { setNotification } = useNotification();
-  const { cookiesAccepted } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { cookiesAccepted, introViewed } = appState[STORE_KEYS.SITE_SETTINGS];
   const appRef = useRef();
+
+  const onStartAnimation = useCallback(() => {
+    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', false));
+  }, [dispatch]);
+  const onEndAnimation = useCallback(() => {
+    if (!introViewed) {
+      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'introViewed', true));
+    }
+    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', true));
+  }, [dispatch]);
 
   useScrollToTop(appRef);
 
@@ -68,10 +78,9 @@ const App = () => {
 
     if (storedCookie && storedCookie.introViewed) {
       dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, null, storedCookie));
-      dispatch(updateSplashLogo('finished'));
-    } else if (!isHome && !appState.splashLogo.finished) {
+    } else if (!isHome && !introViewed) {
       // skip intro if user arrives to a page other than the homepage
-      dispatch(updateSplashLogo('finished'));
+      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'introViewed', true));
     }
 
     if (!(cookiesAccepted || (storedCookie && storedCookie.cookiesAccepted))) {
@@ -84,6 +93,14 @@ const App = () => {
     }
 
     dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'userIsOnMobile', isMobile));
+
+    const animation = getAnimation({
+      onStartAnimation,
+      onEndAnimation,
+      skipIntro: (storedCookie && storedCookie.introViewed) || introViewed,
+    });
+
+    animation.play();
   }, []);
 
   return (
@@ -101,11 +118,10 @@ const App = () => {
         <Header />
         <Breadcrumbs />
         <AppRoutes />
-        <HomeLogoNavigation />
+        <SplashLogo />
         <Footer />
       </Box>
       <ParticleCanvas />
-      <SplashLogo />
     </>
   );
 };

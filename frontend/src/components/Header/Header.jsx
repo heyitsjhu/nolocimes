@@ -3,14 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-import { getAnimation } from 'animations';
 import { ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
-import { updateAppState } from 'stores/actions/appActions';
-
 import * as Utils from 'utils';
-
 import { BusinessCard, IconButton, MobileNavigation, SiteLogo } from '..';
 
 const useStyles = makeStyles(({ palette, shared, spacing, zIndex }) => ({
@@ -38,15 +34,6 @@ export default () => {
   const history = useHistory();
   const [appState, dispatch] = useContext(AppContext);
   const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
-
-  useEffect(() => {
-    if (appState[STORE_KEYS.SPLASH_LOGO].finished) {
-      const animation = getAnimation({ skipDelay: appState[STORE_KEYS.SITE_SETTINGS].introViewed });
-      animation.play();
-
-      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'introViewed', true));
-    }
-  }, [appState[STORE_KEYS.SPLASH_LOGO].finished, dispatch]);
 
   return (
     <>

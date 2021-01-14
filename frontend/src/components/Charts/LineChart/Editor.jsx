@@ -55,7 +55,6 @@ export default props => {
     if (['showGlobalTotals'].includes(key)) {
       newState[key] = event.target.checked;
     } else if (key === 'countrySelect') {
-      console.log('hmmmmm', autocompleteValue);
       const selectedCountries = autocompleteValue;
       const countriesToFetch = selectedCountries.filter(function (obj) {
         return history._retrievedCountries.indexOf(obj) === -1;
