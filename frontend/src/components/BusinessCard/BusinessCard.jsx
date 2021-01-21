@@ -12,8 +12,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import PersonIcon from '@material-ui/icons/Person';
 
-import IconButton from 'components/IconButton/IconButton';
-import SiteLogo from 'components/SiteLogo/SiteLogo';
+import { Dialog, IconButton, SiteLogo } from 'components';
 import { LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
@@ -30,19 +29,10 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
     width: '100%',
     maxWidth: '44vh',
     maxHeight: '66vh',
-    borderRadius: 0,
-    border: shared.borderDefault,
-    borderTop: `.3125rem solid ${palette.primary.main}`,
-    backgroundColor: palette.grey[1300],
-    boxShadow: '0.125rem 0.375rem 0.5rem 0 rgba(0,0,0,0.6)',
-    outline: 'none',
     zIndex: zIndex.businessCard,
     [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
       maxWidth: '66vw',
     },
-  },
-  backdrop: {
-    backgroundColor: 'rgba(0,0,0,0.75)',
   },
   logoTitleContainer: {
     [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
@@ -113,67 +103,57 @@ export default () => {
       >
         <PersonIcon fontSize="small" />
       </IconButton>
-      <Modal
-        // need to associate with content in business card
-        aria-labelledby="business-card-modal-title"
-        aria-describedby="business-card-modal-description"
-        open={open}
-        onClose={closeBusinessCard}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-          className: classes.backdrop,
-        }}
-      >
-        <Fade in={open}>
-          <Box className={classes.businessCardLayout}>
-            <Box className={classes.logoTitleContainer}>
-              <SiteLogo className={classes.siteLogo} size={100} />
-              <Box className={classes.titleContainer}>
-                <Typography className={classes.name} component="h2" variant="h2">
-                  {t('components.BusinessCard.name')}
-                </Typography>
-                <Typography className={classes.title} component="span" variant="body2">
-                  {t('components.BusinessCard.title')}
-                </Typography>
-                <Box marginLeft={-0.5}>
-                  <IconButton
-                    aria-label={t('a11y.ariaLabel.githubUserUrl')}
-                    href={LINKS.GITHUB_USER_URL}
-                    target="_blank"
-                  >
-                    <GitHubIcon fontSize="small" />
-                  </IconButton>
 
-                  <IconButton
-                    aria-label={t('a11y.ariaLabel.linkedInUrl')}
-                    href={LINKS.LINKEDIN_URL}
-                    target="_blank"
-                  >
-                    <LinkedInIcon />
-                  </IconButton>
-                </Box>
-              </Box>
-            </Box>
-            <Box className={classes.contentContainer}>
-              <Link
-                aria-label={t('a11y.ariaLabel.businessCardEmail')}
-                href={`mailto:${t('components.BusinessCard.emailAddress')}`}
+      <Dialog
+        id="business-card"
+        open={open}
+        PaperProps={{ className: classes.businessCardLayout }}
+        onClose={closeBusinessCard}
+      >
+        <Box className={classes.logoTitleContainer}>
+          <SiteLogo className={classes.siteLogo} size={100} />
+          <Box className={classes.titleContainer}>
+            <Typography className={classes.name} component="h2" variant="h2">
+              {t('components.BusinessCard.name')}
+            </Typography>
+            <Typography className={classes.title} component="span" variant="body2">
+              {t('components.BusinessCard.title')}
+            </Typography>
+            <Box marginLeft={-0.5}>
+              <IconButton
+                aria-label={t('a11y.ariaLabel.githubUserUrl')}
+                href={LINKS.GITHUB_USER_URL}
+                target="_blank"
               >
-                <Typography className={classes.contentText} component="span" variant="body2">
-                  <EmailIcon className={classes.contentIcon} />
-                  {t('components.BusinessCard.emailAddress')}
-                </Typography>
-              </Link>
-              <Typography className={classes.contentText} component="span" variant="body2">
-                <DomainIcon className={classes.contentIcon} />
-                {t('components.BusinessCard.companyName')}
-              </Typography>
+                <GitHubIcon fontSize="small" />
+              </IconButton>
+
+              <IconButton
+                aria-label={t('a11y.ariaLabel.linkedInUrl')}
+                href={LINKS.LINKEDIN_URL}
+                target="_blank"
+              >
+                <LinkedInIcon />
+              </IconButton>
             </Box>
           </Box>
-        </Fade>
-      </Modal>
+        </Box>
+        <Box className={classes.contentContainer}>
+          <Link
+            aria-label={t('a11y.ariaLabel.businessCardEmail')}
+            href={`mailto:${t('components.BusinessCard.emailAddress')}`}
+          >
+            <Typography className={classes.contentText} component="span" variant="body2">
+              <EmailIcon className={classes.contentIcon} />
+              {t('components.BusinessCard.emailAddress')}
+            </Typography>
+          </Link>
+          <Typography className={classes.contentText} component="span" variant="body2">
+            <DomainIcon className={classes.contentIcon} />
+            {t('components.BusinessCard.companyName')}
+          </Typography>
+        </Box>
+      </Dialog>
     </>
   );
 };

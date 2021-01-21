@@ -2,16 +2,14 @@ import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
 
-import { SiteSettingsMenu } from 'components';
-import { LINKS, STORE_KEYS } from 'const';
+import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
 
 import * as Utils from 'utils';
 
-import { IconButton } from '..';
+import { GitHubExternalLink, SiteSettingsMenu } from '..';
 
 const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   footer: {
@@ -24,7 +22,7 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
     padding: spacing(1),
     width: '100%',
     height: 40,
-    color: palette.grey[800],
+    color: palette.grey[700],
     opacity: 0,
     zIndex: zIndex.footer,
     '& > span': {
@@ -44,17 +42,7 @@ export default () => {
       <Box id={Utils.getElId('site', 'footer')} className={classes.footer} component="footer">
         <SiteSettingsMenu />
         <Typography variant="caption">{t('components.Footer.copyright')}</Typography>
-        <Box className={classes.iconSet}>
-          <IconButton
-            aria-label={t('a11y.ariaLabel.githubSourceUrl')}
-            href={isInteractive ? LINKS.GITHUB_PROJECT_URL : undefined}
-            noPadding
-            target="_blank"
-            tooltip={t('tooltips.githubIconButton')}
-          >
-            <CodeRoundedIcon fontSize="small" />
-          </IconButton>
-        </Box>
+        <GitHubExternalLink />
       </Box>
     </>
   );

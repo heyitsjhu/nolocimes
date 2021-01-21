@@ -14,8 +14,11 @@
       }
     },
     "common": {
+      "cancel": "Cancel",
+      "continue": "Continue",
       "darkMode": "Dark Mode",
       "dismiss": "Dismiss",
+      "nevermind": "Nevermind",
       "reset": "Reset {{name}}"
     },
     "components": {
@@ -30,6 +33,10 @@
       },
       "Footer": {
         "copyright": "© 2020 Dreamist Labs"
+      },
+      "GitHubExternalLink": {
+        "modalTitle": "A Peek Behing The Curtains",
+        "modalDescription": "You are now leaving the website. By continuing, you will be taken to the project repository on GitHub in a new browser tab."
       },
       "Helmet": {
         "blog": {
