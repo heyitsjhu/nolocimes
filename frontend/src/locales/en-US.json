@@ -14,12 +14,24 @@
       }
     },
     "common": {
+      "add": "Add",
+      "amount": "Amount",
       "cancel": "Cancel",
+      "clear": "Clear",
       "continue": "Continue",
+      "create": "Create",
       "darkMode": "Dark Mode",
+      "date": "Date",
       "dismiss": "Dismiss",
+      "hash": "Hash",
+      "mine": "Mine",
       "nevermind": "Nevermind",
-      "reset": "Reset {{name}}"
+      "next": "Next",
+      "previous": "Previous",
+      "previousHash": "Previous Hash",
+      "recipient": "Recipient",
+      "reset": "Reset {{name}}",
+      "sender": "Sender"
     },
     "components": {
       "BusinessCard": {
@@ -29,16 +41,22 @@
         "title": "Software Engineer"
       },
       "CookiesBanner": {
-        "alertMessage": "Hi! I use browser cookies to improve your experience on this site. You're free to manage this via your browser setting at any time. To learn more about how I use the cookies, please see the site's cookies policy."
+        "alertMessage": "This site uses browser cookies to track the state of the application in order to improve your experience during your time here. You're free to manage this via your browser settings at any time. To learn more about how I use the cookies, please see the site's cookies policy."
       },
       "Footer": {
-        "copyright": "© 2020 Dreamist Labs"
+        "copyright": "© 2020-2021 Dreamist Labs"
       },
       "GitHubExternalLink": {
-        "modalTitle": "A Peek Behing The Curtains",
-        "modalDescription": "You are now leaving the website. By continuing, you will be taken to the project repository on GitHub in a new browser tab."
+        "modalTitle": "You are now leaving the website",
+        "modalDescription": "By continuing, you will be taken to this project's GitHub repository in a new browser tab."
       },
       "Helmet": {
+        "anbuBlockchain": {
+          "title": "Anbu Blockchain | Johnny Hu - Software Engineer",
+          "meta": {
+            "description": "Anbu is a blockchain application built on Javascript. It demonstrates the blockchain technology through a sample application for visitors to interact with."
+          }
+        },
         "blog": {
           "title": "Blog - A place of musings | Johnny Hu - Software Engineer",
           "meta": {
@@ -60,12 +78,12 @@
       },
       "HomeLogoNavigation": {
         "navMapping": {
-          "navId1": "Powered by Scroll",
-          "navId2": "Coronavirus",
-          "navId3": "Nolocimes",
-          "navId4": "Candle Monkeys",
-          "navId5": "sdfd",
-          "navId6": "sdfd",
+          "navId1": "Anbu Blockchain",
+          "navId2": "Candle Monkeys",
+          "navId3": "Coronavirus",
+          "navId4": "Nolocimes",
+          "navId5": "Powered by Scroll",
+          "navId6": "-----",
           "navId7": "Blog",
           "navId8": "Photography"
         }
@@ -79,9 +97,29 @@
         "linkWidth": "Link Width",
         "linkDistanceLimit": "Link Distance Limit",
         "slowMultiplier": "Slow Multiplier"
+      },
+      "Table": {
+        "noData": "No data to display."
       }
     },
     "pages": {
+      "AnbuBlockchain": {
+        "console": {
+          "blockchainCreated": "$ New ANBU blockchain has been created successfully.",
+          "blockMined": "$ New ANBU block has been mined successfully.",
+          "blockchainResetted": "$ Existing ANBU blockchain has been reset.",
+          "blockchainTransactionPosted": "$ New ANBU transaction has been posted."
+        },
+        "interaction": {
+          "addTransaction": "Add Transaction",
+          "createBlockchain": "Create Blockchain",
+          "mineTransactions": "Mine Transactions"
+        },
+        "table": {
+          "blocks": "Anbu Blocks",
+          "transactions": "Anbu Transactions"
+        }
+      },
       "PageNotFound": {
         "missingDestination": "Uh oh, looks like this destination is missing. Was it a typo?",
         "theresNothingHere": "There's nothing here.",

@@ -10,7 +10,7 @@ import { Loader } from 'components';
 import palette from 'theme/palette';
 import * as Utils from 'utils';
 
-am4core.useTheme(am4themes_animated);
+// am4core.useTheme(am4themes_animated);
 
 const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   covidMapChartContainer: {

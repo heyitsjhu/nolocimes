@@ -217,7 +217,14 @@ export default () => {
 
   useEffect(() => {
     if (appState[STORE_KEYS.SITE_SETTINGS].userIsOnMobile) {
-      dispatch(updateAppState(STORE_KEYS.PARTICLE_CANVAS, null, PARTICLE_CANVAS_MOBILE_DEFAULTS));
+      // dispatch(
+      //   updateAppState(
+      //     STORE_KEYS.PARTICLE_CANVAS,
+      //     undefined,
+      //     undefined,
+      //     PARTICLE_CANVAS_MOBILE_DEFAULTS
+      //   )
+      // );
     }
     setIsReady(true);
   }, [dispatch, appState[STORE_KEYS.SITE_SETTINGS].userIsOnMobile]);

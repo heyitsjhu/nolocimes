@@ -13,18 +13,22 @@ export default {
   h1: {
     fontSize: '3.052rem',
     fontWeight: 600,
+    color: greys[100],
   },
   h2: {
     fontSize: '2.441rem',
     fontWeight: 600,
+    color: greys[100],
   },
   h3: {
     fontSize: '1.953rem',
     fontWeight: 600,
+    color: greys[100],
   },
   h4: {
     fontSize: '1.563rem',
     fontWeight: 600,
+    color: greys[100],
   },
   h5: {
     fontSize: '1.254em',
@@ -51,7 +55,7 @@ export default {
   overline: {
     fontSize: '0.75rem',
     fontWeight: 800,
-    color: greys[600],
+    color: greys[300],
     letterSpacing: '0.05em',
     lineHeight: 1.1,
   },

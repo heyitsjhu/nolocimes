@@ -2,7 +2,9 @@ import React from 'react';
 import { Redirect, Route, Switch, useLocation } from 'react-router-dom';
 import { ROUTES } from 'const';
 import {
+  AnbuBlockchainPage,
   BlogPage,
+  BlogPostPage,
   CoronavirusPage,
   PageNotFoundPage,
   PhotographyPage,
@@ -12,8 +14,14 @@ import {
 const AppRoutes = () => (
   <Switch>
     <Route exact path={ROUTES.HOME} />
-    <Route path={ROUTES.BLOG}>
+    <Route exact path={ROUTES.ANBU_BLOCKCHAIN}>
+      <AnbuBlockchainPage />
+    </Route>
+    <Route exact path={ROUTES.BLOG}>
       <BlogPage />
+    </Route>
+    <Route path={ROUTES.BLOG_POST}>
+      <BlogPostPage />
     </Route>
     <Route path={ROUTES.CORONAVIRUS}>
       <CoronavirusPage />
@@ -24,7 +32,6 @@ const AppRoutes = () => (
     <Route exact path={ROUTES.STYLE_GUIDE}>
       <StyleGuidePage />
     </Route>
-
     <Route exact path={ROUTES.PAGE_NOT_FOUND}>
       <PageNotFoundPage />
     </Route>

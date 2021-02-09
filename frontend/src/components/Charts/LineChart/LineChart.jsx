@@ -6,17 +6,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import { Loader } from 'components';
 import { BIG_NUMBER_PREFIXES, STORE_KEYS } from 'const';
 import { AppContext } from 'stores';
+// import { updateAppState } from 'stores/actions/appActions';
 import palette from 'theme/palette';
-
-am4core.useTheme(am4themes_animated);
 
 const PRIMARY_COLOR = palette.primary.main;
 const LABEL_FONT_SIZE = 13;
-const LABEL_COLOR = palette.grey[400];
-const LINE_COLOR = palette.grey[800];
+const LABEL_COLOR = palette.text.primary;
+const LINE_COLOR = palette.grey[600];
+const SCROLLBAR_COLOR = palette.grey[800];
 
 const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   covidLineChartContainer: {
@@ -30,7 +29,6 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
 export default props => {
   const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
-  const [chartData, setChartData] = useState([]);
   const { chartMetric } = appState[STORE_KEYS.CORONAVIRUS].controlPanel;
   const chart = useRef({});
 
@@ -80,6 +78,7 @@ export default props => {
     series.legendSettings.labelText = '[bold {color}]{name}[/]';
     series.legendSettings.valueText = '[bold {color}]{valueY.close}[/]';
     series.legendSettings.itemValueText = '[bold {color}]{valueY}[/]';
+    series.showOnInit = false;
 
     return series;
   };
@@ -94,6 +93,7 @@ export default props => {
     series.legendSettings.labelText = '[bold {color}]{name}[/]';
     series.legendSettings.valueText = '[bold {color}]{valueY.close}[/]';
     series.legendSettings.itemValueText = '[bold {color}]{valueY}[/]';
+    series.showOnInit = false;
 
     return series;
   };
@@ -134,10 +134,10 @@ export default props => {
   const setScrollbarX = chart => {
     chart.scrollbarX = new am4core.Scrollbar();
     chart.scrollbarX.strokeWidth = 0;
-    chart.scrollbarX.background.fill = am4core.color(LINE_COLOR);
+    chart.scrollbarX.background.fill = am4core.color(SCROLLBAR_COLOR);
     chart.scrollbarX.background.fillOpacity = 0.4;
 
-    chart.scrollbarX.thumb.background.fill = am4core.color(LINE_COLOR);
+    chart.scrollbarX.thumb.background.fill = am4core.color(SCROLLBAR_COLOR);
     chart.scrollbarX.thumb.background.fillOpacity = 1;
 
     customizeScrollbarGrip(chart.scrollbarX.startGrip);
@@ -149,10 +149,10 @@ export default props => {
   const setScrollbarY = chart => {
     chart.scrollbarY = new am4core.Scrollbar();
     chart.scrollbarY.strokeWidth = 0;
-    chart.scrollbarY.background.fill = am4core.color(LINE_COLOR);
+    chart.scrollbarY.background.fill = am4core.color(SCROLLBAR_COLOR);
     chart.scrollbarY.background.fillOpacity = 0.4;
 
-    chart.scrollbarY.thumb.background.fill = am4core.color(LINE_COLOR);
+    chart.scrollbarY.thumb.background.fill = am4core.color(SCROLLBAR_COLOR);
     chart.scrollbarY.thumb.background.fillOpacity = 1;
 
     customizeScrollbarGrip(chart.scrollbarY.startGrip);
@@ -166,17 +166,20 @@ export default props => {
     chart.zoomOutButton.background.fill = am4core.color(LINE_COLOR);
     chart.zoomOutButton.background.fillOpacity = 1;
     chart.zoomOutButton.cursorOverStyle = am4core.MouseCursorStyle.pointer;
+
     const hoverState = chart.zoomOutButton.background.states.getKey('hover');
     hoverState.properties.fill = am4core.color(PRIMARY_COLOR);
   };
 
   const customizeScrollbarGrip = grip => {
     grip.icon.disabled = true;
-    grip.background.fill = am4core.color(LABEL_COLOR);
+    grip.background.fill = am4core.color(LINE_COLOR);
     grip.background.fillOpacity = 1;
   };
 
   useEffect(() => {
+    // dispatch(updateAppState(STORE_KEYS.CORONAVIRUS, 'isLoading', undefined,true));
+
     chart.current = am4core.create(props.id, am4charts.XYChart);
     chart.current.paddingTop = 4;
     chart.current.paddingLeft = 4;
@@ -185,12 +188,8 @@ export default props => {
     chart.current.numberFormatter.numberFormat = '#,###a';
     chart.current.numberFormatter.bigNumberPrefixes = BIG_NUMBER_PREFIXES;
     chart.current.preloader.disabled = true;
+    chart.current.data = props.data;
 
-    // chart.current.events.on('ready', () => setIsLoading(false));
-
-    // console.log('chartData', chartData[dataType.value]);
-
-    setChartData(props.data.history);
     setDateAxis(chart.current);
     setValueAxis(chart.current);
 
@@ -200,54 +199,36 @@ export default props => {
     setScrollbarY(chart.current);
     setZoomOutButton(chart.current);
 
-    return () => chart.current && chart.current.dispose();
+    return () => setTimeout(() => chart.current && chart.current.dispose(), 50);
   }, []);
 
   useEffect(() => {
+    const { selectedCountries } = props.controlPanel;
+
+    // TODO: need to figure a clean way to load data
+    setTimeout(() => {
+      selectedCountries.forEach(country => {
+        setLineSeries(chart.current, 'cases_total', country);
+        setLineSeries(chart.current, 'cases_active', country);
+        setLineSeries(chart.current, 'cases_recovered', country);
+        setColumnSeries(chart.current, 'cases_new', country);
+      });
+      // dispatch(updateAppState(STORE_KEYS.CORONAVIRUS, 'isLoading', undefined,false));
+    }, 1000);
+  }, [props.id]);
+
+  useEffect(() => {
     // TODO: Use amcharts way of updating data set
-    // if (props.data && !chart.current.data.length) {
-    //   chart.current.data = props.data.history;
-    //   setChartData(props.data.history);
-    //   // console.log(
-    //   //   "incoming new data, should update current data",
-    //   //   props.data,
-    //   //   chart.current.data
-    //   // );
-    // } else {
-    //   am4core.array.each(chart.current.data, (dataRow, i) => {
-    //     // console.log("Data Row " + i, dataRow);
-    //   });
-
-    //   // setIsLoading(true);
-    // }
-
-    chart.current.data = props.data.history;
-    setChartData(props.data.history);
-  }, [props.data.history]);
-
-  useEffect(() => {
-    const { selectedCountries } = props.data.controlPanel;
-
-    chart.current.series.clear();
-
-    selectedCountries.forEach(country => {
-      setLineSeries(chart.current, 'cases_total', country);
-      setLineSeries(chart.current, 'cases_active', country);
-      setLineSeries(chart.current, 'cases_recovered', country);
-      setColumnSeries(chart.current, 'cases_new', country);
-    });
-  }, [props.id, chartData]);
-
-  useEffect(() => {
-    // console.log("chart data changed", chartData);
-  }, [chartData]);
+    if (props.data && Array.isArray(chart.current.data) && chart.current.data.length === 0) {
+      chart.current.data = props.data;
+    } else {
+      am4core.array.each(chart.current.data, (dataRow, i) => {
+        console.log('Data Row ' + i, dataRow);
+      });
+    }
+  }, [props.data]);
 
   // console.log("CHART", props, chartData);
 
-  return (
-    <>
-      <Loader isLoading={appState[STORE_KEYS.CORONAVIRUS].isLoading} />
-      <Box id={props.id} className={classnames(classes.covidLineChartContainer)} />
-    </>
-  );
+  return <Box id={props.id} className={classnames(classes.covidLineChartContainer)} />;
 };

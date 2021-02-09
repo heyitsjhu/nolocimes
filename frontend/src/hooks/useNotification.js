@@ -12,7 +12,7 @@ export const useNotification = () => {
   const setNotification = ({ buttonText, delay, message, onClose, severity, title }) => {
     setTimeout(() => {
       dispatch(
-        updateAppState(STORE_KEYS.NOTIFICATION, null, {
+        updateAppState(STORE_KEYS.NOTIFICATION, undefined, undefined, {
           ...(buttonText ? { buttonText } : {}),
           ...(message ? { message } : {}),
           ...(onClose ? { onClose } : {}),
@@ -25,7 +25,7 @@ export const useNotification = () => {
   };
 
   const resetNotification = () => {
-    dispatch(updateAppState(STORE_KEYS.NOTIFICATION, STORE_KEYS.RESET));
+    dispatch(updateAppState(STORE_KEYS.NOTIFICATION, undefined, undefined, STORE_KEYS.RESET));
   };
 
   return { resetNotification, setNotification };

@@ -16,6 +16,7 @@ import { getTestElId } from 'utils';
 
 jest.mock('const', () => ({
   LINKS: { GITHUB_USER_URL: '' },
+  POSTS: {},
   TEST_IDS: { BUSINESS_CARD_MODAL: '' },
   SITE_NAVIGATION: { mapping: [{}, {}, {}, {}, {}, {}, {}, {}] },
   STORE_KEYS: { BLOG: '' },

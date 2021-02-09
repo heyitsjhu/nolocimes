@@ -1,11 +1,5 @@
 export const getPostBody = post => {
-  return post ? post.fields.body : post;
-};
-
-export const getPostCoverImage = post => {
-  // fields.heroImage.sys.id
-  return null;
-  // return post ? post.find(part => part.type === 'coverImage') : post;
+  return post ? post.fields.body.content : null;
 };
 
 export const getPostDate = post => {
@@ -16,9 +10,13 @@ export const getPostDescription = post => {
   return post ? post.fields.description : post;
 };
 
-// export const getPostParts = post => {
-//   return post ? post.filter(part => !PARTS_TO_IGNORE.includes(part.type)) : post;
-// };
+export const getPostHeroImageUrl = post => {
+  if (post && post.fields && post.fields.heroImage) {
+    return post.fields.heroImage.fields.file.url;
+  } else {
+    return null;
+  }
+};
 
 export const getPostSlug = post => {
   return post ? post.fields.slug : post;

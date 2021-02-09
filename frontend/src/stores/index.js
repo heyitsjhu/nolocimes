@@ -31,5 +31,4 @@ const AppStores = ({ children }) => {
 };
 
 export { AppContext } from './providers/appProvider';
-
 export default AppStores;

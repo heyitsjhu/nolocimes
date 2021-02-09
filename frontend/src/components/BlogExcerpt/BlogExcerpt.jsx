@@ -78,7 +78,7 @@ export default ({ component, post, reverseLayout }) => {
   const postSlug = PostUtils.getPostSlug(post);
   const postTitle = PostUtils.getPostTitle(post);
   const postDescription = PostUtils.getPostDescription(post);
-  const postCoverImage = PostUtils.getPostCoverImage(post);
+  const postCoverImageUrl = PostUtils.getPostHeroImageUrl(post);
   const postUrl = `${ROUTES.BLOG}/${postSlug}`; //add date
 
   return (
@@ -95,11 +95,11 @@ export default ({ component, post, reverseLayout }) => {
       >
         {PostRenderer(POSTS.POST_DATE, postDate)}
         {PostRenderer(POSTS.EXCERPT_TITLE, postTitle, { postUrl })}
-        {PostRenderer(POSTS.POST_TAGS, postTags)}
+        {/* {PostRenderer(POSTS.POST_TAGS, postTags)} */}
         {PostRenderer(POSTS.EXCERPT_DESCRIPTION, postDescription, { postUrl })}
       </Box>
       <Box className={classes.excerptImage}>
-        {PostRenderer(POSTS.POST_HERO_IMAGE, postCoverImage)}
+        {PostRenderer(POSTS.POST_HERO_IMAGE, postCoverImageUrl)}
       </Box>
     </Box>
   );

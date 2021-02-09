@@ -3,9 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
-// import JottingPadHero from '../../components/JottingPadHero/JottingPadHero';
 // import JottingPadTabs from '../../components/JottingPadTabs/JottingPadTabs';
-// import JottingPadExcerpt from '../../components/JottingPadExcerpt/JottingPadExcerpt';
 import { BlogExcerpt, BlogHero, Helmet } from 'components';
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
@@ -74,7 +72,7 @@ export default props => {
   // }, [appState[STORE_KEYS.JOTTING_PAD].activeTag]);
 
   return (
-    <PageLayout pageName="blog" className={classes.blogLayout}>
+    <PageLayout pageName="blog" pageLayoutClassName={classes.blogLayout}>
       <Helmet
         title={t('components.Helmet.blog.title')}
         meta={[{ name: 'description', content: t('components.Helmet.blog.meta.description') }]}

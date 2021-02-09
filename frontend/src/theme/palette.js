@@ -1,3 +1,5 @@
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
 const black = '#000';
 const white = '#fff';
 export const greys = {
@@ -42,6 +44,7 @@ export default {
     main: '#cc9851',
     dark: '#986a25',
     contrastText: black,
+    transparent: fade('#cc9851', 0.7),
   },
   secondary: {
     light: '#4a4c50',
@@ -50,7 +53,7 @@ export default {
     contrastText: white,
   },
   text: {
-    primary: greys[200],
-    secondary: greys[200],
+    primary: greys[100],
+    secondary: greys[300],
   },
 };

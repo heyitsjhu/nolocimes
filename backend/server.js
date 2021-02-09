@@ -42,6 +42,7 @@ import cookieSession from 'cookie-session';
 import keys from './config/keys';
 
 // import authenticationRoutes from './routes/authenticationRoutes';
+import anbuRoutes from './routes/anbuRoutes';
 import contentfulRoutes from './routes/contentfulRoutes';
 import covidRoutes from './routes/covidRoutes';
 // import './services/passport';
@@ -78,6 +79,7 @@ app.use(
 // app.use(passport.session());
 
 // app.use('/', authenticationRoutes);
+app.use('/', anbuRoutes);
 app.use('/', contentfulRoutes);
 app.use('/', covidRoutes);
 

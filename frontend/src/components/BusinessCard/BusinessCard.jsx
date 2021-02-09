@@ -16,19 +16,18 @@ import { Dialog, IconButton, SiteLogo } from 'components';
 import { LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
-import { updateAppState } from 'stores/actions/appActions';
 
 const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex }) => ({
   businessCardLayout: {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    margin: '10vh auto',
+    margin: '10vh auto !important',
     padding: spacing(3),
     height: '100%',
     width: '100%',
-    maxWidth: '44vh',
-    maxHeight: '66vh',
+    maxWidth: '44vh !important',
+    maxHeight: '66vh !important',
     zIndex: zIndex.businessCard,
     [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
       maxWidth: '66vw',

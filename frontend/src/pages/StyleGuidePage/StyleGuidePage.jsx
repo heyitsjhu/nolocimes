@@ -106,7 +106,7 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="style-guide" className={classes.styleGuideLayout}>
+    <PageLayout pageName="style-guide" pageLayoutClassName={classes.styleGuideLayout}>
       {renderTypography(theme)}
     </PageLayout>
   );

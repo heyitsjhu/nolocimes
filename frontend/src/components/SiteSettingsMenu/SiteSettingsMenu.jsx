@@ -65,7 +65,9 @@ export default () => {
 
   const handleSettingsChange = event => {
     if (event.target.name === 'darkMode') {
-      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'darkMode', event.target.checked));
+      dispatch(
+        updateAppState(STORE_KEYS.SITE_SETTINGS, 'darkMode', undefined, event.target.checked)
+      );
     }
   };
 

@@ -109,7 +109,9 @@ export default () => {
 
   const handleReset = () => {
     dispatchState(PARTICLE_CANVAS_DEFAULTS);
-    dispatch(updateAppState(STORE_KEYS.PARTICLE_CANVAS, PARTICLE_CANVAS_DEFAULTS));
+    dispatch(
+      updateAppState(STORE_KEYS.PARTICLE_CANVAS, undefined, undefined, PARTICLE_CANVAS_DEFAULTS)
+    );
   };
 
   const renderSlider = control => {
@@ -133,7 +135,7 @@ export default () => {
 
   useEffect(() => {
     if (debouncedAppState !== appState[STORE_KEYS.PARTICLE_CANVAS]) {
-      dispatch(updateAppState(STORE_KEYS.PARTICLE_CANVAS, debouncedAppState));
+      dispatch(updateAppState(STORE_KEYS.PARTICLE_CANVAS, undefined, undefined, debouncedAppState));
     }
   }, [debouncedAppState, dispatch]);
 

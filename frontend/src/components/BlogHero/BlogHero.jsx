@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 
-import heroImage from 'static/images/blogHeroImage.jpg';
+import heroImageUrl from 'static/images/blogHeroImage.jpg';
 
 const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   jottingPadHeroComponent: {
@@ -15,9 +15,9 @@ const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
   },
 }));
 
-export default props => {
+export default ({ srcUrl }) => {
   const classes = useStyles();
-  const imgUrl = heroImage;
+  const imgUrl = srcUrl ? srcUrl : heroImageUrl;
 
   return (
     <Box

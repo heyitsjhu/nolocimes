@@ -5,30 +5,36 @@ import Logger from 'utils/logger';
 
 import * as TYPES from '../types';
 
-export const updateCoronavirusState = (firstLevelKey, secondLevelKey, payload) => {
-  return { type: TYPES.UPDATE_APP_STATE, firstLevelKey, secondLevelKey, payload };
+export const updateCoronavirusState = (secondLevelKey, thirdLevelKey, payload) => {
+  return {
+    type: TYPES.UPDATE_APP_STATE,
+    firstLevelKey: STORE_KEYS.CORONAVIRUS,
+    secondLevelKey,
+    thirdLevelKey,
+    payload,
+  };
 };
 
 export const fetchC19Countries = async () => {
   const resp = await C19Api.getCountries();
 
-  return updateCoronavirusState(STORE_KEYS.CORONAVIRUS, STORE_KEYS.COUNTRIES, resp);
+  return updateCoronavirusState(STORE_KEYS.COUNTRIES, undefined, resp);
 };
 
 export const fetchC19History = async country => {
   const data = await C19Api.getHistory(country);
 
-  return updateCoronavirusState(STORE_KEYS.CORONAVIRUS, STORE_KEYS.HISTORY, data);
+  return updateCoronavirusState(STORE_KEYS.HISTORY, undefined, data);
 };
 
 export const fetchC19Statistics = async () => {
   const resp = await C19Api.getStatistics();
 
-  return updateCoronavirusState(STORE_KEYS.CORONAVIRUS, STORE_KEYS.STATISTICS, resp);
+  return updateCoronavirusState(STORE_KEYS.STATISTICS, undefined, resp);
 };
 
 export const getInitialC19Data = async (state, dispatch) => {
-  dispatch(updateCoronavirusState(STORE_KEYS.CORONAVIRUS, STORE_KEYS.IS_LOADING, true));
+  dispatch(updateCoronavirusState(STORE_KEYS.IS_LOADING, undefined, true));
 
   try {
     const { selectedCountries } = state.controlPanel;
@@ -39,12 +45,12 @@ export const getInitialC19Data = async (state, dispatch) => {
 
     // fetchC19Countries().then(dispatch);
 
-    dispatch(updateCoronavirusState(STORE_KEYS.CORONAVIRUS, STORE_KEYS.HISTORY, history));
+    dispatch(updateCoronavirusState(STORE_KEYS.HISTORY, undefined, history));
   } catch (e) {
     // sdfds
   }
 
-  dispatch(updateCoronavirusState(STORE_KEYS.CORONAVIRUS, STORE_KEYS.IS_LOADING, false));
+  dispatch(updateCoronavirusState(STORE_KEYS.IS_LOADING, undefined, false));
 };
 
 // export const fetchCovidCountriesData = async () => {

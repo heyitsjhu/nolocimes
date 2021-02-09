@@ -20,7 +20,6 @@ import IconButton from 'components/IconButton/IconButton';
 import { SITE_NAVIGATION, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
-import { updateAppState } from 'stores/actions/appActions';
 
 const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex }) => ({
   paperContainer: {

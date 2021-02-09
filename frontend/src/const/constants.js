@@ -1,3 +1,17 @@
+import SHA256 from 'crypto-js/sha256';
+
+export const ANBU_SAMPLE_USERS = [
+  'user1',
+  'user2',
+  'user3',
+  'user4',
+  'user5',
+  'user6',
+  'user7',
+  'user8',
+];
+export const ANBU_SAMPLE_USER_HASHES = ANBU_SAMPLE_USERS.map(user => SHA256(user).toString());
+export const ANBU_SAMPLE_USER = SHA256('sample_user').toString();
 export const BIG_NUMBER_PREFIXES = [
   { number: 1e3, suffix: 'K' },
   { number: 1e6, suffix: 'M' },
@@ -53,6 +67,7 @@ export const POSTS = {
 };
 export const ROUTES = {
   HOME: '/',
+  ANBU_BLOCKCHAIN: '/anbu-blockchain',
   BLOG: '/blog',
   BLOG_POST: '/blog/:postId',
   BLOG_TAGS: '/blog/tags?tag=:tagId',
@@ -67,23 +82,34 @@ export const SITE_NAVIGATION = {
   mapping: [
     {
       altText: '',
-      disabled: true,
+      disabled: false,
       grouping: 1,
       icon: 'none',
       id: 'nav-id-1',
       placement: 'left',
       text: 'components.HomeLogoNavigation.navMapping.navId1',
       title: '',
-      url: ROUTES.POWERED_BY_SCROLL,
+      url: ROUTES.ANBU_BLOCKCHAIN,
+    },
+    {
+      altText: '',
+      disabled: true,
+      grouping: 1,
+      icon: 'candlemonkeys',
+      id: 'nav-id-2',
+      placement: 'right',
+      text: 'components.HomeLogoNavigation.navMapping.navId2',
+      title: '',
+      url: ROUTES.CANDLEMONKEYS,
     },
     {
       altText: '',
       disabled: false,
       grouping: 1,
       icon: 'coronavirus',
-      id: 'nav-id-2',
-      placement: 'right',
-      text: 'components.HomeLogoNavigation.navMapping.navId2',
+      id: 'nav-id-3',
+      placement: 'left',
+      text: 'components.HomeLogoNavigation.navMapping.navId3',
       title: '',
       url: ROUTES.CORONAVIRUS,
     },
@@ -92,22 +118,11 @@ export const SITE_NAVIGATION = {
       disabled: true,
       grouping: 1,
       icon: 'nolocimes',
-      id: 'nav-id-3',
-      placement: 'left',
-      text: 'components.HomeLogoNavigation.navMapping.navId3',
-      title: '',
-      url: ROUTES.PROJECT_NOLOCIMES,
-    },
-    {
-      altText: '',
-      disabled: true,
-      grouping: 1,
-      icon: 'candlemonkeys',
       id: 'nav-id-4',
       placement: 'left',
       text: 'components.HomeLogoNavigation.navMapping.navId4',
       title: '',
-      url: ROUTES.CANDLEMONKEYS,
+      url: ROUTES.PROJECT_NOLOCIMES,
     },
     {
       altText: '',
@@ -118,7 +133,7 @@ export const SITE_NAVIGATION = {
       placement: 'right',
       text: 'components.HomeLogoNavigation.navMapping.navId5',
       title: '',
-      url: ROUTES.DRUNKEN_NAVIGATOR,
+      url: ROUTES.POWERED_BY_SCROLL,
     },
     {
       altText: '',

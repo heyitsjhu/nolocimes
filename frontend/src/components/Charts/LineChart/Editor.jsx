@@ -15,7 +15,6 @@ import TextField from '@material-ui/core/TextField';
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
-import { updateAppState } from 'stores/actions/appActions';
 
 import CHART_METRICS from './options/chartMetrics.json';
 

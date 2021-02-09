@@ -104,12 +104,14 @@ export default props => {
   return (
     <PageLayout
       pageName="coronavirus"
-      className={classes.coronavirusLayout}
+      loading={appState[STORE_KEYS.CORONAVIRUS].isLoading}
       pageActions={<PageActions />}
+      pageLayoutClassName={classes.coronavirusLayout}
     >
       <LineChart
         id={getElId('chart', 'covid-historical')}
-        data={appState[STORE_KEYS.CORONAVIRUS]}
+        controlPanel={appState[STORE_KEYS.CORONAVIRUS].controlPanel}
+        data={appState[STORE_KEYS.CORONAVIRUS].history}
       />
 
       <Accordion className={classes.expansionPanel} onChange={handleExpansionPanelChange} square>
