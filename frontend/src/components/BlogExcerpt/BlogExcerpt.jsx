@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import { POSTS, ROUTES } from 'const';
+import { POSTS, ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
+import { AppContext } from 'stores';
 import * as PostUtils from 'utils/postHelpers';
 import { PostRenderer } from '../renderers';
 
-const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
+const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
   excerptComponent: {
     display: 'flex',
     position: 'relative',
@@ -16,29 +17,10 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
     width: '100%',
     transition: 'all 400ms linear',
     overflow: 'hidden',
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: palette.common.black,
-      transition: 'all 400ms linear',
-      opacity: 0,
-      zIndex: -1,
-    },
-    '&:hover': {
-      borderColor: palette.grey[800],
-      '&::before': { opacity: 0.6 },
-      "& div[class*='excerptImage']::before": {
-        opacity: 0.1,
-      },
-    },
-    '& > div': {
-      flex: 1,
-      minHeight: '100%',
-    },
+    '& > div': { flex: 1, minHeight: '100%' },
+    // '&:not([class*="reverseDirection"]) p[class*="excerptDescription"]': {
+    //   textAlign: 'right',
+    // },
   },
   reverseDirection: { flexDirection: 'row-reverse' },
   contentRight: { alignItems: 'flex-start', paddingLeft: spacing(5) },
@@ -48,31 +30,18 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
     flexDirection: 'column',
     paddingTop: spacing(3),
     paddingBottom: spacing(3),
-    "& [class*='postDate'], & [class*='postTags']": {
-      textAlign: 'center',
-    },
   },
   excerptImage: {
-    position: 'relative',
     height: '33vw',
     maxHeight: 450,
-    '&::before': {
-      content: '""',
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      backgroundColor: palette.common.black,
-      transition: 'all 400ms linear',
-      opacity: 0.5,
-    },
   },
 }));
 
 export default ({ component, post, reverseLayout }) => {
   const classes = useStyles();
   const { t } = useCopy();
+  const [appState, dispatch] = useContext(AppContext);
+  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
   const postDate = PostUtils.getPostDate(post);
   const postTags = PostUtils.getPostTags(post);
   const postSlug = PostUtils.getPostSlug(post);
@@ -89,8 +58,8 @@ export default ({ component, post, reverseLayout }) => {
       <Box
         className={classnames([
           classes.excerptContent,
-          reverseLayout && classes.contentRight,
-          !reverseLayout && classes.contentLeft,
+          !isOnMobile && reverseLayout && classes.contentRight,
+          !isOnMobile && !reverseLayout && classes.contentLeft,
         ])}
       >
         {PostRenderer(POSTS.POST_DATE, postDate)}
@@ -98,9 +67,11 @@ export default ({ component, post, reverseLayout }) => {
         {/* {PostRenderer(POSTS.POST_TAGS, postTags)} */}
         {PostRenderer(POSTS.EXCERPT_DESCRIPTION, postDescription, { postUrl })}
       </Box>
-      <Box className={classes.excerptImage}>
-        {PostRenderer(POSTS.POST_HERO_IMAGE, postCoverImageUrl)}
-      </Box>
+      {!isOnMobile && (
+        <Box className={classes.excerptImage}>
+          {PostRenderer(POSTS.POST_HERO_IMAGE, postCoverImageUrl, { postUrl })}
+        </Box>
+      )}
     </Box>
   );
 };

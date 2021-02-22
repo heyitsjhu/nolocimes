@@ -25,7 +25,7 @@ import {
   updateAnbuState,
   updateBlockchainSettings,
 } from 'stores/actions/anbuActions';
-import { getElId, getRandomNumber } from 'utils';
+import { formatTimestamp, getElId, getRandomNumber } from 'utils';
 import PageLayout from '../PageLayout/PageLayout';
 import { anbuColumnDefs } from './columnDefs';
 
@@ -35,12 +35,8 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
   twoColumn: {
     '& > div': {
       width: '50%',
-      '&:first-child': {
-        paddingRight: spacing(2),
-      },
-      '&:last-child': {
-        paddingLeft: spacing(2),
-      },
+      '&:first-child': { paddingRight: spacing(2) },
+      '&:last-child': { paddingLeft: spacing(2) },
     },
   },
   prompt: {
@@ -67,6 +63,7 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
     marginTop: 'auto',
     paddingTop: spacing(2),
     paddingBottom: spacing(2),
+    boxShadow: 'none',
   },
   console: {
     position: 'relative',
@@ -84,11 +81,6 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
     top: spacing(1),
     right: spacing(1),
     fontSize: 12,
-  },
-  link: {
-    '&:hover': {
-      cursor: 'pointer',
-    },
   },
   consoleStatic: {
     lineHeight: '22px',
@@ -109,7 +101,11 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
       borderRight: shared.borderDefault,
     },
   },
-  interactionLeft: {},
+  interactionLeft: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   interactionRight: {
     display: 'flex',
     flexDirection: 'column',
@@ -125,6 +121,14 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
     minWidth: '22%',
     maxWidth: '30%',
   },
+  tooltipTableHeader: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginBottom: spacing(2),
+    paddingBottom: spacing(1),
+    borderBottom: shared.borderDefault,
+  },
 }));
 
 export default () => {
@@ -133,6 +137,7 @@ export default () => {
   const [appState, dispatch] = useContext(AppContext);
   const { account, anbuCoin, settings } = appState[STORE_KEYS.ANBU_BLOCKCHAIN];
   const [consoleOutputs, setConsoleOutputs] = useState([]);
+
   const consoleRef = useRef({});
   const blocksTableRef = useRef({});
   const transactionsTableRef = useRef({});
@@ -150,20 +155,25 @@ export default () => {
       .then(dispatch)
       .then(() => {
         setConsoleOutputs([...consoleOutputs, 'pages.AnbuBlockchain.console.blockchainCreated']);
-        dispatch(setCurrentStep(settings.currentStep + 1));
+        dispatch(setCurrentStep(settings[STORE_KEYS.CURRENT_STEP] + 1));
       });
   };
 
   const handleAddTransaction = () => {
-    //sender, recipient
-    createTransaction('fromAdddsdres', 'toDskdjfsi', getRandomNumber())
+    const sender = ANBU_SAMPLE_USER_HASHES[getRandomNumber(1, 0)];
+    let recipient = ANBU_SAMPLE_USER_HASHES[getRandomNumber(1, 0)];
+    while (sender === recipient) {
+      recipient = ANBU_SAMPLE_USER_HASHES[getRandomNumber(1, 0)];
+    }
+
+    createTransaction(sender, recipient, getRandomNumber())
       .then(dispatch)
       .then(() => {
         setConsoleOutputs([
           ...consoleOutputs,
           'pages.AnbuBlockchain.console.blockchainTransactionPosted',
         ]);
-        dispatch(setCurrentStep(settings.currentStep + 1));
+        dispatch(setCurrentStep(settings[STORE_KEYS.CURRENT_STEP] + 1));
       });
   };
 
@@ -172,7 +182,7 @@ export default () => {
       .then(dispatch)
       .then(() => {
         setConsoleOutputs([...consoleOutputs, 'pages.AnbuBlockchain.console.blockMined']);
-        dispatch(setCurrentStep(settings.currentStep + 1));
+        dispatch(setCurrentStep(settings[STORE_KEYS.CURRENT_STEP] + 1));
       });
   };
 
@@ -196,13 +206,13 @@ export default () => {
           <Typed
             className={classes.consoleText}
             component="span"
-            cursorChar="▯"
+            cursorChar="|"
             id="console-typed-output"
             key={'output' + i}
             strings={[t(output)]}
             typeSpeed={5}
-            showCursor={true}
-            // onBegin={() => dispatch(setCurrentStep(settings.currentStep + 1))}
+            showCursor
+            // onBegin={() => dispatch(setCurrentStep(settings[STORE_KEYS.CURRENT_STEP] + 1))}
             // onComplete // --> allow interaction again
           />
         );
@@ -220,19 +230,44 @@ export default () => {
     });
   };
 
+  const renderTooltip = rowData => {
+    return (
+      <Box>
+        <Box className={classes.tooltipTableHeader}>
+          <Typography>
+            {t('common.block')} {rowData.index + 1}
+          </Typography>
+          <Typography variant="overline">{formatTimestamp(rowData.timestamp)}</Typography>
+        </Box>
+        {typeof rowData.transactions === 'string' ? (
+          <Typography align="center" variant="subtitle2">
+            <i>{rowData.transactions}</i>
+          </Typography>
+        ) : (
+          <Table
+            columns={anbuColumnDefs.transactions}
+            id={getElId('table', 'anbu-transactions-tooltip')}
+            rowData={rowData.transactions}
+            size="small"
+          />
+        )}
+      </Box>
+    );
+  };
+
   const interactionMapping = {
     buttons: [
       {
         Icon: DeveloperBoardIcon,
         label: 'common.create',
         onClick: handleCreateBlockchain,
-        disabled: settings.currentStep !== 1,
+        disabled: settings[STORE_KEYS.CURRENT_STEP] !== 1,
       },
       {
         Icon: ReceiptIcon,
         label: 'common.add',
         onClick: handleAddTransaction,
-        disabled: settings.currentStep < 2,
+        disabled: settings[STORE_KEYS.CURRENT_STEP] < 2,
       },
       {
         Icon: SelectAllIcon,
@@ -244,31 +279,45 @@ export default () => {
         Icon: LoopIcon,
         label: 'common.reset',
         onClick: handleResetBlockchain,
-        disabled: settings.currentStep < 3,
+        disabled: settings[STORE_KEYS.CURRENT_STEP] < 3,
       },
     ],
   };
 
   const interationSettingsInputs = [
     {
-      disabled: settings.currentStep === 1,
+      disabled: settings[STORE_KEYS.CURRENT_STEP] === 1,
       id: STORE_KEYS.BLOCK_SIZE,
-      label: 'Block Size',
+      label: 'common.blockSize',
       options: [2, 4, 6, 8, 10].map(n => ({ label: n, value: n })),
     },
     {
-      disabled: settings.currentStep === 1,
+      disabled: settings[STORE_KEYS.CURRENT_STEP] === 1,
       id: STORE_KEYS.DIFFICULTY,
-      label: 'Difficulty',
+      label: 'common.difficulty',
       options: [1, 2, 3, 4, 5].map(n => ({ label: n, value: n })),
     },
     {
-      disabled: settings.currentStep === 1,
+      disabled: settings[STORE_KEYS.CURRENT_STEP] === 1,
       id: STORE_KEYS.MINING_REWARD,
-      label: 'Mining Reward',
+      label: 'common.miningReward',
       options: [100, 250, 500, 750, 1000].map(n => ({ label: n, value: n })),
     },
   ];
+
+  const getNarrative = (type, step) => {
+    const narrativeMapping = {
+      1: {
+        strings: [t('pages.AnbuBlockchain.narrative.' + settings[STORE_KEYS.NARRATIVE_STEP])],
+      },
+    };
+
+    return narrativeMapping[step] ? narrativeMapping[step][type] : null;
+  };
+
+  useEffect(() => {
+    resetBlockchain().then(dispatch);
+  }, []);
 
   useEffect(() => {
     consoleRef.current.scrollTop = consoleRef.current.scrollHeight + 40;
@@ -281,10 +330,6 @@ export default () => {
   useEffect(() => {
     transactionsTableRef.current.scrollTop = transactionsTableRef.current.scrollHeight + 40;
   }, [anbuCoin.transactionsQueue]);
-
-  useEffect(() => {
-    resetBlockchain().then(dispatch);
-  }, []);
 
   /**
    * IDEA: Create a sample blockchain, backed by a pseudo-cryptocurrency, that attempts
@@ -319,12 +364,12 @@ export default () => {
         <Box className={classes.interactionLeft}>
           <Box className={classes.prompt}>
             <Typed
-              id="typed"
-              strings={['<i>First</i> sentence.', '&amp; a second sentence.']}
-              typeSpeed={60}
-              loop={true}
+              fadeOut
+              id={`narrative-prompt-${STORE_KEYS.CURRENT_STEP}`}
+              strings={getNarrative('strings', settings[STORE_KEYS.NARRATIVE_STEP])}
+              typeSpeed={50}
               // onBegin
-              // onComplete
+              // onComplete={self => console.log(self)}
               // onReset
             />
           </Box>
@@ -334,17 +379,18 @@ export default () => {
           <Box className={classes.balanceContainer}>
             <Link
               className={classes.link}
-              color="primary"
+              color="textSecondary"
               variant="caption"
               onClick={() => getBalanceOfAddress(account.address).then(dispatch)}
             >
-              View Balance
+              {t('pages.AnbuBlockchain.viewBalance')}
             </Link>
           </Box>
 
           <ButtonGroup
-            aria-label="outlined primary button group"
+            aria-label={t('a11y.ariaLabel.anbuButtonGroup')}
             className={classes.buttonGroup}
+            disableElevation
             color="primary"
             variant="contained"
           >
@@ -366,7 +412,7 @@ export default () => {
                 disabled={input.disabled}
                 id={input.id}
                 key={input.id}
-                label={input.label}
+                label={t(input.label)}
                 options={input.options}
                 value={settings[input.id]}
                 onBlur={() => onBlurHandler(settings)}
@@ -396,6 +442,7 @@ export default () => {
           size="small"
           stickyHeader
           title={t('pages.AnbuBlockchain.table.blocks')}
+          tooltipRenderer={renderTooltip}
         />
         <Table
           columns={anbuColumnDefs.transactions}

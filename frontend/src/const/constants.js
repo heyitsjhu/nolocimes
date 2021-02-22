@@ -9,15 +9,21 @@ export const ANBU_SAMPLE_USERS = [
   'user6',
   'user7',
   'user8',
+  'user9',
+  'user10',
 ];
 export const ANBU_SAMPLE_USER_HASHES = ANBU_SAMPLE_USERS.map(user => SHA256(user).toString());
-export const ANBU_SAMPLE_USER = SHA256('sample_user').toString();
+export const ANBU_SAMPLE_USER = ANBU_SAMPLE_USER_HASHES[6];
 export const BIG_NUMBER_PREFIXES = [
   { number: 1e3, suffix: 'K' },
   { number: 1e6, suffix: 'M' },
   { number: 1e9, suffix: 'B' },
   { number: 1e12, suffix: 'T' },
 ];
+export const CLASSES = {
+  IS_MOBILE: 'isMobile',
+  IS_NOT_HOME: 'isNotHome',
+};
 export const DEFAULT_NOTIFICATION_DELAY = 1000;
 export const DEFAULT_NOTISTACK_PROPS = {
   anchorOrigin: { horizontal: 'right', vertical: 'bottom' },
@@ -42,10 +48,10 @@ export const PARTICLE_CANVAS_DEFAULTS = {
 };
 export const PARTICLE_CANVAS_MOBILE_DEFAULTS = {
   particleColor: { r: 204, g: 152, b: 81 },
-  particleCount: 12,
-  particlePulseFrequency: 0.04,
+  particleCount: 16,
+  particlePulseFrequency: 0.02,
   particleRadius: 2,
-  particleThreshold: 20,
+  particleThreshold: 24,
   linkColor: { r: 204, g: 152, b: 81 },
   linkWidth: 0.6,
   linkDistanceLimit: 200,
@@ -62,6 +68,7 @@ export const POSTS = {
   POST_HERO_IMAGE: 'postHeroImage',
   POST_IMAGE: 'postImage',
   POST_LIST: 'postList',
+  POST_PARAGRAPHS: 'postParagraphs',
   POST_TAGS: 'postTags',
   POST_TITLE: 'postTitle',
 };
@@ -73,6 +80,7 @@ export const ROUTES = {
   BLOG_TAGS: '/blog/tags?tag=:tagId',
   CORONAVIRUS: '/coronavirus',
   PAGE_NOT_FOUND: '/404',
+  PRIVACY_POLICY: '/privacy-policy',
   PHOTOGRAPHY: '/photography',
   STYLE_GUIDE: '/style-guide',
 };
@@ -84,7 +92,7 @@ export const SITE_NAVIGATION = {
       altText: '',
       disabled: false,
       grouping: 1,
-      icon: 'none',
+      icon: 'anbu',
       id: 'nav-id-1',
       placement: 'left',
       text: 'components.HomeLogoNavigation.navMapping.navId1',
@@ -128,7 +136,7 @@ export const SITE_NAVIGATION = {
       altText: '',
       disabled: true,
       grouping: 1,
-      icon: 'none',
+      icon: 'poweredbyscroll',
       id: 'nav-id-5',
       placement: 'right',
       text: 'components.HomeLogoNavigation.navMapping.navId5',

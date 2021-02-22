@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import classnames from 'classnames';
 
 import { Helmet } from 'components';
 import { useCopy } from 'hooks/useCopy';
-import theme from 'theme';
+import { CLASSES, STORE_KEYS } from 'const';
+import { AppContext } from 'stores';
+import themeMapping from 'theme';
 import { formatThemeProperty } from 'utils';
 
 import { PageLayout } from '..';
@@ -28,6 +31,9 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
       },
+    },
+    [`&.${CLASSES.IS_MOBILE}`]: {
+      flexDirection: 'column',
     },
   },
 }));
@@ -67,6 +73,9 @@ const textMapping = {
 export default props => {
   const { t } = useCopy();
   const classes = useStyles();
+  const [appState, dispatch] = useContext(AppContext);
+  const { isOnMobile, isDarkMode } = appState[STORE_KEYS.SITE_SETTINGS];
+  const theme = themeMapping[isDarkMode ? 'dark' : 'light']();
 
   const renderTypography = theme => {
     return Object.keys(theme.typography)
@@ -85,7 +94,10 @@ export default props => {
                 },
               ]}
             />
-            <Box className={classes.typographySegment} key={type}>
+            <Box
+              className={classnames([classes.typographySegment, isOnMobile && CLASSES.IS_MOBILE])}
+              key={type}
+            >
               <Box display="flex" alignItems="center">
                 <Typography variant={type}>{textMapping[type]}</Typography>
               </Box>

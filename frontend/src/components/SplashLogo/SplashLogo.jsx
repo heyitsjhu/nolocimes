@@ -42,11 +42,11 @@ const useStyles = makeStyles(theme => ({
 export default props => {
   const isHome = useIsHome();
   const [appState, dispatch] = useContext(AppContext);
-  const { introViewed } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { viewedIntro } = appState[STORE_KEYS.SITE_SETTINGS];
   const classes = useStyles({
-    set1Fill: introViewed ? palette.grey[600] : palette.grey[600],
-    set2Fill: introViewed ? palette.primary.dark : palette.grey[600],
-    opacity: introViewed ? 0.9 : 0,
+    set1Fill: viewedIntro ? palette.grey[600] : palette.grey[600],
+    set2Fill: viewedIntro ? palette.primary.dark : palette.grey[600],
+    opacity: viewedIntro ? 0.9 : 0,
   });
 
   const viewBox = props.viewBox || '0 0 528 566';

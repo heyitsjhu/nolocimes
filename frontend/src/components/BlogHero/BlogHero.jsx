@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 
 import heroImageUrl from 'static/images/blogHeroImage.jpg';
 
-const useStyles = makeStyles(({ palette, spacing, transitions, zIndex }) => ({
+const useStyles = makeStyles(theme => ({
   jottingPadHeroComponent: {
     width: '100%',
     height: '50vh',

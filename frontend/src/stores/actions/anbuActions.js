@@ -48,8 +48,6 @@ export const resetBlockchain = async () => {
 export const updateBlockchainSettings = async settings => {
   const anbuCoin = await anbuApi.updateBlockchainSettings(settings);
 
-  console.log('updateBlockchainSettings', anbuCoin);
-
   return updateAnbuState(STORE_KEYS.ANBU_COIN, undefined, anbuCoin);
 };
 

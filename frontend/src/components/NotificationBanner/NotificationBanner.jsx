@@ -59,7 +59,7 @@ export default () => {
     }
   };
 
-  return appState[STORE_KEYS.SITE_SETTINGS].isInteractive ? (
+  return appState[STORE_KEYS.SITE_SETTINGS].isInteractive && message ? (
     <Fade in={show}>
       <Alert
         className={classnames(classes.notificationBanner)}

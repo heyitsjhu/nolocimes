@@ -24,6 +24,11 @@ class ContentfulAPI {
 
     return response;
   };
+
+  getTags = async () => {
+    const response = await fetchApi.get('/api/contentful/tags');
+    return response;
+  };
 }
 
 export default new ContentfulAPI();

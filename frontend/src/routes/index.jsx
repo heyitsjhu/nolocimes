@@ -8,6 +8,7 @@ import {
   CoronavirusPage,
   PageNotFoundPage,
   PhotographyPage,
+  PrivacyPolicyPage,
   StyleGuidePage,
 } from 'pages';
 
@@ -28,6 +29,9 @@ const AppRoutes = () => (
     </Route>
     <Route exact path={ROUTES.PHOTOGRAPHY}>
       <PhotographyPage />
+    </Route>
+    <Route exact path={ROUTES.PRIVACY_POLICY}>
+      <PrivacyPolicyPage />
     </Route>
     <Route exact path={ROUTES.STYLE_GUIDE}>
       <StyleGuidePage />

@@ -1,9 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
-import Link from '@material-ui/core/Link';
-import CodeRoundedIcon from '@material-ui/icons/CodeRounded';
+import BugReportIcon from '@material-ui/icons/BugReport';
 
 import { LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
@@ -25,16 +22,15 @@ export default () => {
   };
 
   return (
-    <Box>
+    <>
       <IconButton
-        aria-label={t('a11y.ariaLabel.githubSourceUrl')}
-        noPadding
-        tooltip={t('tooltips.githubIconButton')}
-        onClick={isInteractive ? () => setOpen(true) : undefined}
+        aria-label={t('a11y.ariaLabel.reportBugButton')}
+        tooltip={t('tooltips.reportBugButton')}
+        onClick={() => setOpen(true)}
       >
-        <CodeRoundedIcon fontSize="small" />
+        <BugReportIcon fontSize="small" />
       </IconButton>
-      <Dialog
+      {/* <Dialog
         description={t('components.GitHubExternalLink.modalDescription')}
         id="github-external"
         open={open}
@@ -56,7 +52,7 @@ export default () => {
             </Button>
           </>
         )}
-      />
-    </Box>
+      /> */}
+    </>
   );
 };

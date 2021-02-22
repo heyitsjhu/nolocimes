@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
@@ -11,7 +12,7 @@ import classnames from 'classnames';
 import { DateTime } from 'luxon';
 
 import TruncateText from 'components/TruncateText/TruncateText';
-import { POSTS, STORE_KEYS } from 'const';
+import { POSTS, ROUTES, STORE_KEYS } from 'const';
 import { AppContext } from 'stores';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
@@ -46,17 +47,39 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
   },
   [POSTS.POST_CONTENT]: {},
   [POSTS.POST_HERO_IMAGE]: {
+    position: 'relative',
     width: '100%',
     height: '100%',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    '& a': {
+      position: 'relative',
+      display: 'block',
+      height: '100%',
+      width: '100%',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: palette.common.black,
+        transition: 'all 400ms linear',
+        opacity: 0.35,
+        zIndex: 1,
+      },
+      '&:hover': {
+        '&::before': {
+          opacity: 0.1,
+        },
+      },
+    },
   },
   [POSTS.POST_DATE]: {
     display: 'block',
     marginBottom: spacing(1),
-    textAlign: 'center',
-    lineHeight: 1,
   },
   [POSTS.POST_HEADING]: {
     marginTop: spacing(4),
@@ -88,7 +111,7 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
       },
     },
   },
-  postParagraphs: {
+  [POSTS.POST_PARAGRAPHS]: {
     marginBottom: spacing(4),
     lineHeight: 1.8,
     textIndent: '5%',
@@ -114,24 +137,33 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     width: '100%',
     marginBottom: spacing(4),
     lineHeight: 1.8,
-    textAlign: 'justify',
-    // textIndent: "10%",
   },
 }));
 
-const ExcerptTitle = ({ title, postUrl, ...otherProps }) => (
-  <Typography variant="h2" gutterBottom {...otherProps}>
-    <Link href={postUrl} color="textPrimary" underline="none">
-      {title}
-    </Link>
-  </Typography>
-);
+const ExcerptTitle = ({ title, postUrl, ...otherProps }) => {
+  const history = useHistory();
+
+  return (
+    <Typography variant="h2" gutterBottom {...otherProps}>
+      <Link
+        color="textPrimary"
+        underline="none"
+        onClick={e => {
+          e.preventDefault();
+          history.push(postUrl);
+        }}
+      >
+        {title}
+      </Link>
+    </Typography>
+  );
+};
 
 const ExcerptDescription = ({ description, postUrl, ...otherProps }) => {
   return (
     <TruncateText
       ellipsis="..."
-      readMoreLabel="Read more"
+      readMoreLabel="common.readMore"
       readMoreUrl={postUrl}
       textContent={description}
       {...otherProps}
@@ -147,9 +179,20 @@ const PostDate = ({ date, ...otherProps }) => {
   );
 };
 
-const PostCoverImage = ({ postPart, heroImage, ...otherProps }) => {
-  const url = (postPart && postPart.src) || 'https:///placehold.it/800x300';
-  return <Box {...otherProps} style={{ backgroundImage: `url('${url}')` }}></Box>;
+const PostCoverImage = ({ postPart, imageUrl, postUrl, ...otherProps }) => {
+  const history = useHistory();
+  const url = imageUrl || 'https:///placehold.it/800x300';
+
+  return (
+    <Box {...otherProps} style={{ backgroundImage: `url('${url}')` }}>
+      <Link
+        onClick={e => {
+          e.preventDefault();
+          history.push(postUrl);
+        }}
+      />
+    </Box>
+  );
 };
 
 const PostTags = ({ tags, ...otherProps }) => {
@@ -312,8 +355,8 @@ const postMapping = {
   [POSTS.POST_CONTENT]: (className, postParts, options) => (
     <PostContents className={className} postParts={postParts} />
   ),
-  [POSTS.POST_HERO_IMAGE]: (className, postImage) => (
-    <PostCoverImage className={className} heroImage={postImage} />
+  [POSTS.POST_HERO_IMAGE]: (className, postHeroUrl, options) => (
+    <PostCoverImage className={className} imageUrl={postHeroUrl} postUrl={options.postUrl} />
   ),
   [POSTS.POST_DATE]: (className, postDate, options) => (
     <PostDate className={className} date={postDate} />

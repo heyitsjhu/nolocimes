@@ -21,8 +21,10 @@ export const fetchC19Countries = async () => {
   return updateCoronavirusState(STORE_KEYS.COUNTRIES, undefined, resp);
 };
 
-export const fetchC19History = async country => {
-  const data = await C19Api.getHistory(country);
+export const fetchC19History = async (country, existingData) => {
+  const data = await C19Api.getHistory(country).then(response =>
+    convertCovidHistoricalData(existingData, response)
+  );
 
   return updateCoronavirusState(STORE_KEYS.HISTORY, undefined, data);
 };

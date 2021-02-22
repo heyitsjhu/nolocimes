@@ -1,10 +1,8 @@
 import React, { useRef } from 'react';
 import { SnackbarProvider } from 'notistack';
 import Button from '@material-ui/core/Button';
-
 import { DEFAULT_NOTISTACK_PROPS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-
 import AppProvider from './providers/appProvider';
 
 const AppStores = ({ children }) => {
@@ -31,4 +29,5 @@ const AppStores = ({ children }) => {
 };
 
 export { AppContext } from './providers/appProvider';
+export { ThemeContext } from './providers/themeProvider';
 export default AppStores;

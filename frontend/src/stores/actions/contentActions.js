@@ -56,3 +56,13 @@ export const fetchContentPosts = async () => {
     Logger.error(error);
   }
 };
+
+export const fetchContentTags = async () => {
+  try {
+    // const resp = await contentfulApi.getTags(); // Only Contentful Early Access Members have this endpoint
+    const tags = ['general'];
+    return updateContentState(STORE_KEYS.TAGS, undefined, tags);
+  } catch (error) {
+    Logger.error(error);
+  }
+};

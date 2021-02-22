@@ -65,6 +65,14 @@ export class ContentfulAPI {
 
     return response;
   };
+
+  getTags = async () => {
+    // Only Early Access Members on Contentful currently have access.
+    // https://www.contentful.com/help/tags/
+    const response = await this.fetchHandler(this.client.getTags());
+
+    return response;
+  };
 }
 
 // export an instance of api class

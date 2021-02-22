@@ -14,29 +14,33 @@ export const COVID_CHART_DATA_LABELS = [
 // Merges Covid-19 historical data for an array of countries into the
 // reducer's coronavirus history object for amCharts ingestion. Also, pushes
 // the country into a _retrievedCountries property for easier reference
-export const convertCovidHistoricalData = (state, countriesData) => {
-  const newState = deepClone(state);
-  const stateKeys = Object.keys(state).filter(key => key !== '_retrievedCountries');
+export const convertCovidHistoricalData = (existingData, countryData) => {
+  const newState = existingData ? deepClone(existingData) : {};
+  const stateKeys = Object.keys(existingData).filter(key => key !== '_retrievedCountries');
 
-  countriesData.forEach(countryData => {
-    if (countryData.length > 0) {
-      // just tracks which countries we've fetched data for already.
-      newState._retrievedCountries.push(countryData[0].country);
-    }
+  if (newState._retrievedCountries.includes(countryData[0].country)) return;
+  if (countryData.length > 0) {
+    // just tracks which countries we've fetched data for already.
+    newState._retrievedCountries.push(countryData[0].country);
+  }
 
-    countryData.reduce(getEndOfDayStatistic, []).forEach(dataPoint => {
-      const country = dataPoint.country;
+  countryData.reduce(getEndOfDayStatistic, []).forEach(dataPoint => {
+    const country = dataPoint.country;
 
-      stateKeys.forEach(stateKey => {
-        const keys = stateKey.split(/_(.+)/);
-        // const daysData = newState[stateKey].find(({ day }) => day === metadata.day);
-
+    stateKeys.forEach(stateKey => {
+      const keys = stateKey.split(/_(.+)/);
+      // const daysData = newState[stateKey].find(({ day }) => day === metadata.day);
+      const existingDataPointIdx = newState[stateKey].findIndex(d => d.day === dataPoint.day);
+      if (existingDataPointIdx > -1) {
+        newState[stateKey][existingDataPointIdx][country] =
+          stateKey === 'population' ? dataPoint[stateKey] : dataPoint[keys[0]][keys[1]];
+      } else {
         newState[stateKey].push({
           [country]: stateKey === 'population' ? dataPoint[stateKey] : dataPoint[keys[0]][keys[1]],
           day: dataPoint.day,
           time: dataPoint.time,
         });
-      });
+      }
     });
   });
 

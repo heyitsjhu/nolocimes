@@ -12,7 +12,7 @@ import { LineChart, MapChart, Toggle } from 'components';
 import LineChartEditor from 'components/Charts/LineChart/Editor';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
-import { getInitialC19Data } from 'stores/actions/coronavirusActions';
+import { fetchC19History, updateCoronavirusState } from 'stores/actions/coronavirusActions';
 
 import PageLayout from '../PageLayout/PageLayout';
 import PageActions from './PageActions';
@@ -26,10 +26,6 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   },
   pageActions: {
     paddingRight: spacing(1) / 2,
-  },
-  publicIcon: {
-    width: 20,
-    height: 20,
   },
   toggleSwitch: {
     '& .MuiSwitch-switchBase': {
@@ -90,6 +86,7 @@ export default props => {
   const classes = useStyles();
   const { t } = useCopy();
   const [appState, dispatch] = useContext(AppContext);
+  const { controlPanel, countries, history } = appState[STORE_KEYS.CORONAVIRUS];
 
   const handleExpansionPanelChange = (event, expanded) => {
     if (!expanded) {
@@ -98,13 +95,19 @@ export default props => {
   };
 
   useEffect(() => {
+    dispatch(updateCoronavirusState(STORE_KEYS.IS_LOADING, undefined, true));
     // getInitialC19Data(coronavirusState, dispatch);
-  }, []);
+    fetchC19History(controlPanel[STORE_KEYS.SELECTED_COUNTRY], history)
+      .then(dispatch)
+      .then(() => {
+        dispatch(updateCoronavirusState(STORE_KEYS.IS_LOADING, undefined, false));
+      });
+  }, [controlPanel[STORE_KEYS.SELECTED_COUNTRY]]);
 
   return (
     <PageLayout
       pageName="coronavirus"
-      loading={appState[STORE_KEYS.CORONAVIRUS].isLoading}
+      iconLoading={appState[STORE_KEYS.CORONAVIRUS][STORE_KEYS.IS_LOADING]}
       pageActions={<PageActions />}
       pageLayoutClassName={classes.coronavirusLayout}
     >

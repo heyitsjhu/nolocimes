@@ -19,10 +19,10 @@ const SCROLLBAR_COLOR = palette.grey[800];
 
 const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   covidLineChartContainer: {
-    marginTop: spacing(3),
+    // marginTop: spacing(3),
     marginBottom: spacing(4),
     width: '100%',
-    height: `calc(100% - ${spacing(7)}px)`,
+    height: `calc(100% - ${spacing(4)}px)`,
   },
 }));
 
@@ -203,16 +203,21 @@ export default props => {
   }, []);
 
   useEffect(() => {
-    const { selectedCountries } = props.controlPanel;
+    const { selectedCountries, selectedCountry } = props.controlPanel;
 
     // TODO: need to figure a clean way to load data
     setTimeout(() => {
-      selectedCountries.forEach(country => {
-        setLineSeries(chart.current, 'cases_total', country);
-        setLineSeries(chart.current, 'cases_active', country);
-        setLineSeries(chart.current, 'cases_recovered', country);
-        setColumnSeries(chart.current, 'cases_new', country);
-      });
+      // selectedCountries.forEach(country => {
+      //   setLineSeries(chart.current, 'cases_total', country);
+      //   setLineSeries(chart.current, 'cases_active', country);
+      //   setLineSeries(chart.current, 'cases_recovered', country);
+      //   setColumnSeries(chart.current, 'cases_new', country);
+      // });
+
+      setLineSeries(chart.current, 'cases_total', selectedCountry);
+      setLineSeries(chart.current, 'cases_active', selectedCountry);
+      setLineSeries(chart.current, 'cases_recovered', selectedCountry);
+      setColumnSeries(chart.current, 'cases_new', selectedCountry);
       // dispatch(updateAppState(STORE_KEYS.CORONAVIRUS, 'isLoading', undefined,false));
     }, 1000);
   }, [props.id]);
@@ -222,9 +227,17 @@ export default props => {
     if (props.data && Array.isArray(chart.current.data) && chart.current.data.length === 0) {
       chart.current.data = props.data;
     } else {
+      console.log(props.data, chart.current.data);
+
       am4core.array.each(chart.current.data, (dataRow, i) => {
         console.log('Data Row ' + i, dataRow);
       });
+
+      if (chart.current) {
+        chart.current.series.each(serie => {
+          serie.dataFields.valueY = props.controlPanel.selectedCountry;
+        });
+      }
     }
   }, [props.data]);
 

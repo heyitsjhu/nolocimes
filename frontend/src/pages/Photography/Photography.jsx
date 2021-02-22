@@ -52,7 +52,6 @@ export default () => {
   const images = appState[STORE_KEYS.CONTENT][STORE_KEYS.IMAGES];
 
   const openLightbox = useCallback((event, { photo, index }) => {
-    console.log(index);
     setCurrentImageIndex(index);
     setViewerIsOpen(true);
   }, []);

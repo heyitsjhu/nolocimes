@@ -2,7 +2,6 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-
 import { PARTICLE_CANVAS_MOBILE_DEFAULTS, STORE_KEYS } from 'const';
 import { useEventListener } from 'hooks/useEventListener';
 import { AppContext } from 'stores/providers/appProvider';
@@ -33,6 +32,7 @@ export default () => {
   const [ctx, setCtx] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(600);
   const [canvasHeight, setCanvasHeight] = useState(400);
+  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
@@ -216,18 +216,18 @@ export default () => {
   useEventListener('mousemove', handleMouseMove, canvas);
 
   useEffect(() => {
-    if (appState[STORE_KEYS.SITE_SETTINGS].userIsOnMobile) {
-      // dispatch(
-      //   updateAppState(
-      //     STORE_KEYS.PARTICLE_CANVAS,
-      //     undefined,
-      //     undefined,
-      //     PARTICLE_CANVAS_MOBILE_DEFAULTS
-      //   )
-      // );
+    if (isOnMobile) {
+      dispatch(
+        updateAppState(
+          STORE_KEYS.PARTICLE_CANVAS,
+          undefined,
+          undefined,
+          PARTICLE_CANVAS_MOBILE_DEFAULTS
+        )
+      );
     }
     setIsReady(true);
-  }, [dispatch, appState[STORE_KEYS.SITE_SETTINGS].userIsOnMobile]);
+  }, [dispatch, isOnMobile]);
 
   useEffect(() => {
     if (!isReady) return;

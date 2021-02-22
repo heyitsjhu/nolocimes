@@ -3,8 +3,9 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import classnames from 'classnames';
 
-import { PARTICLE_CANVAS_DEFAULTS, STORE_KEYS } from 'const';
+import { CLASSES, PARTICLE_CANVAS_DEFAULTS, STORE_KEYS } from 'const';
 import { Slider } from 'components';
 import { useCopy } from 'hooks/useCopy';
 import { useDebounce } from 'hooks/useDebounce';
@@ -16,10 +17,25 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     flexDirection: 'column',
+
+    [`&.${CLASSES.IS_MOBILE}`]: {
+      '& [class*="controlRow"]': {
+        flexDirection: 'column',
+      },
+      '& [class*="sliderContainer"]:last-child': {
+        paddingRight: theme.spacing(2),
+      },
+      '& [class*="resetButton"]': {
+        marginRight: theme.spacing(2),
+      },
+    },
   },
   controlRow: {
     display: 'flex',
     flexWrap: 'nowrap',
+    [`&.${CLASSES.IS_MOBILE}`]: {
+      flexDirection: 'column',
+    },
   },
   sliderContainer: {
     '&:not(:last-child)': {
@@ -90,6 +106,7 @@ export default () => {
   const { t } = useCopy();
   const [appState, dispatch] = useContext(AppContext);
   const [state, dispatchState] = useReducer(reducer, appState[STORE_KEYS.PARTICLE_CANVAS]);
+  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
   const debouncedAppState = useDebounce(state, 600);
 
   const ROW_ONE_ITEMS = [
@@ -140,7 +157,7 @@ export default () => {
   }, [debouncedAppState, dispatch]);
 
   return (
-    <Box className={classes.root}>
+    <Box className={classnames([classes.root, isOnMobile && CLASSES.IS_MOBILE])}>
       <Typography variant="h6">
         {t('components.ParticleCanvasControls.particleCanvasControls')}
       </Typography>
@@ -154,7 +171,7 @@ export default () => {
       ))}
 
       <Button className={classes.resetButton} variant="outlined" size="small" onClick={handleReset}>
-        {t('common.reset', { name: 'Canvas' })}
+        {t('common.reset', { name: t('common.canvas') })}
       </Button>
     </Box>
   );

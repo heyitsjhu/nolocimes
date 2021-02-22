@@ -13,6 +13,10 @@ const useStyles = makeStyles(({ breakpoints, palette, spacing, transitions }) =>
     padding: `${spacing(6)}px ${spacing(4)}px`,
     width: '100%',
     maxWidth: breakpoints.values.md,
+    '& span[class*="postDate"]': {
+      marginBottom: spacing(6),
+      textAlign: 'center',
+    },
   },
 }));
 

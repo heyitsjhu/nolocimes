@@ -27,10 +27,12 @@ export const anbuColumnDefs = {
     {
       colId: 'sender',
       colLabel: 'common.sender',
+      valueFormatter: formatHash,
     },
     {
       colId: 'recipient',
       colLabel: 'common.recipient',
+      valueFormatter: formatHash,
     },
     {
       colId: 'amount',

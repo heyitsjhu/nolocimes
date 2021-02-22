@@ -14,9 +14,13 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
   paper: {
     borderRadius: 0,
     border: shared.borderDefault,
-    borderTop: `.3125rem solid ${palette.primary.main}`,
-    backgroundColor: palette.grey[1300],
-    boxShadow: '0.125rem 0.375rem 0.5rem 0 rgba(0,0,0,0.6)',
+    borderTop: shared.borderSignature,
+    backgroundColor: palette.background.default,
+  },
+  dialogActions: {
+    '& > :not(:first-child)': {
+      marginLeft: spacing(2),
+    },
   },
   marginAndPadding: {
     marginLeft: spacing(2),
@@ -90,7 +94,9 @@ export default ({
       )}
       {renderDialogContent()}
       {dialogActions && (
-        <DialogActions className={classes.marginAndPadding}>{dialogActions()}</DialogActions>
+        <DialogActions className={classnames([classes.dialogActions, classes.marginAndPadding])}>
+          {dialogActions()}
+        </DialogActions>
       )}
     </Dialog>
   );

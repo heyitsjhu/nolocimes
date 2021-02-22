@@ -1,10 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Backdrop from '@material-ui/core/Backdrop';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
-import Fade from '@material-ui/core/Fade';
-import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import DomainIcon from '@material-ui/icons/Domain';
 import EmailIcon from '@material-ui/icons/Email';
@@ -16,6 +13,7 @@ import { Dialog, IconButton, SiteLogo } from 'components';
 import { LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
+import { getElId } from 'utils';
 
 const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex }) => ({
   businessCardLayout: {
@@ -30,13 +28,14 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
     maxHeight: '66vh !important',
     zIndex: zIndex.businessCard,
     [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
-      maxWidth: '66vw',
+      maxWidth: '66vw !important',
     },
   },
   logoTitleContainer: {
     [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
       display: 'flex',
       alignItems: 'flex-end',
+      width: '100%',
     },
   },
   contentContainer: {
@@ -58,8 +57,8 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
     marginBottom: 'auto',
     padding: 0,
     [`${breakpoints.down('sm')} and (orientation: landscape)`]: {
-      marginLeft: spacing(3),
-      marginTop: spacing(2),
+      marginLeft: spacing(4),
+      marginTop: spacing(1) / 2,
     },
   },
   title: {
@@ -72,12 +71,12 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
   contentText: {
     display: 'flex',
     alignItems: 'center',
-    color: palette.grey[300],
+    // color: palette.grey[300],
     letterSpacing: '.05rem',
     lineHeight: 1.65,
   },
   name: {
-    color: palette.grey[300],
+    // color: palette.grey[300],
     textTransform: 'uppercase',
     letterSpacing: '0.2rem',
     lineHeight: 1.1,
@@ -89,7 +88,7 @@ export default () => {
   const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
   const [open, setOpen] = useState(false);
-  const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isInteractive, isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const openBusinessCard = () => setOpen(true);
   const closeBusinessCard = () => setOpen(false);
@@ -104,15 +103,15 @@ export default () => {
       </IconButton>
 
       <Dialog
-        id="business-card"
+        id={getElId('modal', 'business-card')}
         open={open}
         PaperProps={{ className: classes.businessCardLayout }}
         onClose={closeBusinessCard}
       >
         <Box className={classes.logoTitleContainer}>
-          <SiteLogo className={classes.siteLogo} size={100} />
+          <SiteLogo className={classes.siteLogo} size={isOnMobile ? 75 : 100} />
           <Box className={classes.titleContainer}>
-            <Typography className={classes.name} component="h2" variant="h2">
+            <Typography className={classes.name} color="textSecondary" component="h2" variant="h2">
               {t('components.BusinessCard.name')}
             </Typography>
             <Typography className={classes.title} component="span" variant="body2">
@@ -142,12 +141,22 @@ export default () => {
             aria-label={t('a11y.ariaLabel.businessCardEmail')}
             href={`mailto:${t('components.BusinessCard.emailAddress')}`}
           >
-            <Typography className={classes.contentText} component="span" variant="body2">
+            <Typography
+              className={classes.contentText}
+              color="textSecondary"
+              component="span"
+              variant="body2"
+            >
               <EmailIcon className={classes.contentIcon} />
               {t('components.BusinessCard.emailAddress')}
             </Typography>
           </Link>
-          <Typography className={classes.contentText} component="span" variant="body2">
+          <Typography
+            className={classes.contentText}
+            color="textSecondary"
+            component="span"
+            variant="body2"
+          >
             <DomainIcon className={classes.contentIcon} />
             {t('components.BusinessCard.companyName')}
           </Typography>

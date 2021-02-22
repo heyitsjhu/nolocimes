@@ -19,11 +19,7 @@ const useStyles = makeStyles(({ spacing, zIndex }) => ({
     zIndex: zIndex.pageLayout,
   },
   pageActionsContainer: {
-    display: 'flex',
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    padding: spacing(1) / 2,
+    width: '100%',
     zIndex: zIndex.pageLayoutPageActions,
   },
   progressBar: {

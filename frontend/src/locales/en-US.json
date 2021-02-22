@@ -2,6 +2,7 @@
   "translation": {
     "a11y": {
       "ariaLabel": {
+        "anbuButtonGroup": "Button group for Anbu blockchain demo",
         "businessCardButton": "Show digital business card",
         "businessCardEmail": "Reach out to Johnny via email",
         "githubSourceUrl": "View source code on Github",
@@ -9,6 +10,7 @@
         "linkedInUrl": "Visit Johnny's Linkedin profile",
         "mobileMenuButton": "Open mobile navigation menu",
         "navigateToPage": "Navigate to {{name}} page",
+        "reportBugButton": "Open the bug report form",
         "siteSettingsButton": "Open site settings",
         "styleGuideButton": "View the site's style guide"
       }
@@ -16,19 +18,27 @@
     "common": {
       "add": "Add",
       "amount": "Amount",
+      "block": "Block",
+      "blockSize": "Block Size",
       "cancel": "Cancel",
+      "canvas": "Canvas",
       "clear": "Clear",
       "continue": "Continue",
+      "country": "Country",
       "create": "Create",
       "darkMode": "Dark Mode",
       "date": "Date",
+      "difficulty": "Difficulty",
       "dismiss": "Dismiss",
       "hash": "Hash",
+      "jhuSoftwareEngineer": "Johnny Hu - Software Engineer",
       "mine": "Mine",
+      "miningReward": "Mining Reward",
       "nevermind": "Nevermind",
       "next": "Next",
       "previous": "Previous",
       "previousHash": "Previous Hash",
+      "readMore": "Read More",
       "recipient": "Recipient",
       "reset": "Reset {{name}}",
       "sender": "Sender"
@@ -40,15 +50,17 @@
         "name": "Johnny Hu",
         "title": "Software Engineer"
       },
-      "CookiesBanner": {
-        "alertMessage": "This site uses browser cookies to track the state of the application in order to improve your experience during your time here. You're free to manage this via your browser settings at any time. To learn more about how I use the cookies, please see the site's cookies policy."
+      "PrivacyPolicy": {
+        "alertMessage": "This site uses browser cookies to track the state of the application in order to improve your experience during your time here. You're free to manage this via your browser settings at any time. To learn more about how I use the cookies, please see the site's <1>cookie policy</1>."
       },
       "Footer": {
-        "copyright": "© 2020-2021 Dreamist Labs"
+        "copyright": "© 2020-2021 Dreamist Labs",
+        "copyrightShort": "© 2021 Dreamist Labs",
+        "privacyPolicy": "Privacy Policy"
       },
       "GitHubExternalLink": {
-        "modalTitle": "You are now leaving the website",
-        "modalDescription": "By continuing, you will be taken to this project's GitHub repository in a new browser tab."
+        "modalTitle": "Are you sure you want to leave?",
+        "modalDescription": "Don't worry, you can always return to this tab afterwards. By continuing, you'll be taken to my GitHub repository for this project."
       },
       "Helmet": {
         "anbuBlockchain": {
@@ -99,7 +111,7 @@
         "slowMultiplier": "Slow Multiplier"
       },
       "Table": {
-        "noData": "No data to display."
+        "noData": "No data to display"
       }
     },
     "pages": {
@@ -115,10 +127,22 @@
           "createBlockchain": "Create Blockchain",
           "mineTransactions": "Mine Transactions"
         },
+        "narrative": {
+          "1": "<i>First</i> sentence. ^1000, &amp; a ^1000 second sentence.",
+          "2": "<i>third</i> sentence. ^1000, &amp; a ^1000 fourth sentence."
+        },
         "table": {
           "blocks": "Anbu Blocks",
           "transactions": "Anbu Transactions"
-        }
+        },
+        "viewBalance": "View Balance"
+      },
+      "Blog": {
+        "mainDescription": "My mind often travels at a million miles per second. Theres never really a shortage of thoughts going on up there. Writing them down though is a different story. And while Ive set this section aside to encourage myself to do so, as you can see, its still very much a work in progress. So, stay tuned...",
+        "emptyPostsListing": "Hmm. It seems I haven't been writing much. There aren't any posts here. Please check back later."
+      },
+      "BlogPost": {
+        "backToBlog": "To Blog"
       },
       "PageNotFound": {
         "missingDestination": "Uh oh, looks like this destination is missing. Was it a typo?",
@@ -127,7 +151,9 @@
       }
     },
     "tooltips": {
-      "githubIconButton": "View repo on GitHub"
+      "githubIconButton": "View repo on GitHub",
+      "reportBugButton": "Report a bug",
+      "styleGuideButton": "View project style guide"
     }
   }
 }

@@ -88,13 +88,13 @@ const animateInLogoTransitions = () => [
   },
 ];
 
-const animateParticleCanvas = (startDuration = 7000, offset = '-=3500') => [
+const animateParticleCanvas = (startDuration = 7000, offset = '-=3000') => [
   {
     config: {
       targets: PARTICLE_CANVAS,
       opacity: 1,
       duration: startDuration,
-      delay: 500,
+      delay: 1000,
       easing: 'easeInQuad',
     },
   },
@@ -106,7 +106,7 @@ const animateParticleCanvas = (startDuration = 7000, offset = '-=3500') => [
       duration: 5000,
       easing: 'easeInQuad',
     },
-    offset: offset,
+    offset,
   },
   {
     config: {
@@ -120,13 +120,13 @@ const animateParticleCanvas = (startDuration = 7000, offset = '-=3500') => [
   },
 ];
 
-const animateHeaderFooter = () => ({
+const animateHeaderFooter = (startDuration = 5000, offset = '-=3500') => ({
   config: {
     targets: ['header', 'footer', `.${getElClass('comp', 'breadcrumb')}`],
     opacity: 1,
-    duration: 5000,
+    duration: startDuration,
   },
-  offset: '-=3500',
+  offset,
 });
 
 const fullIntroFrames = [
@@ -135,7 +135,7 @@ const fullIntroFrames = [
   animateHeaderFooter(),
 ];
 
-const shortIntroFrames = [...animateParticleCanvas(1000), animateHeaderFooter()];
+const shortIntroFrames = [...animateParticleCanvas(1000), animateHeaderFooter(1500, '-=3750')];
 
 export default (opts = {}) => {
   const timeline = anime.timeline({

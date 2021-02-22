@@ -2,20 +2,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 import App from './App';
 import ApplicationProviders from 'stores';
-import theme from './theme';
+import ThemeProvider from 'stores/providers/themeProvider';
 
 import reportWebVitals from './reportWebVitals';
-import './index.css';
 
 ReactDOM.render(
   <React.StrictMode>
     <ApplicationProviders>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <BrowserRouter>
           <CssBaseline />
           <App />

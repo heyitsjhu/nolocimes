@@ -17,6 +17,7 @@ export { default as NotificationBanner } from './NotificationBanner/Notification
 export { default as ParticleCanvas } from './ParticleCanvas/ParticleCanvas';
 export { default as ProgressBar } from './ProgressBar/ProgressBar';
 export { default as Post } from './Post/Post';
+export { default as ReportBug } from './ReportBug/ReportBug';
 export { default as Select } from './Select/Select';
 export { default as SiteLogo } from './SiteLogo/SiteLogo';
 export { default as SiteSettingsMenu } from './SiteSettingsMenu/SiteSettingsMenu';

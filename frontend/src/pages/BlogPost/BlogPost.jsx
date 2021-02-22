@@ -1,12 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Box, ButtonBase, Typography } from '@material-ui/core';
-import classnames from 'classnames';
+import { Box, Link, Typography } from '@material-ui/core';
 import ArrowRightAltRoundedIcon from '@material-ui/icons/ArrowRightAltRounded';
-import Link from '@material-ui/core/Link';
+import classnames from 'classnames';
 
-import { BlogExcerpt, BlogHero, Helmet, Post } from 'components';
+import { BlogHero, Helmet, Post } from 'components';
 import { ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
@@ -15,7 +14,7 @@ import * as PostUtils from 'utils/postHelpers';
 
 import { PageLayout } from '..';
 
-const useStyles = makeStyles(({ palette, spacing }) => ({
+const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   blogPostLayout: {
     padding: '0 !important',
   },
@@ -38,22 +37,22 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     justifyContent: 'space-between',
     margin: spacing(4),
     paddingTop: spacing(2),
-    paddingBottom: spacing(2),
+    paddingBottom: spacing(4),
     borderTop: `2px solid ${palette.primary.main}`,
   },
   buttonContainer: {
     display: 'flex',
     flexDirection: 'column',
     color: palette.grey[600],
+    transition: `all ${transitions.duration.longest}ms ${transitions.easing.easeInOut}`,
+    '&:hover': {
+      color: palette.grey[400],
+    },
   },
   buttonOverline: {
-    fontSize: '0.65rem',
-    fontWeight: 300,
-    lineHeight: 1.6,
-    color: palette.primary.main,
+    letterSpacing: '1.1px',
+    lineHeight: 1.8,
   },
-
-  // button: { fontSize: 14, textTransform: 'uppercase' },
   previous: { alignItems: 'flex-start' },
   next: { alignItems: 'flex-end' },
 }));
@@ -66,7 +65,7 @@ export default props => {
   const [appState, dispatch] = useContext(AppContext);
   const [post, setPost] = useState(undefined);
   const [postIndex, setPostIndex] = useState(null);
-  const { assets, posts } = appState.content;
+  const { assets, posts } = appState[STORE_KEYS.CONTENT];
   const heroImageUrl = PostUtils.getPostHeroImageUrl(post);
 
   const setPostFromURL = () => {
@@ -80,49 +79,67 @@ export default props => {
   };
 
   useEffect(() => {
-    if (posts && posts.length === 0) {
+    if (assets.length === 0) {
       fetchContentAssets().then(dispatch);
+    }
+    if (posts.length === 0) {
       fetchContentPosts().then(dispatch);
     }
   }, []);
 
   useEffect(() => {
     setPostFromURL();
-  }, [dispatch, posts]);
+  }, [location.pathname, posts]);
 
   const handleClick = post => {
-    const postSlug = PostUtils.getPostSlug(post);
-    history.push(`${ROUTES.JOTTINGPAD}/${postSlug.value}`);
+    if (post) {
+      const postSlug = PostUtils.getPostSlug(post);
+      history.push(`${ROUTES.BLOG}/${postSlug}`);
+    } else {
+      history.push(ROUTES.BLOG);
+    }
   };
 
   const renderButton = (type, post) => {
     const postTitle = post && PostUtils.getPostTitle(post);
+
     return (
       <Box className={classnames([classes.buttonContainer, classes[type.toLowerCase()]])}>
-        <Typography className={classes.buttonOverline} variant="overline">
+        <Typography className={classes.buttonOverline} color="primary" variant="overline">
           {type}
         </Typography>
-        <ButtonBase className={classes.button} disableRipple onClick={() => handleClick(post)}>
-          {postTitle.value}
-        </ButtonBase>
+        <Link
+          className={classes.button}
+          color="textSecondary"
+          variant="overline"
+          onClick={e => handleClick(post)}
+        >
+          {postTitle}
+        </Link>
       </Box>
     );
   };
 
   return (
     <PageLayout pageName="blogPost" pageLayoutClassName={classes.blogPostLayout}>
+      {typeof post !== 'undefined' && (
+        <Helmet
+          title={`${post.fields.title} | ${t('common.jhuSoftwareEngineer')}`}
+          meta={[{ name: 'description', content: post.fields.description }]}
+        />
+      )}
       <BlogHero srcUrl={heroImageUrl} />
       <Box className={classes.backButtonContainer}>
-        <ArrowRightAltRoundedIcon className={classes.arrowIcon} fontSize={'small'} />
-        <Link href={`${ROUTES.BLOG}`} color="textSecondary" variant="overline">
-          To Blog
+        <ArrowRightAltRoundedIcon className={classes.arrowIcon} fontSize="small" />
+        <Link color="textSecondary" variant="overline" onClick={() => handleClick()}>
+          {t('pages.BlogPost.backToBlog')}
         </Link>
       </Box>
       {typeof post !== 'undefined' && <Post post={post} />}
       <Box className={classes.paginationContainer}>
         {posts[postIndex + 1] && renderButton(t('common.previous'), posts[postIndex + 1])}
         <Box />
-        {posts[postIndex - 1] && renderButton(t('comon.next'), posts[postIndex - 1])}
+        {posts[postIndex - 1] && renderButton(t('common.next'), posts[postIndex - 1])}
       </Box>
     </PageLayout>
   );

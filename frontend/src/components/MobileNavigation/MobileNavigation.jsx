@@ -11,6 +11,8 @@ import ListItemText from '@material-ui/core/ListItemText';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import CreateIcon from '@material-ui/icons/Create';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
+import ImportExportIcon from '@material-ui/icons/ImportExport';
 import LabelOffIcon from '@material-ui/icons/LabelOff';
 import MenuIcon from '@material-ui/icons/Menu';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
@@ -29,12 +31,14 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
 }));
 
 const ICON_MAPPING = {
+  anbu: () => <DeveloperBoardIcon fontSize="small" />,
   blog: () => <CreateIcon fontSize="small" />,
   candlemonkeys: () => <DashboardIcon fontSize="small" />,
   coronavirus: () => <TimelineIcon fontSize="small" />,
   nolocimes: () => <AccountTreeIcon fontSize="small" />,
   none: () => <LabelOffIcon fontSize="small" />,
   photography: () => <PhotoLibraryIcon fontSize="small" />,
+  poweredbyscroll: () => <ImportExportIcon fontSize="small" />,
 };
 
 export default props => {

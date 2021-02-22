@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
@@ -10,13 +11,14 @@ import TableRow from '@material-ui/core/TableRow';
 import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
 
+import { Tooltip } from 'components';
 import { useCopy } from 'hooks/useCopy';
 
 const useStyles = makeStyles(({ palette, shared }) => ({
   tableContainer: {
     height: '100%',
     width: '100%',
-    backgroundColor: palette.overlay.dark,
+    backgroundColor: fade(palette.background.default, 0.6),
     '-ms-overflow-style': 'none',
     'scrollbar-width': 'none',
     '&::-webkit-scrollbar': {
@@ -35,6 +37,9 @@ const useStyles = makeStyles(({ palette, shared }) => ({
     '& .MuiTableCell-root': {
       borderBottom: shared.borderDefault,
     },
+    '& .MuiTableCell-stickyHeader': {
+      backgroundColor: fade(palette.background.default, 0.9),
+    },
   },
   cellStyles: {
     display: 'block',
@@ -44,6 +49,12 @@ const useStyles = makeStyles(({ palette, shared }) => ({
   },
   noDataTable: {
     height: '100%',
+  },
+  clickable: {
+    '&:hover': {
+      backgroundColor: palette.background.paper,
+      cursor: 'pointer',
+    },
   },
 }));
 
@@ -55,6 +66,7 @@ export default ({
   rowData,
   size,
   title,
+  tooltipRenderer,
   TableHeadProps,
   TableRowProps,
   ...otherTableProps
@@ -85,19 +97,41 @@ export default ({
     );
   };
 
+  const renderRowWithTooltip = (row, index) => {
+    return (
+      <Tooltip
+        interactive
+        key={`table-row-tooltip-${index}`}
+        placement="top"
+        title={tooltipRenderer(row)}
+      >
+        <WrappedTableRow row={row} index={index} />
+      </Tooltip>
+    );
+  };
+
+  const WrappedTableRow = React.forwardRef(({ row, index, ...props }, ref) => {
+    return (
+      <TableRow
+        {...props}
+        className={classnames([tooltipRenderer && classes.clickable, props.className])}
+        key={`table-body-row-${index}`}
+        ref={ref}
+      >
+        {columns.map((column, j) => renderTableCell(column, row, j))}
+      </TableRow>
+    );
+  });
+
   const renderBodyRows = () => {
     return rowData.length ? (
-      rowData.map((row, i) => (
-        <TableRow key={`table-body-row-${i}`}>
-          {columns.map((column, j) => {
-            return renderTableCell(column, row, j);
-          })}
-        </TableRow>
-      ))
+      rowData.map((row, i) =>
+        tooltipRenderer ? renderRowWithTooltip(row, i) : <WrappedTableRow row={row} index={i} />
+      )
     ) : (
       <TableRow key={`table-body-row-0`}>
         <TableCell align="center" colSpan={columns.length}>
-          {t('components.Table.noData')}
+          <i>{t('components.Table.noData')}</i>
         </TableCell>
       </TableRow>
     );

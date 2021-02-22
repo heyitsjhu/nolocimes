@@ -19,6 +19,7 @@ export const initialState = {
       [STORE_KEYS.CURRENT_STEP]: 1,
       [STORE_KEYS.DIFFICULTY]: 1,
       [STORE_KEYS.MINING_REWARD]: 100,
+      [STORE_KEYS.NARRATIVE_STEP]: 1,
     },
   },
   [STORE_KEYS.BLOG]: { activeTag: 'all', tags: ['all', 'tag1', 'tag2', 'tag3'] },
@@ -26,14 +27,9 @@ export const initialState = {
     [STORE_KEYS.ASSETS]: [],
     [STORE_KEYS.IMAGES]: [],
     [STORE_KEYS.POSTS]: [],
+    [STORE_KEYS.TAGS]: [],
   },
-  [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
-  [STORE_KEYS.NOTIFICATION]: {
-    buttonText: null,
-    message: null,
-    severity: 'info',
-    show: false,
-  },
+
   [STORE_KEYS.CORONAVIRUS]: {
     [STORE_KEYS.CONTROL_PANEL]: {
       chartMetric: 'cases_new',
@@ -60,12 +56,19 @@ export const initialState = {
     [STORE_KEYS.IS_LOADING]: false,
     [STORE_KEYS.LAST_UPDATED]: null,
   },
+  [STORE_KEYS.NOTIFICATION]: {
+    buttonText: null,
+    message: null,
+    severity: 'info',
+    show: false,
+  },
+  [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: {
-    cookiesAccepted: false,
-    darkMode: true,
-    introViewed: false,
-    isInteractive: false,
-    userIsOnMobile: false,
+    [STORE_KEYS.ACCEPTED_COOKIES]: false,
+    [STORE_KEYS.IS_DARK_MODE]: true,
+    [STORE_KEYS.IS_INTERACTIVE]: false,
+    [STORE_KEYS.IS_ON_MOBILE]: false,
+    [STORE_KEYS.VIEWED_INTRO]: false,
   },
 };
 
@@ -83,6 +86,7 @@ const staticState = {
       [STORE_KEYS.CURRENT_STEP]: 1,
       [STORE_KEYS.DIFFICULTY]: 1,
       [STORE_KEYS.MINING_REWARD]: 100,
+      [STORE_KEYS.NARRATIVE_STEP]: 1,
     },
   },
   [STORE_KEYS.BLOG]: { activeTag: 'all', tags: ['all', 'tag1', 'tag2', 'tag3'] },
@@ -90,11 +94,13 @@ const staticState = {
     [STORE_KEYS.ASSETS]: [],
     [STORE_KEYS.IMAGES]: [],
     [STORE_KEYS.POSTS]: [],
+    [STORE_KEYS.TAGS]: [],
   },
   [STORE_KEYS.CORONAVIRUS]: {
     [STORE_KEYS.CONTROL_PANEL]: {
       chartMetric: 'cases_new',
       countriesToFetch: [],
+      selectedCountry: 'USA',
       selectedCountries: ['USA'],
       showGlobalTotals: false,
     },
@@ -111,11 +117,11 @@ const staticState = {
   },
   [STORE_KEYS.PARTICLE_CANVAS]: PARTICLE_CANVAS_DEFAULTS,
   [STORE_KEYS.SITE_SETTINGS]: {
-    cookiesAccepted: false,
-    darkMode: true,
-    introViewed: false,
-    isInteractive: false,
-    userIsOnMobile: false,
+    [STORE_KEYS.ACCEPTED_COOKIES]: false,
+    [STORE_KEYS.IS_DARK_MODE]: true,
+    [STORE_KEYS.IS_INTERACTIVE]: false,
+    [STORE_KEYS.IS_ON_MOBILE]: false,
+    [STORE_KEYS.VIEWED_INTRO]: false,
   },
 };
 
@@ -160,7 +166,6 @@ const reducer = (state, action) => {
 
       // update client's local storage object if relevant data changes
       if (action.firstLevelKey === STORE_KEYS.SITE_SETTINGS) {
-        console.log('ajsfklajsfk');
         localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newState[STORE_KEYS.SITE_SETTINGS]));
       }
       break;
