@@ -7,7 +7,9 @@ const STORE_KEYS = {
   BLOCK_SIZE: 'blockSize',
   BLOG: 'blog',
   BUSINESS_CARD: 'businessCard',
+  CANDLE_MONKEYS: 'candleMonkeys',
   CHAIN: 'chain',
+  COMPANY: 'company',
   CONTENT: 'content',
   CONTROL_PANEL: 'controlPanel',
   CORONAVIRUS: 'coronavirus',
@@ -21,6 +23,7 @@ const STORE_KEYS = {
   IS_ON_MOBILE: 'isOnMobile',
   LANGUAGE: 'language',
   LAST_UPDATED: 'lastUpdated',
+  LAYOUT_DEFAULTS: 'layoutDefaults',
   IMAGES: 'images',
   MAP_COUNTRIES: 'mapCountries',
   MINING_REWARD: 'miningReward',
@@ -34,9 +37,11 @@ const STORE_KEYS = {
   SETTINGS: 'settings',
   SPLASH_LOGO: 'splashLogo',
   STATISTICS: 'statistics',
+  STOCK_DATA: 'stockData',
   TAGS: 'tags',
   TRANSACTIONS_QUEUE: 'transactionsQueue',
   VIEWED_INTRO: 'viewedIntro',
+  WIDGET_DEFAULTS: 'widgetDefaults',
 };
 
 export default STORE_KEYS;

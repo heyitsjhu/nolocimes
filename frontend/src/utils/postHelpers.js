@@ -3,11 +3,11 @@ export const getPostBody = post => {
 };
 
 export const getPostDate = post => {
-  return post ? post.fields.publishDate : post;
+  return post ? post.fields.publishDate : null;
 };
 
 export const getPostDescription = post => {
-  return post ? post.fields.description : post;
+  return post ? post.fields.description : null;
 };
 
 export const getPostHeroImageUrl = post => {
@@ -19,13 +19,13 @@ export const getPostHeroImageUrl = post => {
 };
 
 export const getPostSlug = post => {
-  return post ? post.fields.slug : post;
+  return post ? post.fields.slug : null;
 };
 
 export const getPostTags = post => {
-  return post ? post.fields.tags : post;
+  return post ? post.fields.tags : null;
 };
 
 export const getPostTitle = post => {
-  return post ? post.fields.title : post;
+  return post ? post.fields.title : null;
 };

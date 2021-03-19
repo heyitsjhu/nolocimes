@@ -18,6 +18,12 @@ export const capitalize = str => {
  * @param {*} decimals
  */
 export const getRandomNumber = (length, decimals = 3) => {
-  const len = length || Math.floor(Math.random() * 5);
-  return (Math.random() * Math.pow(10, len)).toFixed(decimals);
+  const len = length || Math.ceil(Math.random() * 5);
+  let num = Math.random();
+
+  while (num < 0.1) {
+    num = Math.random();
+  }
+
+  return (num * Math.pow(10, len)).toFixed(decimals);
 };

@@ -10,9 +10,9 @@ export default {
   CONTENTFUL_ACCESS_TOKEN: IS_PRODUCTION
     ? keys.contentfulAccessToken
     : keys.contentfulAccessTokenPreview,
-  // iexBaseUrl: 'https://cloud.iexapis.com/stable',
-  iexBaseUrl: keys.iexApiBaseUrl,
-  iexToken: keys.iexClientPublishable,
+  // IEX_BASE_URL: 'https://cloud.iexapis.com/stable',
+  IEX_BASE_URL: keys.iexApiBaseUrl,
+  IEX_TOKEN: keys.iexClientPublishable,
   RAPIDAPI_COVID_DATA_URL: keys.rapidApiCovidDataUrl,
   RAPIDAPI_COVID_COUNTRY_LIST_URL: keys.rapidApiCovidCountryListUrl,
   RAPIDAPI_KEY: keys.rapidApiKey,

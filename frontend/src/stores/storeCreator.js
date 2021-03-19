@@ -9,7 +9,7 @@ import ReducerLogger from 'use-reducer-logger';
  * @param {Object} [staticState]
  * @returns {Array} [Context, Provider]
  */
-const createStore = (initialState, reducer, staticState = undefined) => {
+const createStore = (displayName, initialState, reducer, staticState = undefined) => {
   const isDev = process.env.NODE_ENV === 'development';
   const storeState = isDev && staticState ? staticState : initialState;
 
@@ -21,7 +21,11 @@ const createStore = (initialState, reducer, staticState = undefined) => {
       const appReducer = process.env.NODE_ENV === 'development' ? ReducerLogger(reducer) : reducer;
       const [state, dispatch] = useReducer(appReducer, storeState);
 
-      return <Context.Provider value={[state, dispatch]}>{children}</Context.Provider>;
+      return (
+        <Context.Provider displayName value={[state, dispatch]}>
+          {children}
+        </Context.Provider>
+      );
     },
   ];
 };

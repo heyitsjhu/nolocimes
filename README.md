@@ -78,6 +78,7 @@ If the test suites begin failing, especially in tests for files you didn't modif
 - [Jest manual mock for themeprovider](https://stackoverflow.com/questions/58627085/jest-manual-mock-for-themeprovider)
 - [Mocking different values for the same module using Jest](https://medium.com/trabe/mocking-different-values-for-the-same-module-using-jest-a7b8d358d78b)
 - [Using requestAnimationFrame with React Hooks](https://css-tricks.com/using-requestanimationframe-with-react-hooks/)
+- [Using Feature Toggle in a React application (part 1)](https://medium.com/ecovadis-engineering/using-feature-toggle-in-a-react-application-part-1-ee34a0e72cf4)
 
 #### Blockchain
 

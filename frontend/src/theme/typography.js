@@ -5,11 +5,16 @@ const fontWeightLight = 300;
 const fontWeightRegular = 400;
 const fontWeightMedium = 600;
 const fontWeightBold = 800;
+const fontSizeDefault = 16;
+const fontSizeSmall = '0.875rem';
+const fontSizeSmallest = '0.75rem';
 
 export default {
   htmlFontSize: 16,
   fontFamily: ['Nunito Sans', 'sans-serif'].join(', '),
-  fontSize: 16,
+  fontSize: fontSizeDefault,
+  fontSizeSmall,
+  fontSizeSmallest,
   fontWeightLight,
   fontWeightRegular,
   fontWeightMedium,
@@ -68,26 +73,26 @@ export default {
     letterSpacing: '0.00938em',
   },
   body2: {
-    fontSize: '0.875rem',
+    fontSize: fontSizeSmall,
     fontWeight: fontWeightRegular,
     lineHeight: 1.43,
     letterSpacing: '0.01071em',
   },
   button: {
-    fontSize: '0.875rem',
+    fontSize: fontSizeSmall,
     fontWeight: fontWeightMedium,
     lineHeight: 1.75,
     letterSpacing: '0.02857em',
     textTransform: 'none',
   },
   caption: {
-    fontSize: '0.75rem',
+    fontSize: fontSizeSmallest,
     fontWeight: fontWeightRegular,
     lineHeight: 1.66,
     letterSpacing: '0.03333em',
   },
   overline: {
-    fontSize: '0.75rem',
+    fontSize: fontSizeSmallest,
     fontWeight: fontWeightBold,
     color: greys[500],
     letterSpacing: '0.05em',

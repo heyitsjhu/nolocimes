@@ -20,7 +20,7 @@ describe('dom - getElClass', () => {
   test('it throws an error if name is empty', () => {
     expect(() => {
       Utils.getElClass('comp');
-    }).toThrow(DLError);
+    }).toThrow();
   });
 });
 
@@ -78,6 +78,30 @@ describe('formatters - formatThemeProperty', () => {
   });
 });
 
+describe('formatters - formatHash', () => {
+  test('it returns a hash trimmed to the length supplied', () => {
+    const hash1 = Utils.formatHash('jkl342ijo234890ger8hj903490u');
+    const hash2 = Utils.formatHash('owe98453jkhbfd8s9u345fg34n56', 12);
+    const hash3 = Utils.formatHash('vier92345iohger0989drge34s34', 5);
+    const hash4 = Utils.formatHash();
+
+    expect(hash1).toMatch('jkl342ij');
+    expect(hash2).toMatch('owe98453jkhb');
+    expect(hash3).toMatch('vier9');
+    expect(hash4).toMatch('-');
+  });
+});
+
+describe('formatters - formatTimestamp', () => {
+  test('it formats a timestamp correctly using luxon', () => {
+    const datetime1 = Utils.formatTimestamp(1616104167413);
+    const datetime2 = Utils.formatTimestamp(1616104207375);
+
+    expect(datetime1).toMatch('Mar 18, 2021, 2:49:27 PM');
+    expect(datetime2).toMatch('Mar 18, 2021, 2:50:07 PM');
+  });
+});
+
 describe('log - logging', () => {
   test('console.debug outputs expected message through logger', () => {
     const message = 'this is a debug log message';
@@ -116,6 +140,118 @@ describe('log - logging', () => {
   });
 });
 
+describe('postHelpers - getPostBody', () => {
+  test('it returns the content of the post', () => {
+    const content = 'This is the body content';
+    const post = { fields: { body: { content } } };
+    const result = Utils.getPostBody(post);
+
+    expect(result).toStrictEqual(content);
+  });
+
+  test('it returns null if no post if found', () => {
+    const result = Utils.getPostBody();
+
+    expect(result).toStrictEqual(null);
+  });
+});
+
+describe('postHelpers - getPostDate', () => {
+  test('it returns the publish date of the post', () => {
+    const publishDate = '2021-03-18';
+    const post = { fields: { publishDate } };
+    const result = Utils.getPostDate(post);
+
+    expect(result).toStrictEqual(publishDate);
+  });
+  test('it returns null if no post if found', () => {
+    const result = Utils.getPostDate();
+
+    expect(result).toStrictEqual(null);
+  });
+});
+
+describe('postHelpers - getPostDescription', () => {
+  test('it returns the description of the post', () => {
+    const description = "This is a post's description";
+    const post = { fields: { description } };
+    const result = Utils.getPostDescription(post);
+
+    expect(result).toStrictEqual(description);
+  });
+
+  test('it returns null if no post if found', () => {
+    const result = Utils.getPostDescription();
+
+    expect(result).toStrictEqual(null);
+  });
+});
+
+describe('postHelpers - getPostHeroImageUrl', () => {
+  test('it returns the hero image url of the post', () => {
+    const url = 'http://a.test.url';
+    const post = { fields: { heroImage: { fields: { file: { url } } } } };
+    const result = Utils.getPostHeroImageUrl(post);
+
+    expect(result).toStrictEqual(url);
+  });
+
+  test('it returns null if no hero image is found', () => {
+    const post = { fields: { noHeroImage: {} } };
+    const result = Utils.getPostHeroImageUrl(post);
+
+    expect(result).toStrictEqual(null);
+  });
+});
+
+describe('postHelpers - getPostSlug', () => {
+  test('it returns the url slug of the post', () => {
+    const slug = 'this-is-a-slug';
+    const post = { fields: { slug } };
+    const result = Utils.getPostSlug(post);
+
+    expect(result).toStrictEqual(slug);
+  });
+
+  test('it returns null if no post if found', () => {
+    const result = Utils.getPostSlug();
+
+    expect(result).toStrictEqual(null);
+  });
+});
+
+describe('postHelpers - getPostTags', () => {
+  test('it returns the url slug of the post', () => {
+    const tags = ['these', 'are', 'tags'];
+    const post = { fields: { tags } };
+    const result = Utils.getPostTags(post);
+
+    expect(result).toStrictEqual(tags);
+  });
+
+  test('it returns null if no post if found', () => {
+    const result = Utils.getPostTags();
+
+    expect(result).toStrictEqual(null);
+  });
+});
+
+describe('postHelpers - getPostTitle', () => {
+  test('it returns the title of the post', () => {
+    const title = 'This is the Post Title';
+    const post = { fields: { title } };
+    const result = Utils.getPostTitle(post);
+
+    expect(result).toStrictEqual(title);
+  });
+
+  test('it returns null if no post if found', () => {
+    const result = Utils.getPostTitle();
+
+    expect(result).toStrictEqual(null);
+  });
+});
+
 describe('rfdc - deepClone', () => {
   test('it returns a new deep cloned object', () => {
     const testObj = {
@@ -144,5 +280,31 @@ describe('utils - capitalize', () => {
     const str = Utils.capitalize('');
 
     expect(str).toEqual('');
+  });
+});
+
+describe('utils - getRandomNumber', () => {
+  test('it returns a random number with the given length', () => {
+    const str1 = Utils.getRandomNumber(2, 0);
+    const str2 = Utils.getRandomNumber(4, 0);
+    const str3 = Utils.getRandomNumber(9, 0);
+    const str4 = Utils.getRandomNumber(null, 0);
+
+    expect(str1).toMatch(/\d{2}/);
+    expect(str2).toMatch(/\d{4}/);
+    expect(str3).toMatch(/\d{9}/);
+    expect(str4).toMatch(/\d{1,5}/);
+  });
+
+  test('it returns a random number with the given length and decimals', () => {
+    const str1 = Utils.getRandomNumber(4, 4);
+    const str2 = Utils.getRandomNumber(4, 1);
+    const str3 = Utils.getRandomNumber(4, 9);
+    const str4 = Utils.getRandomNumber(4);
+
+    expect(str1).toMatch(/\d{4}\.(\d{4})/);
+    expect(str2).toMatch(/\d{4}\.(\d{1})/);
+    expect(str3).toMatch(/\d{4}\.(\d{9})/);
+    expect(str4).toMatch(/\d{4}\.(\d{3})/);
   });
 });

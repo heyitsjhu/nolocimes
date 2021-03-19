@@ -45,6 +45,7 @@ import keys from './config/keys';
 import anbuRoutes from './routes/anbuRoutes';
 import contentfulRoutes from './routes/contentfulRoutes';
 import covidRoutes from './routes/covidRoutes';
+import iexRoutes from './routes/iexRoutes';
 // import './services/passport';
 // import C19Api from './api/covidApi';
 
@@ -82,6 +83,7 @@ app.use(
 app.use('/', anbuRoutes);
 app.use('/', contentfulRoutes);
 app.use('/', covidRoutes);
+app.use('/', iexRoutes);
 
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {

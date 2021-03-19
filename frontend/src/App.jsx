@@ -74,29 +74,30 @@ const App = () => {
   const appRef = useRef();
 
   const onStartAnimation = useCallback(() => {
-    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', undefined, false));
+    // dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', undefined, false));
   }, [dispatch]);
+
   const onEndAnimation = useCallback(() => {
     if (!viewedIntro) {
       dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'viewedIntro', undefined, true));
     }
-    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', undefined, true));
+    // dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', undefined, true));
   }, [dispatch]);
 
   useScrollToTop(appRef);
 
   useEffect(() => {
     // localStorage.removeItem(LOCAL_STORAGE_KEY); // force remove local storage (dev only)
-    const storedCookie = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    const storedCookies = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
-    if (storedCookie && storedCookie.viewedIntro) {
-      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, undefined, undefined, storedCookie));
-    } else if (!isHome && !viewedIntro) {
-      // skip intro if user arrives to a page other than the homepage
+    if (storedCookies && storedCookies.viewedIntro) {
+      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, undefined, undefined, storedCookies));
+    } // skip intro if user arrives to a page other than the homepage
+    else if (!isHome && !viewedIntro) {
       dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'viewedIntro', undefined, true));
     }
 
-    if (!(acceptedCookies || (storedCookie && storedCookie.acceptedCookies))) {
+    if (!(acceptedCookies || (storedCookies && storedCookies.acceptedCookies))) {
       setNotification({
         buttonText: 'Accept',
         delay: 5000,
@@ -117,7 +118,7 @@ const App = () => {
     const animation = getAnimation({
       onStartAnimation,
       onEndAnimation,
-      skipIntro: (storedCookie && storedCookie.viewedIntro) || viewedIntro,
+      skipIntro: (storedCookies && storedCookies.viewedIntro) || viewedIntro,
     });
 
     animation.play();

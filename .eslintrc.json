@@ -26,7 +26,7 @@
     "project": ["./backend/jsconfig.json", "./frontend/jsconfig.json"],
     "sourceType": "module"
   },
-  "plugins": ["react", "jest"],
+  "plugins": ["react", "jest", "prettier"],
   "rules": {
     "import/no-anonymous-default-export": 0,
     "jest/no-disabled-tests": 0,

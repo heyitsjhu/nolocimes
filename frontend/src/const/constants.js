@@ -78,11 +78,15 @@ export const ROUTES = {
   BLOG: '/blog',
   BLOG_POST: '/blog/:postId',
   BLOG_TAGS: '/blog/tags?tag=:tagId',
+  CANDLE_MONKEYS: '/candle-monkeys',
+  CANDLE_MONKEYS_TICKER: '/candle-monkeys/stock',
   CORONAVIRUS: '/coronavirus',
   PAGE_NOT_FOUND: '/404',
+  POWERED_BY_SCROLL: '/powered-by-scroll',
   PRIVACY_POLICY: '/privacy-policy',
   PHOTOGRAPHY: '/photography',
   STYLE_GUIDE: '/style-guide',
+  TO_TICKER: ticker => `/candle-monkeys/stock?ticker=${ticker}`,
 };
 
 export const SITE_NAVIGATION = {
@@ -101,14 +105,14 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: true,
+      disabled: false,
       grouping: 1,
       icon: 'candlemonkeys',
       id: 'nav-id-2',
       placement: 'right',
       text: 'components.HomeLogoNavigation.navMapping.navId2',
       title: '',
-      url: ROUTES.CANDLEMONKEYS,
+      url: ROUTES.CANDLE_MONKEYS,
     },
     {
       altText: '',
@@ -134,7 +138,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: true,
+      disabled: false,
       grouping: 1,
       icon: 'poweredbyscroll',
       id: 'nav-id-5',

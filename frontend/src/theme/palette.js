@@ -1,8 +1,10 @@
 // https://material.io/resources/color
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
-const black = '#000';
-const white = '#fff';
+export const black = '#000';
+export const white = '#fff';
+export const green = '#7ac74f';
+export const red = '#b33951';
 const primary = { light: '#ffc97f', main: '#cc9851', dark: '#986a25', contrastText: black };
 const secondary = { light: '#87ceff', main: '#529dcc', dark: '#0b6f9b', contrastText: black };
 
@@ -45,6 +47,12 @@ export default {
   secondary: {
     ...secondary,
     transparent: fade(secondary.main, 0.7),
+  },
+  error: {
+    main: red,
+  },
+  success: {
+    main: green,
   },
   text: {
     primary: greys[200],
