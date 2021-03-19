@@ -18,7 +18,7 @@
     "build:client": "cd frontend && npm install && npm run build",
     "changelog": "auto-changelog --template changelog-template.hbs -p -u",
     "changelog-debug": "auto-changelog --template changelog-template.hbs -p --template json --output changelog-preview.json",
-    "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules --exclude-list-file=.clocignore *",
+    "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules,build --exclude-ext=html --exclude-list-file=.clocignore *",
     "deploy": "git push heroku master",
     "heroku-postbuild": "npm run build:client",
     "lint": "eslint backend frontend --ext .js,.jsx --color --fix-dry-run",
