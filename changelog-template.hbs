@@ -10,53 +10,52 @@ and this project does its best to try to adheres to [Semantic Versioning](https:
 {{/unless}}
 
 {{#each releases}}
-## {{title}}
-[{{isoDate}}]
+  ## {{title}}
+  [{{isoDate}}]
 
+  {{! use breaking: or Breaking: }}
+  {{#commit-list
+    commits
+    heading='### Breaking changes'
+    message='(breaking: )|(Breaking: )'
+    exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
-{{! use breaking: or Breaking: }}
-{{#commit-list
-  commits
-  heading='### Breaking changes'
-  message='(breaking: )|(Breaking: )'
-  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
-* {{subject}} ([`{{shorthash}}`]({{href}}))
-{{/commit-list}}
+  {{! use feature: or Feature: }}
+  {{#commit-list
+    commits
+    heading='### Features'
+    message='(feature: )|(Feature: )'
+    exclude='(fix: )|(Fix: )|(breaking: )|(Breaking: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
-{{! use feature: or Feature: }}
-{{#commit-list
-  commits
-  heading='### Features'
-  message='(feature: )|(Feature: )'
-  exclude='(fix: )|(Fix: )|(breaking: )|(Breaking: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
-* {{subject}} ([`{{shorthash}}`]({{href}}))
-{{/commit-list}}
+  {{! use fix: or Fix: or bugfix or Bugfix }}
+  {{#commit-list
+    commits
+    heading='### Fixes'
+    message='(fix: )|(Fix: )'
+    exclude='(feature: )|(Feature: )|(breaking: )|(Breaking: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
-{{! use fix: or Fix: or bugfix or Bugfix }}
-{{#commit-list
-  commits
-  heading='### Fixes'
-  message='(fix: )|(Fix: )'
-  exclude='(feature: )|(Feature: )|(breaking: )|(Breaking: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
-* {{subject}} ([`{{shorthash}}`]({{href}}))
-{{/commit-list}}
+  {{! use other: or Other: }}
+  {{#commit-list
+    commits
+    heading='### Other changes'
+    message='(other: )|(Other: )'
+    exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(breaking: )|(Breaking: )|(docs: )|(Docs: )'}}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
-{{! use other: or Other: }}
-{{#commit-list
-  commits
-  heading='### Other changes'
-  message='(other: )|(Other: )'
-  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(breaking: )|(Breaking: )|(docs: )|(Docs: )'}}
-* {{subject}} ([`{{shorthash}}`]({{href}}))
-{{/commit-list}}
-
-{{! use docs: or Docs: }}
-{{#commit-list
-  commits
-  heading='### Documentation'
-  message='(docs: )|(Docs: )'
-  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(breaking: )|(Breaking: )|(other: )|(Other: )'}}
-* {{subject}} ([`{{shorthash}}`]({{href}}))
-{{/commit-list}}
+  {{! use docs: or Docs: }}
+  {{#commit-list
+    commits
+    heading='### Documentation'
+    message='(docs: )|(Docs: )'
+    exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(breaking: )|(Breaking: )|(other: )|(Other: )'}}
+  * {{subject}} ([`{{shorthash}}`]({{href}}))
+  {{/commit-list}}
 
 {{/each}}
