@@ -125,7 +125,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    setDarkMode(isDarkMode);
+    // setDarkMode(isDarkMode);
   }, [isDarkMode]);
 
   return (
