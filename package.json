@@ -14,10 +14,12 @@
   "homepage": "https://github.com/heyitsjhu/nolocimes#readme",
   "scripts": {
     "bootstrap": "lerna exec -- npm install",
-    "build": "lerna exec -- npm run build --if-present",
+    "build": "run-p build:*",
+    "build:client": "cd frontend && npm install && npm run build",
     "changelog": "auto-changelog --template changelog-template.hbs -p -u",
     "changelog-debug": "auto-changelog --template changelog-template.hbs -p --template json --output changelog-preview.json",
-    "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules --exclude-list-file=.clocignore *",
+    "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules,build --exclude-ext=html --exclude-list-file=.clocignore *",
+    "deploy": "git push heroku master",
     "heroku-postbuild": "npm run bootstrap && cd frontend && npm run build",
     "lint": "eslint backend frontend --ext .js,.jsx --color --fix-dry-run",
     "pre-commit": "npm run pretty-quick && npm test -- --changedFilesWithAncestor",
@@ -26,7 +28,9 @@
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
     "start": "cd backend && npm start",
-    "start-dev": "lerna exec -- npm run start --stream",
+    "start:dev": "run-p start:client start:server",
+    "start:client": "npm start --prefix frontend",
+    "start:server": "nodemon -r esm index.js",
     "test": "jest --coverage --verbose"
   },
   "husky": {
@@ -57,13 +61,22 @@
     ],
     "testRegex": "((\\.|/*.)(spec|test))\\.js?$",
     "transformIgnorePatterns": [
-      "node_modules/(?!use-reducer-logger)"
+      "node_modules/(?!(use-reducer-logger|animejs|@amcharts))"
     ]
   },
   "dependencies": {
-    "backend": "file:backend",
+    "axios": "^0.21.0",
+    "body-parser": "^1.19.0",
+    "contentful": "^7.14.13",
+    "cookie-session": "^1.4.0",
+    "crypto-js": "^4.0.0",
     "esm": "^3.2.25",
-    "frontend": "file:frontend"
+    "express": "~4.16.1",
+    "http-errors": "^1.6.3",
+    "js-logger": "^1.6.1",
+    "mongoose": "^5.10.15",
+    "nodemon": "^2.0.6",
+    "rollbar": "^2.19.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.12.1",
@@ -102,7 +115,6 @@
     "jest": "26.6.0",
     "js-logger": "^1.6.0",
     "lerna": "^3.22.1",
-    "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
     "pretty": "^2.0.0",

@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
+import { useCopy } from 'hooks/useCopy';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   ellipsis: {
@@ -11,11 +13,13 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     letterSpacing: 1.8,
   },
   padLeft: {
-    paddingLeft: spacing(1) / 2,
+    paddingLeft: spacing(1),
   },
 }));
 
 export default ({ ellipsis, readMoreLabel, readMoreUrl, textContent, ...otherProps }) => {
+  const { t } = useCopy();
+  const history = useHistory();
   const classes = useStyles();
   const [isTruncated, setIsTruncated] = useState(false);
   const [truncateLimit, setTruncateLimit] = useState(400);
@@ -32,6 +36,10 @@ export default ({ ellipsis, readMoreLabel, readMoreUrl, textContent, ...otherPro
     );
   };
 
+  const handleOnClick = url => e => {
+    history.push(url);
+  };
+
   useEffect(() => {
     if (textContent && textContent.length > truncateLimit) {
       setIsTruncated(true);
@@ -46,10 +54,10 @@ export default ({ ellipsis, readMoreLabel, readMoreUrl, textContent, ...otherPro
 
       <Link
         className={classnames([!isTruncated && classes.padLeft])}
-        href={readMoreUrl}
         variant="overline"
+        onClick={handleOnClick(readMoreUrl)}
       >
-        {readMoreLabel}
+        {t(readMoreLabel)}
       </Link>
     </Typography>
   );

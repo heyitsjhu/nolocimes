@@ -4,6 +4,7 @@ export default {
   footer: 100,
   header: 100,
   businessCard: 50,
+  notificationBanner: 999,
   purposeCard: 50,
   pageLayoutFullscreen: 30,
   pageLayoutPageActions: 20,

@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     fillRule: 'evenodd',
   },
   svgPath: {
-    fill: theme.palette.grey[100],
+    fill: theme.palette.grey[200],
     transition: `fill ${theme.transitions.duration.longer}ms ${theme.transitions.easing.easeInOut}`,
   },
 }));

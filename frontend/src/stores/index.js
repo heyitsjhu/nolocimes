@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { SnackbarProvider } from 'notistack';
+import Button from '@material-ui/core/Button';
+import { DEFAULT_NOTISTACK_PROPS } from 'const';
+import { useCopy } from 'hooks/useCopy';
 import AppProvider from './providers/appProvider';
-import ContentProvider from './providers/contentProvider';
 
 const AppStores = ({ children }) => {
+  const { t } = useCopy();
+  const notistackRef = useRef();
+
+  const notistackAction = key => (
+    <Button color="inherit" size="small" onClick={() => notistackRef.current.closeSnackbar(key)}>
+      {t('common.dismiss')}
+    </Button>
+  );
+
   return (
     <AppProvider>
-      <ContentProvider>{children}</ContentProvider>
+      <SnackbarProvider
+        ref={notistackRef}
+        // action={key => notistackAction(key)}
+        {...DEFAULT_NOTISTACK_PROPS}
+      >
+        {children}
+      </SnackbarProvider>
     </AppProvider>
   );
 };
 
 export { AppContext } from './providers/appProvider';
-export { ContentContext } from './providers/contentProvider';
-
+export { ThemeContext } from './providers/themeProvider';
 export default AppStores;

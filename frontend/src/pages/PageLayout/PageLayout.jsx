@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Fade from '@material-ui/core/Fade';
 import classnames from 'classnames';
 
-import { CookiesBanner } from 'components';
+import { Loader, ProgressBar } from 'components';
 import { PAGE_LAYOUT_FADE_TIMEOUT, ROUTES } from '../../const';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import * as Utils from '../../utils';
@@ -18,17 +18,26 @@ const useStyles = makeStyles(({ spacing, zIndex }) => ({
     height: '100%',
     zIndex: zIndex.pageLayout,
   },
-  pageActions: {
-    display: 'flex',
+  pageActionsContainer: {
+    width: '100%',
+    zIndex: zIndex.pageLayoutPageActions,
+  },
+  progressBar: {
     position: 'absolute',
     top: 0,
-    right: 0,
-    padding: spacing(1) / 2,
-    zIndex: zIndex.pageLayoutPageActions,
+    left: 0,
   },
 }));
 
-export default ({ children, className, pageActions, pageName, ...otherProps }) => {
+export default ({
+  barLoading,
+  children,
+  iconLoading,
+  pageActions,
+  pageLayoutClassName,
+  pageName,
+  ...otherProps
+}) => {
   const classes = useStyles();
   const history = useHistory();
   const layoutRef = useRef(null);
@@ -45,11 +54,12 @@ export default ({ children, className, pageActions, pageName, ...otherProps }) =
   return (
     <Box
       id={Utils.getElId('page', pageName)}
-      className={classnames([classes.pageLayout, className])}
+      className={classnames([classes.pageLayout, pageLayoutClassName])}
       ref={layoutRef}
     >
-      <CookiesBanner />
-      <Box className={classes.pageActions}>{pageActions && pageActions}</Box>
+      <ProgressBar className={classes.progressBar} isLoading={barLoading} />
+      <Loader isLoading={iconLoading} />
+      <Box className={classes.pageActionsContainer}>{pageActions && pageActions}</Box>
       <Fade in={fadeIn} timeout={PAGE_LAYOUT_FADE_TIMEOUT}>
         <Box height="100%" {...otherProps}>
           {children}

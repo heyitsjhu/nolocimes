@@ -40,7 +40,7 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="notFound" className={classes.notFoundLayout}>
+    <PageLayout pageName="notFound" pageLayoutClassName={classes.notFoundLayout}>
       <Typography color="textPrimary">{t('pages.PageNotFound.missingDestination')}</Typography>
       <Typography color="textPrimary" variant="subtitle2">
         {window.location.origin}

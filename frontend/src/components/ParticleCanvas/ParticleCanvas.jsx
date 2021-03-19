@@ -2,13 +2,12 @@
 import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
-
-import { STORE_KEYS } from 'const';
+import { PARTICLE_CANVAS_MOBILE_DEFAULTS, STORE_KEYS } from 'const';
 import { useEventListener } from 'hooks/useEventListener';
 import { AppContext } from 'stores/providers/appProvider';
+import { updateAppState } from 'stores/actions/appActions';
 import { getElClass, getElId } from 'utils';
 
-import getAnimation from './anime';
 import { getDisOf, getRandomSpeed, randomArrayItem, randomNumFrom, randomSidePos } from './utils';
 
 const useStyles = makeStyles(theme => ({
@@ -23,22 +22,24 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default props => {
+export default () => {
   const classes = useStyles();
   const [appState, dispatch] = useContext(AppContext);
+  const [isReady, setIsReady] = useState(false);
   const [canvas, setCanvas] = useState(null);
   const [canvasLeft, setCanvasLeft] = useState(0);
   const [canvasTop, setCanvasTop] = useState(0);
   const [ctx, setCtx] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(600);
   const [canvasHeight, setCanvasHeight] = useState(400);
+  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
   const particleState = useRef(appState[STORE_KEYS.PARTICLE_CANVAS]);
   const trackedParticles = useRef([]);
 
-  const cursorParticle = { x: 0, y: 0, vx: 0, vy: 0, r: 0, type: 'mouse' };
+  const cursorParticle = particleState.cursorParticle;
 
   const initCanvas = useCallback(() => {
     canvas.setAttribute('width', window.innerWidth);
@@ -205,8 +206,8 @@ export default props => {
 
   const handleMouseMove = e => {
     const event = e || window.event;
-    cursorParticle.x = event.pageX;
-    cursorParticle.y = event.pageY;
+    particleState.current.cursorParticle.x = event.pageX;
+    particleState.current.cursorParticle.y = event.pageY;
   };
 
   useEventListener('resize', initCanvas);
@@ -215,39 +216,53 @@ export default props => {
   useEventListener('mousemove', handleMouseMove, canvas);
 
   useEffect(() => {
-    setCanvas(canvasRef.current);
-  }, [canvasRef]);
+    if (isOnMobile) {
+      dispatch(
+        updateAppState(
+          STORE_KEYS.PARTICLE_CANVAS,
+          undefined,
+          undefined,
+          PARTICLE_CANVAS_MOBILE_DEFAULTS
+        )
+      );
+    }
+    setIsReady(true);
+  }, [dispatch, isOnMobile]);
 
   useEffect(() => {
+    if (!isReady) return;
+    setCanvas(canvasRef.current);
+  }, [isReady, canvasRef]);
+
+  useEffect(() => {
+    if (!isReady) return;
+
     if (!ctx && canvas) {
       setCanvasLeft(canvas.offsetLeft + canvas.clientLeft);
       setCanvasTop(canvas.offsetTop + canvas.clientTop);
       setCtx(canvas.getContext('2d'));
       initCanvas();
     }
-  }, [ctx, canvas, initCanvas]);
+  }, [isReady, ctx, canvas, initCanvas]);
 
   useEffect(() => {
+    if (!isReady) return;
+
     initParticles(particleState.current.particleCount);
     setParticleSpeed();
 
     requestRef.current = window.requestAnimationFrame(renderParticleCanvas);
 
     return () => window.cancelAnimationFrame(requestRef.current);
-  }, [canvasWidth, canvasHeight]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [isReady, canvasWidth, canvasHeight]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (!isReady) return;
+
     if (appState[STORE_KEYS.PARTICLE_CANVAS] !== particleState.current) {
       particleState.current = appState[STORE_KEYS.PARTICLE_CANVAS];
     }
-  }, [appState]);
-
-  useEffect(() => {
-    if (appState.splashLogo.finished) {
-      const animation = getAnimation();
-      animation.play();
-    }
-  }, [appState.splashLogo.finished]);
+  }, [isReady, appState[STORE_KEYS.PARTICLE_CANVAS]]);
 
   return (
     <canvas

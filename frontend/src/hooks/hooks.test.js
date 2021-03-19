@@ -20,6 +20,7 @@ import { useEventListener } from './useEventListener';
 import { useIsHome } from './useIsHome';
 import { useOnClickOutside } from './useOnClickOutside';
 import { useScrollToTop } from './useScrollToTop';
+import { useSearchQuery } from './useSearchQuery';
 
 jest.useFakeTimers();
 
@@ -46,7 +47,7 @@ describe('[hooks] - useDebounce', () => {
     const { result } = renderHook(() => useDebounce(value, delay));
 
     expect(result.current).toBe(value);
-    expect(setTimeout).toHaveBeenCalledTimes(2); // not sure why it's called twice atm
+    expect(setTimeout).toHaveBeenCalledTimes(2); // TODO not sure why it's called twice atm
     expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), delay);
   });
 });
@@ -155,4 +156,16 @@ describe('[hooks] - useScrollToTop', () => {
   test('calls the optional callback function, if supplied', () => {
     expect(callback).toBeCalled();
   });
+});
+
+describe('[hooks] - useSearchQuery', () => {
+  const { result } = renderHook(() => useSearchQuery());
+  const [data, setTicker] = result.current;
+
+  test('it returns null for initial data', () => {
+    expect(data).toBe(null);
+  });
+
+  // TODO: Test that the api is call?
+  // act(() => setTicker('aapl'));
 });

@@ -50,9 +50,9 @@ const useStyles = makeStyles(({ palette, spacing, transitions, typography, zInde
     },
     '&.animate-in': {
       '&.is-active:not(:hover)': {
-        backgroundColor: palette.grey[800],
+        backgroundColor: palette.background.paper || palette.grey[800],
       },
-      borderColor: palette.grey[800],
+      borderColor: palette.background.paper || palette.grey[800],
       '& + div::after': {
         height: '100%',
         transitionDelay: '0ms',
@@ -87,11 +87,11 @@ const useStyles = makeStyles(({ palette, spacing, transitions, typography, zInde
       left: 0,
       width: '100%',
       height: '0%',
-      backgroundColor: palette.grey[800],
+      backgroundColor: palette.background.paper || palette.grey[800],
       transition: `all ${transitions.duration.complex}ms ${transitions.easing.easeIn}`,
       transitionDelay: `${transitions.duration.short * 2}ms`,
     },
-    '&::after': { backgroundColor: palette.grey[800] },
+    '&::after': { backgroundColor: palette.background.paper || palette.grey[800] },
     '&::before': {
       backgroundColor: palette.primary.dark,
       zIndex: 1,

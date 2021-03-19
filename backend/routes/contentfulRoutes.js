@@ -41,4 +41,10 @@ router.get('/api/contentful/entries', async (req, res) => {
   res.send(response);
 });
 
+router.get('/api/contentful/tags', async (req, res) => {
+  const response = await contentfulApi.getTags();
+
+  res.send(response);
+});
+
 export default router;

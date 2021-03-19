@@ -2,19 +2,64 @@
   "translation": {
     "a11y": {
       "ariaLabel": {
+        "anbuButtonGroup": "Button group for Anbu blockchain demo",
         "businessCardButton": "Show digital business card",
         "businessCardEmail": "Reach out to Johnny via email",
         "githubSourceUrl": "View source code on Github",
         "githubUserUrl": "Visit Johnny's Github profile",
         "linkedInUrl": "Visit Johnny's Linkedin profile",
+        "mobileMenuButton": "Open mobile navigation menu",
         "navigateToPage": "Navigate to {{name}} page",
+        "reportBugButton": "Open the bug report form",
         "siteSettingsButton": "Open site settings",
         "styleGuideButton": "View the site's style guide"
       }
     },
     "common": {
+      "name": "Name",
+      "add": "Add",
+      "amount": "Amount",
+      "block": "Block",
+      "blockSize": "Block Size",
+      "buy": "Buy",
+      "cancel": "Cancel",
+      "canvas": "Canvas",
+      "change": "Change",
+      "changePercent": "Change %",
+      "clear": "Clear",
+      "close": "Close",
+      "continue": "Continue",
+      "country": "Country",
+      "create": "Create",
+      "currency": "Currency",
       "darkMode": "Dark Mode",
-      "reset": "Reset {{name}}"
+      "date": "Date",
+      "difficulty": "Difficulty",
+      "dismiss": "Dismiss",
+      "fetchingResults": "Fetching results",
+      "fiscalDate": "Fiscal date",
+      "hash": "Hash",
+      "hold": "Hold",
+      "jhuSoftwareEngineer": "Johnny Hu - Software Engineer",
+      "mine": "Mine",
+      "miningReward": "Mining Reward",
+      "nevermind": "Nevermind",
+      "next": "Next",
+      "none": "None",
+      "online": "Online",
+      "overweightAbbr": "Overw.",
+      "overweight": "Overweight",
+      "previous": "Previous",
+      "previousHash": "Previous Hash",
+      "readMore": "Read More",
+      "recipient": "Recipient",
+      "reportDate": "Report date",
+      "reset": "Reset {{name}}",
+      "search": "Search",
+      "sell": "Sell",
+      "sender": "Sender",
+      "underweightAbbr": "Underw.",
+      "underweight": "Underweight"
     },
     "components": {
       "BusinessCard": {
@@ -23,13 +68,25 @@
         "name": "Johnny Hu",
         "title": "Software Engineer"
       },
-      "CookiesBanner": {
-        "alertMessage": "Hi! I use browser cookies to improve your experience on this site. You're free to manage this via your browser setting at any time. To learn more about how I use the cookies, please see the site's cookies policy."
+      "PrivacyPolicy": {
+        "alertMessage": "This site uses browser cookies to track the state of the application in order to improve your experience during your time here. You're free to manage this via your browser settings at any time. To learn more about how I use the cookies, please see the site's <1>cookie policy</1>."
       },
       "Footer": {
-        "copyright": "© 2020 Dreamist Labs"
+        "copyright": "© 2020-2021 Dreamist Labs",
+        "copyrightShort": "© 2021 Dreamist Labs",
+        "privacyPolicy": "Privacy Policy"
+      },
+      "GitHubExternalLink": {
+        "modalTitle": "Are you sure you want to leave?",
+        "modalDescription": "By continuing, you'll be taken to my GitHub repository for this project. Don't worry, you can always return to this tab afterwards."
       },
       "Helmet": {
+        "anbuBlockchain": {
+          "title": "Anbu Blockchain | Johnny Hu - Software Engineer",
+          "meta": {
+            "description": "Anbu is a blockchain application built on Javascript. It demonstrates the blockchain technology through a sample application for visitors to interact with."
+          }
+        },
         "blog": {
           "title": "Blog - A place of musings | Johnny Hu - Software Engineer",
           "meta": {
@@ -51,12 +108,12 @@
       },
       "HomeLogoNavigation": {
         "navMapping": {
-          "navId1": "sdfd",
-          "navId2": "sdfd",
-          "navId3": "sdfd",
-          "navId4": "sdfd",
-          "navId5": "sdfd",
-          "navId6": "sdfd",
+          "navId1": "Anbu Blockchain",
+          "navId2": "Candle Monkeys",
+          "navId3": "Coronavirus",
+          "navId4": "Nolocimes",
+          "navId5": "Powered by Scroll",
+          "navId6": "-----",
           "navId7": "Blog",
           "navId8": "Photography"
         }
@@ -70,14 +127,165 @@
         "linkWidth": "Link Width",
         "linkDistanceLimit": "Link Distance Limit",
         "slowMultiplier": "Slow Multiplier"
+      },
+      "Table": {
+        "noData": "No data to display"
       }
     },
     "pages": {
+      "AnbuBlockchain": {
+        "console": {
+          "blockchainCreated": "$ New ANBU blockchain has been created successfully.",
+          "blockMined": "$ New ANBU block has been mined successfully.",
+          "blockchainResetted": "$ Existing ANBU blockchain has been reset.",
+          "blockchainTransactionPosted": "$ New ANBU transaction has been posted."
+        },
+        "interaction": {
+          "addTransaction": "Add Transaction",
+          "createBlockchain": "Create Blockchain",
+          "mineTransactions": "Mine Transactions"
+        },
+        "narrative": {
+          "1": "<i>First</i> sentence. ^1000, &amp; a ^1000 second sentence.",
+          "2": "<i>third</i> sentence. ^1000, &amp; a ^1000 fourth sentence."
+        },
+        "table": {
+          "blocks": "Anbu Blocks",
+          "transactions": "Anbu Transactions"
+        },
+        "viewBalance": "View Balance"
+      },
+      "Blog": {
+        "mainDescription": "My mind often travels at a million miles per second. Theres never really a shortage of thoughts going on up there. Writing them down though is a different story. And while Ive set this section aside to encourage myself to do so, as you can see, its still very much a work in progress. So, stay tuned...",
+        "emptyPostsListing": "Hmm. It seems I haven't been writing much. There aren't any posts here. Please check back later."
+      },
+      "BlogPost": {
+        "backToBlog": "To Blog"
+      },
+      "CandleMonkeys": {
+        "name": "Name",
+        "ceo": "CEO",
+        "city": "City",
+        "country": "Country",
+        "description": "Description",
+        "industry": "Industry",
+        "location": "Location",
+        "phone": "Phone",
+        "sector": "Sector",
+        "state": "State",
+        "website": "Website",
+        "totalRevenue": "Total revenue",
+        "costOfRevenue": "Cost of revenue",
+        "grossProfit": "Gross profit",
+        "researchAndDevelopment": "Research and development",
+        "sellingGeneralAndAdmin": "Selling, general and admin expenses",
+        "operatingExpense": "Operating expenses",
+        "operatingIncome": "Operating income",
+        "otherIncomeExpenseNet": "Other income expense, net",
+        "ebit": "Earnings before interest and taxes",
+        "interestIncome": "Interest income",
+        "pretaxIncome": "Pre-tax income",
+        "incomeTax": "Income tax",
+        "minorityInterest": "Minority interest",
+        "netIncome": "Net income",
+        "netIncomeBasic": "New income, basic",
+        "avgTotalVolume": "Avg Total Volume",
+        "beta": "Beta",
+        "dividendYield": "Dividend Yield",
+        "marketcap": "Market Cap",
+        "peRatio": "P/E Ratio",
+        "sharesOutstanding": "Shares Outstanding",
+        "ytdChangePercent": "YTD Change",
+        "accountsPayable": "Accounts payable",
+        "currentAssets": "Current assets",
+        "currentCash": "Cash",
+        "currentLongTermDebt": "Current long-term debt",
+        "goodwill": "Goodwill",
+        "inventory": "Inventory",
+        "longTermDebt": "Long-term debt",
+        "longTermInvestments": "Long-term investments",
+        "otherAssets": "Other assets",
+        "otherCurrentAssets": "Other current assets",
+        "otherCurrentLiabilities": "Other current liabilities",
+        "otherLiabilities": "Other liabilities",
+        "propertyPlantEquipment": "Property, plant and equipment",
+        "receivables": "Accounts receivables",
+        "shortTermInvestments": "Short-term investments",
+        "totalAssets": "Total assets",
+        "totalCurrentLiabilities": "Total current liabilities",
+        "totalLiabilities": "Total liabilities",
+        "depreciation": "Depreciation",
+        "changesInReceivables": "Changes in receivables",
+        "changesInInventories": "Changes in inventory",
+        "cashChange": "Cash change",
+        "cashFlow": "Cash flow",
+        "capitalExpenditures": "Capital expenditures",
+        "investments": "Investments",
+        "investingActivityOther": "Investing activity, other",
+        "totalInvestingCashFlows": "Total investing cash flows",
+        "dividendsPaid": "Dividends paid",
+        "netBorrowings": "Net borrowings",
+        "otherFinancingCashFlows": "Other financing cash flows",
+        "cashFlowFinancing": "Cash flow, financing",
+        "exchangeRateEffect": "Exchange rate effect",
+        "week52high": "52-week high",
+        "week52low": "52-week low",
+        "week52change": "52-week change",
+        "float": "Float",
+        "avg10Volume": "Average 10-day volume",
+        "avg30Volume": "Average 30-day volume",
+        "day200MovingAvg": "200-day moving average",
+        "day50MovingAvg": "50-day moving average",
+        "employees": "Employees",
+        "ttmEPS": "EPS (TTM)",
+        "ttmDividendRate": "Dividend yield (TTM)",
+        "nextDividendDate": "Next dividend date",
+        "exDividendDate": "Ex-dividend date",
+        "nextEarningsDate": "Next earnings date",
+        "maxChangePercent": "Max change (%)",
+        "year5ChangePercent": "5-year Change (%)",
+        "year2ChangePercent": "2-year Change (%)",
+        "year1ChangePercent": "1-year Change (%)",
+        "month6ChangePercent": "6-month Change (%)",
+        "month3ChangePercent": "3-month Change (%)",
+        "month1ChangePercent": "1-month Change (%)",
+        "day30ChangePercent": "30-day Change (%)",
+        "day5ChangePercent": "5-day Change (%)",
+        "totalCash": "Total cash",
+        "currentDebt": "Current debt",
+        "revenue": "Revenue",
+        "EBITDA": "EBITDA",
+        "revenuePerShare": "Revenue per share",
+        "revenuePerEmployee": "Revenue per employee",
+        "debtToEquity": "Debt-to-equity",
+        "profitMargin": "Profit margin",
+        "enterpriseValue": "Enterprise value",
+        "enterpriseValueToRevenue": "Enterprise value-to-revenue",
+        "priceToBook": "Price-to-book",
+        "priceToSales": "Price-to-sales",
+        "forwardPERatio": "Forward P/E Ratio",
+        "pegRatio": "PEG Ratio",
+        "peHigh": "High P/E",
+        "peLow": "Low P/E",
+        "week52highDate": "52-week high date",
+        "week52lowDate": "52-week low date",
+        "putCallRatio": "Put/call ratio",
+        "afterHours": "After hours",
+        "lastUpdated": "Last updated",
+        "marketsOpen": "Markets Open",
+        "dayHighLow": "Day Low/High",
+        "52wkHighLow": "52-week Low/High"
+      },
       "PageNotFound": {
         "missingDestination": "Uh oh, looks like this destination is missing. Was it a typo?",
         "theresNothingHere": "There's nothing here.",
         "backHomeButton": "Back to Home"
       }
+    },
+    "tooltips": {
+      "githubIconButton": "View repo on GitHub",
+      "reportBugButton": "Report a bug",
+      "styleGuideButton": "View project style guide"
     }
   }
 }

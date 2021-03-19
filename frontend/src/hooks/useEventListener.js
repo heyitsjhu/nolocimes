@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Credit: {@link https://usehooks.com/useEventListener/|useHooks.com}
+ * Credit: {@link https://usehooks.com/useEventListener/}
  * @param {*} eventName
  * @param {*} handler
  * @param {*} element

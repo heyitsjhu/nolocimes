@@ -10,8 +10,18 @@ and this project does its best to try to adheres to [Semantic Versioning](https:
 {{/unless}}
 
 {{#each releases}}
-# {{title}}
+## {{title}}
 [{{isoDate}}]
+
+
+{{! use breaking: or Breaking: }}
+{{#commit-list
+  commits
+  heading='### Breaking changes'
+  message='(breaking: )|(Breaking: )'
+  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
+* {{subject}} ([`{{shorthash}}`]({{href}}))
+{{/commit-list}}
 
 {{! use feature: or Feature: }}
 {{#commit-list
@@ -28,15 +38,6 @@ and this project does its best to try to adheres to [Semantic Versioning](https:
   heading='### Fixes'
   message='(fix: )|(Fix: )'
   exclude='(feature: )|(Feature: )|(breaking: )|(Breaking: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
-* {{subject}} ([`{{shorthash}}`]({{href}}))
-{{/commit-list}}
-
-{{! use breaking: or Breaking: }}
-{{#commit-list
-  commits
-  heading='### Breaking changes'
-  message='(breaking: )|(Breaking: )'
-  exclude='(feature: )|(Feature: )|(fix: )|(Fix: )|(other: )|(Other: )|(docs: )|(Docs: )'}}
 * {{subject}} ([`{{shorthash}}`]({{href}}))
 {{/commit-list}}
 

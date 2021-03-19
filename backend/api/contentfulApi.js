@@ -61,8 +61,15 @@ export class ContentfulAPI {
   };
 
   getEntries = async query => {
-    Logger.log(JSON.parse(query));
     const response = await this.fetchHandler(this.client.getEntries(JSON.parse(query)));
+
+    return response;
+  };
+
+  getTags = async () => {
+    // Only Early Access Members on Contentful currently have access.
+    // https://www.contentful.com/help/tags/
+    const response = await this.fetchHandler(this.client.getTags());
 
     return response;
   };

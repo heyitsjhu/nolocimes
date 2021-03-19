@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Chip from '@material-ui/core/Chip';
@@ -6,22 +7,15 @@ import FormatQuoteRoundedIcon from '@material-ui/icons/FormatQuoteRounded';
 import Link from '@material-ui/core/Link';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import Table from "@material-ui/core/Table";
-// import TableHead from "@material-ui/core/TableHead";
-// import TableBody from "@material-ui/core/TableBody";
-// import TableRow from "@material-ui/core/TableRow";
-// import TableCell from "@material-ui/core/TableCell";
 import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
 import { DateTime } from 'luxon';
 
-// import { DEFAULT_POST_COVER_IMAGE } from '../../const';
-import { POSTS, STORE_KEYS } from '../../const';
+import TruncateText from 'components/TruncateText/TruncateText';
+import { POSTS, ROUTES, STORE_KEYS } from 'const';
 import { AppContext } from 'stores';
-import TruncateText from '../../components/TruncateText/TruncateText';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
-  base: { color: palette.text.primary },
   [POSTS.POST_BLOCKQUOTE]: {
     position: 'relative',
     margin: `${spacing(6)}px 0`,
@@ -53,17 +47,39 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
   },
   [POSTS.POST_CONTENT]: {},
   [POSTS.POST_HERO_IMAGE]: {
+    position: 'relative',
     width: '100%',
     height: '100%',
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
+    '& a': {
+      position: 'relative',
+      display: 'block',
+      height: '100%',
+      width: '100%',
+      '&::before': {
+        content: '""',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        backgroundColor: palette.common.black,
+        transition: 'all 400ms linear',
+        opacity: 0.35,
+        zIndex: 1,
+      },
+      '&:hover': {
+        '&::before': {
+          opacity: 0.1,
+        },
+      },
+    },
   },
   [POSTS.POST_DATE]: {
     display: 'block',
     marginBottom: spacing(1),
-    textAlign: 'center',
-    lineHeight: 1,
   },
   [POSTS.POST_HEADING]: {
     marginTop: spacing(4),
@@ -95,10 +111,10 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
       },
     },
   },
-  postParagraphs: {
+  [POSTS.POST_PARAGRAPHS]: {
     marginBottom: spacing(4),
     lineHeight: 1.8,
-    textIndent: '10%',
+    textIndent: '5%',
   },
   [POSTS.POST_TAGS]: {
     marginBottom: spacing(4),
@@ -121,10 +137,39 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     width: '100%',
     marginBottom: spacing(4),
     lineHeight: 1.8,
-    textAlign: 'justify',
-    // textIndent: "10%",
   },
 }));
+
+const ExcerptTitle = ({ title, postUrl, ...otherProps }) => {
+  const history = useHistory();
+
+  return (
+    <Typography variant="h2" gutterBottom {...otherProps}>
+      <Link
+        color="textPrimary"
+        underline="none"
+        onClick={e => {
+          e.preventDefault();
+          history.push(postUrl);
+        }}
+      >
+        {title}
+      </Link>
+    </Typography>
+  );
+};
+
+const ExcerptDescription = ({ description, postUrl, ...otherProps }) => {
+  return (
+    <TruncateText
+      ellipsis="..."
+      readMoreLabel="common.readMore"
+      readMoreUrl={postUrl}
+      textContent={description}
+      {...otherProps}
+    />
+  );
+};
 
 const PostDate = ({ date, ...otherProps }) => {
   return (
@@ -134,9 +179,20 @@ const PostDate = ({ date, ...otherProps }) => {
   );
 };
 
-const PostCoverImage = ({ postPart, ...otherProps }) => {
-  const url = (postPart && postPart.src) || 'https:///placehold.it/800x300';
-  return <Box {...otherProps} style={{ backgroundImage: `url('${url}')` }}></Box>;
+const PostCoverImage = ({ postPart, imageUrl, postUrl, ...otherProps }) => {
+  const history = useHistory();
+  const url = imageUrl || 'https:///placehold.it/800x300';
+
+  return (
+    <Box {...otherProps} style={{ backgroundImage: `url('${url}')` }}>
+      <Link
+        onClick={e => {
+          e.preventDefault();
+          history.push(postUrl);
+        }}
+      />
+    </Box>
+  );
 };
 
 const PostTags = ({ tags, ...otherProps }) => {
@@ -157,131 +213,131 @@ const PostTags = ({ tags, ...otherProps }) => {
   );
 };
 
-const ExcerptTitle = ({ title, postUrl, ...otherProps }) => (
-  <Typography variant="h2" gutterBottom {...otherProps}>
-    <Link href={postUrl} color="textPrimary" underline="none">
-      {title}
-    </Link>
-  </Typography>
-);
-
-const ExcerptDescription = ({ description, postUrl, ...otherProps }) => {
-  return (
-    <TruncateText
-      ellipsis="..."
-      readMoreLabel="Read more"
-      readMoreUrl={postUrl}
-      textContent={description}
-      {...otherProps}
-    />
-  );
-};
-
 const PostTitle = ({ title, ...otherProps }) => (
   <Typography {...otherProps} component="h1" variant="h1">
     {title}
   </Typography>
 );
 
-// const PostBlockquote = ({ blockquote, ...otherProps }) => (
-//   <Box {...otherProps} component={postPart.type}>
-//     <FormatQuoteRoundedIcon color="disabled" />
-//     <Typography component="p">{postPart.value.quote}</Typography>
-//     {postPart.value.quoter && (
-//       <Typography component="span" variant="overline">
-//         &mdash; {postPart.value.quoter}
-//       </Typography>
-//     )}
-//   </Box>
-// );
-
-const PostHeading = ({ postPart, ...otherProps }) => (
-  <Typography {...otherProps} component={postPart.type} variant={postPart.type} gutterBottom>
-    {postPart.value}
-  </Typography>
+const PostBlockquote = ({ contentPart, ...otherProps }) => (
+  <Box {...otherProps} component={contentPart.nodeType}>
+    <FormatQuoteRoundedIcon color="disabled" />
+    <Typography component="p">{contentPart.content[0].content[0].value}</Typography>
+  </Box>
 );
 
-const RenderContentPart = ({ className, postPart }) => {
-  const classes = useStyles();
-
-  if (['h2', 'h3', 'h4', 'h5', 'h6'].includes(postPart.type)) {
-    return (
-      <PostHeading className={classnames(className, classes.postHeading)} postPart={postPart} />
-    );
-  } else if (postPart.type === 'content') {
-    return (
-      <PostParagraphs
-        className={classnames(className, classes.postParagraphs)}
-        postPart={postPart}
-      />
-    );
-  } else if (postPart.type === 'image') {
-    return <PostImage className={classnames(className, classes.postImage)} postPart={postPart} />;
-  } else if (postPart.type === 'list') {
-    return <PostList className={classnames(className, classes.postList)} postPart={postPart} />;
-  } else if (postPart.type === 'blockquote') {
-    // return (
-    //   <PostBlockquote
-    //     className={classnames(className, classes.postBlockquote)}
-    //     postPart={postPart}
-    //   />
-    // );
-  } else {
-    return <></>;
-  }
+const PostHeading = ({ contentPart, ...otherProps }) => {
+  const variant = contentPart.nodeType[0] + contentPart.nodeType[contentPart.nodeType.length - 1];
+  return (
+    <Typography {...otherProps} component={variant} variant={variant} gutterBottom>
+      {contentPart.content[0].value}
+    </Typography>
+  );
 };
 
-const PostContents = ({ className, content }) => {
-  return content.map((postPart, i) => {
+const PostImage = ({ contentPart, ...otherProps }) => {
+  const srcUrl = contentPart.data.target.fields.file.url;
+  const altText = contentPart.data.target.fields.description;
+
+  return <Box {...otherProps} component="img" alt={altText} src={srcUrl} />;
+};
+
+const PostList = ({ contentPart, ...otherProps }) => {
+  const component = contentPart.nodeType === 'ordered-list' ? 'ol' : 'ul';
+
+  const renderListItems = () => {
+    return contentPart.content.map((listItem, i) => {
+      return (
+        <ListItem
+          key={`${i}-${listItem.content[0].content[0].value}`}
+          className={classnames([typeof listItem === 'object' && 'hideBullet'])}
+        >
+          {listItem.content[0].content[0].value}
+          {listItem.content[1] && (
+            <PostList
+              className={classnames(otherProps.className)}
+              contentPart={listItem.content[1]}
+            />
+          )}
+        </ListItem>
+      );
+    });
+  };
+
+  return (
+    <List {...otherProps} component={component}>
+      {renderListItems()}
+    </List>
+  );
+};
+
+const PostParagraph = ({ contentPart, ...otherProps }) => {
+  // need to handle contentPart.marks = [] for bold and italics
+  return (
+    <Typography {...otherProps} component="p" variant="body1" gutterBottom>
+      {contentPart.content[0].value}
+    </Typography>
+  );
+};
+
+const PostContents = ({ className, postParts }) => {
+  return postParts.map((contentPart, i) => {
     return (
-      <RenderContentPart key={'renderContentPart' + i} className={className} postPart={postPart} />
+      <RenderContentPart
+        key={'renderContentPart' + i}
+        className={className}
+        contentPart={contentPart}
+      />
     );
   });
 };
 
-const PostImage = ({ postPart, ...otherProps }) => (
-  <Box {...otherProps} component="img" alt={postPart.value.alt} src={postPart.value.src} />
-);
+const contentfulHeadings = [
+  'heading-1',
+  'heading-2',
+  'heading-3',
+  'heading-4',
+  'heading-5',
+  'heading-6',
+];
+const contentfulLists = ['ordered-list', 'unordered-list'];
 
-// TODO: ordered list
-const PostList = ({ postPart, ...otherProps }) => {
-  if (Array.isArray(postPart.value) && postPart.value.length) {
-    const renderListItems = () => {
-      return postPart.value.map((listItem, i) => {
-        return (
-          <ListItem
-            key={`${i}-${listItem}`}
-            className={classnames([typeof listItem === 'object' && 'hideBullet'])}
-          >
-            {typeof listItem === 'object' ? (
-              <PostList className={classnames(otherProps.className)} postPart={listItem} />
-            ) : (
-              listItem
-            )}
-          </ListItem>
-        );
-      });
-    };
+const RenderContentPart = ({ className, contentPart }) => {
+  const classes = useStyles();
 
-    return <List {...otherProps}>{renderListItems()}</List>;
-  }
-};
-
-const PostParagraphs = ({ postPart, ...otherProps }) => {
-  if (Array.isArray(postPart.value) && postPart.value.length) {
-    return postPart.value.map((paragraph, i) => {
-      return (
-        <Typography
-          key={`${i}-${paragraph.slice(0, 9)}`}
-          {...otherProps}
-          component="p"
-          variant="body1"
-          gutterBottom
-        >
-          {postPart.value}
-        </Typography>
-      );
-    });
+  if (contentfulHeadings.includes(contentPart.nodeType)) {
+    return (
+      <PostHeading
+        className={classnames(className, classes.postHeading)}
+        contentPart={contentPart}
+      />
+    );
+  } else if (contentPart.nodeType === 'paragraph') {
+    return (
+      <PostParagraph
+        className={classnames(className, classes.postParagraphs)}
+        contentPart={contentPart}
+      />
+    );
+  } else if (contentfulLists.includes(contentPart.nodeType)) {
+    return (
+      <PostList className={classnames(className, classes.postList)} contentPart={contentPart} />
+    );
+  } else if (contentPart.nodeType === 'embedded-asset-block') {
+    return (
+      <PostImage className={classnames(className, classes.postImage)} contentPart={contentPart} />
+    );
+  } else if (contentPart.nodeType === 'blockquote') {
+    return (
+      <PostBlockquote
+        className={classnames(className, classes.postBlockquote)}
+        contentPart={contentPart}
+      />
+    );
+    // } else if (contentPart.nodeType === 'hr') {
+    //   // TODO
+  } else {
+    return <></>;
   }
 };
 
@@ -296,11 +352,11 @@ const postMapping = {
   [POSTS.EXCERPT_TITLE]: (className, postTitle, options) => (
     <ExcerptTitle className={className} title={postTitle} postUrl={options.postUrl} />
   ),
-  [POSTS.POST_CONTENT]: (className, postContent, options) => (
-    <PostContents className={className} content={postContent} />
+  [POSTS.POST_CONTENT]: (className, postParts, options) => (
+    <PostContents className={className} postParts={postParts} />
   ),
-  [POSTS.POST_HERO_IMAGE]: (className, postImage) => (
-    <PostCoverImage className={className} heroImage={postImage} />
+  [POSTS.POST_HERO_IMAGE]: (className, postHeroUrl, options) => (
+    <PostCoverImage className={className} imageUrl={postHeroUrl} postUrl={options.postUrl} />
   ),
   [POSTS.POST_DATE]: (className, postDate, options) => (
     <PostDate className={className} date={postDate} />
@@ -315,7 +371,7 @@ const postMapping = {
 
 export const PostRenderer = (postType, postPart, options) => {
   const classes = useStyles();
-  const className = classnames(classes.base, classes[postType]);
+  const className = classnames(classes[postType]);
 
   return postMapping[postType](className, postPart, options);
 };

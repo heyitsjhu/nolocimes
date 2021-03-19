@@ -1,21 +1,21 @@
-import './wdyr';
+// import './wdyr';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { debugContextDevtool } from 'react-context-devtool';
 import { BrowserRouter } from 'react-router-dom';
-import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-
 import App from './App';
 import ApplicationProviders from 'stores';
-import theme from './theme';
+import ThemeProvider from 'stores/providers/themeProvider';
 
 import reportWebVitals from './reportWebVitals';
-import './index.css';
+
+const container = document.getElementById('root');
 
 ReactDOM.render(
   <React.StrictMode>
     <ApplicationProviders>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider>
         <BrowserRouter>
           <CssBaseline />
           <App />
@@ -23,8 +23,13 @@ ReactDOM.render(
       </ThemeProvider>
     </ApplicationProviders>
   </React.StrictMode>,
-  document.getElementById('root')
+  container
 );
+
+// For development, enables use of React Context DevTool Chrome Extension
+debugContextDevtool(container, {
+  disable: process.env.NODE_ENV === 'production',
+});
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

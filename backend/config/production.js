@@ -14,7 +14,7 @@
  * should be different from the ones you use in development.
  *
  */
-export default {
+module.exports = {
   baseUrl: process.env.BASE_URL,
   contentfulSpace: process.env.CONTENTFUL_SPACE,
   contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
@@ -27,6 +27,9 @@ export default {
   mongoURI: process.env.MONGO_URI,
   cookieKey1: process.env.COOKIE_KEY_1,
   cookieKey2: process.env.COOKIE_KEY_2,
+  rapidApiCovidDataUrl: process.env.RAPIDAPI_COVID_URL,
+  rapidApiCovidCountryListUrl: process.env.RAPIDAPI_COVID_COUNTRY_LIST_URL,
+  rapidApiKey: process.env.RAPIDAPI_KEY,
   redirectDomain: process.env.REDIRECT_DOMAIN,
   rollbarServerToken: process.env.ROLLBAR_SERVE_TOKEN,
 };

@@ -1,5 +1,13 @@
-const black = '#000';
-const white = '#fff';
+// https://material.io/resources/color
+import { fade } from '@material-ui/core/styles/colorManipulator';
+
+export const black = '#000';
+export const white = '#fff';
+export const green = '#7ac74f';
+export const red = '#b33951';
+const primary = { light: '#ffc97f', main: '#cc9851', dark: '#986a25', contrastText: black };
+const secondary = { light: '#87ceff', main: '#529dcc', dark: '#0b6f9b', contrastText: black };
+
 export const greys = {
   50: '#ffffff',
   100: '#eaeaec',
@@ -23,30 +31,35 @@ export const greys = {
 
 export default {
   type: 'dark',
-  background: {
-    dark: 'rgba(0,0,0,0.6)',
-    darker: 'rgba(0,0,0,0.8)',
-    darkest: 'rgba(0,0,0,0.9)',
-  },
-  common: {
-    black,
-    white,
-  },
+  background: { default: greys[1200], paper: greys[800] },
+  common: { black, white },
+  contrastThreshold: 3,
   grey: greys,
+  overlay: {
+    dark: fade(black, 0.6),
+    darker: fade(black, 0.8),
+    darkest: fade(black, 0.9),
+  },
   primary: {
-    light: '#ffc97f',
-    main: '#cc9851',
-    dark: '#986a25',
-    contrastText: black,
+    ...primary,
+    transparent: fade(primary.main, 0.7),
   },
   secondary: {
-    light: '#4a4c50',
-    main: '#222428',
-    dark: black,
-    contrastText: white,
+    ...secondary,
+    transparent: fade(secondary.main, 0.7),
+  },
+  error: {
+    main: red,
+  },
+  success: {
+    main: green,
   },
   text: {
     primary: greys[200],
-    secondary: greys[200],
+    secondary: greys[400],
+    disabled: fade(greys[200], 0.5),
+    hint: fade(greys[200], 0.5),
+    icon: fade(greys[200], 0.5),
   },
+  tonalOffset: 0.2,
 };

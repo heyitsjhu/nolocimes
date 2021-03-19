@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -10,35 +10,41 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import TuneIcon from '@material-ui/icons/Tune';
 import StyleIcon from '@material-ui/icons/Style';
+import classnames from 'classnames';
 
 import { ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { AppContext } from 'stores';
 import { updateAppState } from 'stores/actions/appActions';
-import { IconButton } from '..';
+import { IconButton, ReportBug } from '..';
 import ParticleCanvasControls from './ParticleCanvasControls';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(({ palette, shared, spacing }) => ({
   paper: {
-    backgroundColor: theme.palette.background.darkest,
-    border: `1px solid ${theme.palette.grey[600]}`,
+    backgroundColor: palette.background.default,
+    border: shared.borderDefault,
+    borderTop: shared.borderSignature,
   },
   settingsMenuContainer: {
-    padding: theme.spacing(2),
+    padding: spacing(2),
+    minWidth: '15rem',
+    maxWidth: '40.625rem',
+    maxHeight: '70vh',
+    overflowY: 'scroll',
     '& > *': {
       width: '100%',
       '&:not(:first-child)': {
-        paddingTop: theme.spacing(1),
+        paddingTop: spacing(1),
       },
       '&:not(:last-child)': {
-        borderBottom: `1px solid ${theme.palette.grey[600]}`,
+        borderBottom: shared.borderDefault,
       },
     },
   },
   darkModeContainer: {
     display: 'flex',
     justifyContent: 'space-between',
-    aliginItems: 'center',
+    alignItems: 'center',
   },
 }));
 
@@ -47,9 +53,9 @@ export default () => {
   const history = useHistory();
   const { t } = useCopy();
   const [appState, dispatch] = useContext(AppContext);
-  const [open, setOpen] = React.useState(false);
-  const anchorRef = React.useRef(null);
-  const { controlsEnabled, darkMode } = appState[STORE_KEYS.SITE_SETTINGS];
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+  const { isInteractive, isDarkMode, isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -64,8 +70,10 @@ export default () => {
   };
 
   const handleSettingsChange = event => {
-    if (event.target.name === 'darkMode') {
-      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'darkMode', event.target.checked));
+    if (event.target.name === 'isDarkMode') {
+      dispatch(
+        updateAppState(STORE_KEYS.SITE_SETTINGS, 'isDarkMode', undefined, event.target.checked)
+      );
     }
   };
 
@@ -91,7 +99,7 @@ export default () => {
         aria-haspopup="true"
         aria-label={t('a11y.ariaLabel.siteSettingsButton')}
         noPadding
-        onClick={controlsEnabled ? handleToggle : undefined}
+        onClick={isInteractive ? handleToggle : undefined}
       >
         <TuneIcon ref={anchorRef} fontSize="small" />
       </IconButton>
@@ -102,28 +110,32 @@ export default () => {
             {...TransitionProps}
             style={{ transformOrigin: placement === 'bottom' ? 'center top' : 'center bottom' }}
           >
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} square>
               <ClickAwayListener onClickAway={handleClose}>
                 <Box className={classes.settingsMenuContainer}>
                   <Box className={classes.darkModeContainer}>
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={darkMode}
+                          checked={isDarkMode}
                           color="primary"
-                          name="darkMode"
-                          value={appState[STORE_KEYS.SITE_SETTINGS].darkMode}
+                          name="isDarkMode"
+                          value={isDarkMode}
                           onChange={handleSettingsChange}
                         />
                       }
                       label={t('common.darkMode')}
                     />
-                    <IconButton
-                      aria-label={t('a11y.ariaLabel.styleGuideButton')}
-                      onClick={handleStyleGuideClick}
-                    >
-                      <StyleIcon fontSize="small" />
-                    </IconButton>
+                    <Box>
+                      <IconButton
+                        aria-label={t('a11y.ariaLabel.styleGuideButton')}
+                        tooltip={t('tooltips.styleGuideButton')}
+                        onClick={handleStyleGuideClick}
+                      >
+                        <StyleIcon fontSize="small" />
+                      </IconButton>
+                      <ReportBug />
+                    </Box>
                   </Box>
                   <ParticleCanvasControls />
                 </Box>
