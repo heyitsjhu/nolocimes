@@ -1,11 +1,11 @@
 /** Particle Canvas - Credit: Nokey (https://codepen.io/jkiss/pen/OVEeqK) */
-import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
+
 import { PARTICLE_CANVAS_MOBILE_DEFAULTS, STORE_KEYS } from 'const';
 import { useEventListener } from 'hooks/useEventListener';
-import { AppContext } from 'stores/providers/appProvider';
-import { updateAppState } from 'stores/actions/appActions';
 import { getElClass, getElId } from 'utils';
 
 import { getDisOf, getRandomSpeed, randomArrayItem, randomNumFrom, randomSidePos } from './utils';
@@ -24,7 +24,8 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles();
-  const [appState, dispatch] = useContext(AppContext);
+  const particleCanvas = useSelector(state => state.particleCanvas);
+  const siteSettings = useSelector(state => state.siteSettings);
   const [isReady, setIsReady] = useState(false);
   const [canvas, setCanvas] = useState(null);
   const [canvasLeft, setCanvasLeft] = useState(0);
@@ -32,14 +33,14 @@ export default () => {
   const [ctx, setCtx] = useState(null);
   const [canvasWidth, setCanvasWidth] = useState(600);
   const [canvasHeight, setCanvasHeight] = useState(400);
-  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isOnMobile } = siteSettings;
 
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
-  const particleState = useRef(appState[STORE_KEYS.PARTICLE_CANVAS]);
+  const particleState = useRef(particleCanvas);
   const trackedParticles = useRef([]);
 
-  const cursorParticle = particleState.cursorParticle;
+  const cursorParticle = particleState.current.cursorParticle;
 
   const initCanvas = useCallback(() => {
     canvas.setAttribute('width', window.innerWidth);
@@ -211,23 +212,18 @@ export default () => {
   };
 
   useEventListener('resize', initCanvas);
-  useEventListener('mouseenter', handleMouseEnter, canvas);
-  useEventListener('mouseleave', handleMouseLeave, canvas);
-  useEventListener('mousemove', handleMouseMove, canvas);
+
+  // TODO: Fix
+  // useEventListener('mouseenter', handleMouseEnter, canvas);
+  // useEventListener('mouseleave', handleMouseLeave, canvas);
+  // useEventListener('mousemove', handleMouseMove, canvas);
 
   useEffect(() => {
     if (isOnMobile) {
-      dispatch(
-        updateAppState(
-          STORE_KEYS.PARTICLE_CANVAS,
-          undefined,
-          undefined,
-          PARTICLE_CANVAS_MOBILE_DEFAULTS
-        )
-      );
+      particleCanvas.set(p => PARTICLE_CANVAS_MOBILE_DEFAULTS);
     }
     setIsReady(true);
-  }, [dispatch, isOnMobile]);
+  }, [isOnMobile]);
 
   useEffect(() => {
     if (!isReady) return;
@@ -259,10 +255,10 @@ export default () => {
   useEffect(() => {
     if (!isReady) return;
 
-    if (appState[STORE_KEYS.PARTICLE_CANVAS] !== particleState.current) {
-      particleState.current = appState[STORE_KEYS.PARTICLE_CANVAS];
+    if (particleCanvas !== particleState.current) {
+      particleState.current = particleCanvas;
     }
-  }, [isReady, appState[STORE_KEYS.PARTICLE_CANVAS]]);
+  }, [isReady, particleCanvas]);
 
   return (
     <canvas

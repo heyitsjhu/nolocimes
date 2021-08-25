@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import { BlogExcerpt, BlogHero, Helmet } from 'components';
-import { STORE_KEYS } from 'const';
+import { SEO } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
-import { fetchContentPosts, fetchContentTags } from 'stores/actions/contentActions';
+import { useContentfulService } from 'services/contentfulService';
 // import * as PostUtils from 'utils/postHelpers';
 
 import { PageLayout } from '..';
@@ -48,35 +47,26 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing }) => ({
 //   });
 // };
 
-export default props => {
+export default () => {
   const { t } = useCopy();
   const classes = useStyles();
-  const [appState, dispatch] = useContext(AppContext);
-  const { posts, tags } = appState[STORE_KEYS.CONTENT];
-  // const [posts, setPosts] = useState(appState[STORE_KEYS.CONTENT][STORE_KEYS.POSTS]);
-  // const [tags, setTags] = useState(appState[STORE_KEYS.CONTENT][STORE_KEYS.TAGS]);
+  const content = useSelector(state => state.content);
+  const { getPosts } = useContentfulService();
+  const { posts } = content;
 
   useEffect(() => {
-    if (posts.length === 0) {
-      fetchContentPosts().then(dispatch);
-    }
-    if (tags.length === 0) {
-      fetchContentTags().then(dispatch);
-    }
+    getPosts();
   }, []);
 
   return (
     <PageLayout pageName="blog" pageLayoutClassName={classes.blogLayout}>
-      <Helmet
-        title={t('components.Helmet.blog.title')}
-        meta={[{ name: 'description', content: t('components.Helmet.blog.meta.description') }]}
-      />
+      <Helmet {...SEO.BLOG(t)} />
       <BlogHero />
       <Box className={classes.excerptsContainer}>
         <Typography>{t('pages.Blog.mainDescription')}</Typography>
       </Box>
       <Box className={classes.excerptsContainer} component="ul">
-        {posts.length > 0 ? (
+        {posts?.length > 0 ? (
           posts.map((post, i) => (
             <BlogExcerpt component="li" key={i} post={post} reverseLayout={i % 2 !== 0} />
           ))

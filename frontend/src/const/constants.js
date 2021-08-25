@@ -1,5 +1,6 @@
 import SHA256 from 'crypto-js/sha256';
 
+export const ANBU_GLOSSARY_TERMS = ['blockchain'];
 export const ANBU_SAMPLE_USERS = [
   'user1',
   'user2',
@@ -11,6 +12,11 @@ export const ANBU_SAMPLE_USERS = [
   'user8',
   'user9',
   'user10',
+  'user11',
+  'user12',
+  'user13',
+  'user14',
+  'user15',
 ];
 export const ANBU_SAMPLE_USER_HASHES = ANBU_SAMPLE_USERS.map(user => SHA256(user).toString());
 export const ANBU_SAMPLE_USER = ANBU_SAMPLE_USER_HASHES[6];
@@ -24,6 +30,7 @@ export const CLASSES = {
   IS_MOBILE: 'isMobile',
   IS_NOT_HOME: 'isNotHome',
 };
+export const DEFAULT_NARRATION_SPEED = 20;
 export const DEFAULT_NOTIFICATION_DELAY = 1000;
 export const DEFAULT_NOTISTACK_PROPS = {
   anchorOrigin: { horizontal: 'right', vertical: 'bottom' },
@@ -72,6 +79,11 @@ export const POSTS = {
   POST_TAGS: 'postTags',
   POST_TITLE: 'postTitle',
 };
+
+export const REGEX = {
+  TYPEDJS_PAUSE_STRING: /\^\d+\s*/g,
+};
+
 export const ROUTES = {
   HOME: '/',
   ANBU_BLOCKCHAIN: '/anbu-blockchain',
@@ -86,7 +98,7 @@ export const ROUTES = {
   PRIVACY_POLICY: '/privacy-policy',
   PHOTOGRAPHY: '/photography',
   STYLE_GUIDE: '/style-guide',
-  TO_TICKER: ticker => `/candle-monkeys/stock?ticker=${ticker}`,
+  TO_TICKER: ticker => `/candle-monkeys?ticker=${ticker}`,
 };
 
 export const SITE_NAVIGATION = {

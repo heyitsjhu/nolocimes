@@ -1,16 +1,17 @@
-import React, { useContext, useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
-import { CLASSES, PARTICLE_CANVAS_DEFAULTS, STORE_KEYS } from 'const';
 import { Slider } from 'components';
+import { CLASSES, PARTICLE_CANVAS_DEFAULTS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useDebounce } from 'hooks/useDebounce';
-import { AppContext } from 'stores';
-import { updateAppState } from 'stores/actions/appActions';
+import { updateParticleCanvas } from 'redux/reducers/particleCanvas';
+
 import { deepClone } from 'utils';
 
 const useStyles = makeStyles(theme => ({
@@ -102,12 +103,15 @@ const controlsMapping = {
 const reducer = (state, payload) => deepClone(payload);
 
 export default () => {
-  const classes = useStyles();
   const { t } = useCopy();
-  const [appState, dispatch] = useContext(AppContext);
-  const [state, dispatchState] = useReducer(reducer, appState[STORE_KEYS.PARTICLE_CANVAS]);
-  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const particleCanvas = useSelector(state => state.particleCanvas);
+  const siteSettings = useSelector(state => state.siteSettings);
+  const [state, dispatchState] = useReducer(reducer, particleCanvas);
   const debouncedAppState = useDebounce(state, 600);
+
+  const { isOnMobile } = siteSettings;
 
   const ROW_ONE_ITEMS = [
     'particleColor',
@@ -126,9 +130,8 @@ export default () => {
 
   const handleReset = () => {
     dispatchState(PARTICLE_CANVAS_DEFAULTS);
-    dispatch(
-      updateAppState(STORE_KEYS.PARTICLE_CANVAS, undefined, undefined, PARTICLE_CANVAS_DEFAULTS)
-    );
+
+    dispatch(updateParticleCanvas(null, null, null, PARTICLE_CANVAS_DEFAULTS));
   };
 
   const renderSlider = control => {
@@ -151,10 +154,10 @@ export default () => {
   };
 
   useEffect(() => {
-    if (debouncedAppState !== appState[STORE_KEYS.PARTICLE_CANVAS]) {
-      dispatch(updateAppState(STORE_KEYS.PARTICLE_CANVAS, undefined, undefined, debouncedAppState));
+    if (debouncedAppState !== particleCanvas) {
+      dispatch(updateParticleCanvas(null, null, null, debouncedAppState));
     }
-  }, [debouncedAppState, dispatch]);
+  }, [debouncedAppState]);
 
   return (
     <Box className={classnames([classes.root, isOnMobile && CLASSES.IS_MOBILE])}>

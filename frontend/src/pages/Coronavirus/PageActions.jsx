@@ -1,24 +1,16 @@
-import React, { useContext, useEffect, useReducer } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Checkbox from '@material-ui/core/Checkbox';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
-import { updateCoronavirusState } from 'stores/actions/coronavirusActions';
+import { updateCoronavirus } from 'redux/reducers/coronavirus';
 import { getElId } from 'utils';
 
-const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
+const useStyles = makeStyles(() => ({
   pageActions: {
     display: 'flex',
     justifyContent: 'flex-end',
@@ -34,13 +26,15 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
 }));
 
 export default () => {
-  const classes = useStyles();
   const { t } = useCopy();
-  const [appState, dispatch] = useContext(AppContext);
-  const { controlPanel, countries, history } = appState[STORE_KEYS.CORONAVIRUS];
+  const dispatch = useDispatch();
+  const classes = useStyles();
+  const coronavirus = useSelector(state => state.coronavirus);
+  const { controlPanel, countries, history } = coronavirus;
 
   const stateHandler = key => (event, newValue) => {
-    dispatch(updateCoronavirusState(STORE_KEYS.CONTROL_PANEL, key, newValue));
+    const newControlPanel = { ...controlPanel, [key]: newValue };
+    dispatch(updateCoronavirus([STORE_KEYS.CONTROL_PANEL], null, null, newControlPanel));
   };
 
   return (

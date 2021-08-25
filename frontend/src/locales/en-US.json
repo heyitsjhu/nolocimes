@@ -16,9 +16,12 @@
       }
     },
     "common": {
-      "name": "Name",
+      "accept": "Accept",
+      "accountBalance": "Account Balance",
+      "accountNumber": "Account Number",
       "add": "Add",
       "amount": "Amount",
+      "begin": "Begin",
       "block": "Block",
       "blockSize": "Block Size",
       "buy": "Buy",
@@ -43,6 +46,7 @@
       "jhuSoftwareEngineer": "Johnny Hu - Software Engineer",
       "mine": "Mine",
       "miningReward": "Mining Reward",
+      "name": "Name",
       "nevermind": "Nevermind",
       "next": "Next",
       "none": "None",
@@ -58,6 +62,9 @@
       "search": "Search",
       "sell": "Sell",
       "sender": "Sender",
+      "skip": "Skip",
+      "tutorial": "Tutorial",
+      "tutorialCompleted": "Tutorial Completed",
       "underweightAbbr": "Underw.",
       "underweight": "Underweight"
     },
@@ -93,10 +100,22 @@
             "description": "Get inside the head of Johnny Hu, Software Engineer. He writes about web development, his learnings, reflections, and musings."
           }
         },
+        "candleMonkeys": {
+          "title": "Candle Monkeys | Johnny Hu - Software Engineer",
+          "meta": {
+            "description": "A place to look up stocks."
+          }
+        },
         "home": {
           "title": "Johnny Hu | Software Engineer | San Francisco Bay Area",
           "meta": {
             "description": "I'm a software engineer with a focus on web applications. My primary language is JavaScript. Welcome to my digital playground."
+          }
+        },
+        "photography": {
+          "title": "Photography | Johnny Hu - Software Engineer",
+          "meta": {
+            "description": "See the world through my eyes or, rather, my camera lens."
           }
         },
         "styleGuide": {
@@ -135,10 +154,16 @@
     "pages": {
       "AnbuBlockchain": {
         "console": {
-          "blockchainCreated": "$ New ANBU blockchain has been created successfully.",
-          "blockMined": "$ New ANBU block has been mined successfully.",
+          "blockchainCreated": "$ ANBU blockchain initialized. New genesis block #{{hashId}}# created.",
+          "blockMined": "$ New ANBU block #{{hashId}}# containing ({{noOfTransactions}}) transactions successfully mined.",
           "blockchainResetted": "$ Existing ANBU blockchain has been reset.",
-          "blockchainTransactionPosted": "$ New ANBU transaction has been posted."
+          "blockchainTransactionPosted": "$ New transaction posted. #{{sender}}# >> {{amount}} >> #{{recipient}}#"
+        },
+        "dialog": {
+          "miningInProgress": "Block mining in progress..."
+        },
+        "glossary": {
+          "blockchain": "A system in which a record of transactions made in bitcoin or another cryptocurrency are maintained across several computers that are linked in a peer-to-peer network."
         },
         "interaction": {
           "addTransaction": "Add Transaction",
@@ -146,13 +171,19 @@
           "mineTransactions": "Mine Transactions"
         },
         "narrative": {
-          "1": "<i>First</i> sentence. ^1000, &amp; a ^1000 second sentence.",
-          "2": "<i>third</i> sentence. ^1000, &amp; a ^1000 fourth sentence."
+          "0": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
+          "1": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
+          "2": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
+          "3": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
+          "4": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
+          "5": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
+          "6": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum."
         },
         "table": {
           "blocks": "Anbu Blocks",
           "transactions": "Anbu Transactions"
         },
+        "tutorialDescription": "Unless you've visited before, I'd highly recommend you take the narrated tutorial to learn about the basics of blockchain and how to use this demo.",
         "viewBalance": "View Balance"
       },
       "Blog": {
@@ -275,6 +306,22 @@
         "marketsOpen": "Markets Open",
         "dayHighLow": "Day Low/High",
         "52wkHighLow": "52-week Low/High"
+      },
+      "Coronavirus": {
+        "labels": {
+          "cases_new": "New Cases",
+          "cases_1M_pop": "Cases per capita (1M)",
+          "cases_active": "Active Cases",
+          "cases_critical": "Critical Cases",
+          "cases_recovered": "Recovered Cases",
+          "cases_total": "Total Cases",
+          "deaths_new": "New Deaths",
+          "deaths_1M_pop": "Deaths per capita (1M)",
+          "deaths_total": "Total Deaths",
+          "tests_1M_pop": "Tests per capita (1M)",
+          "tests_total": "Total Tests",
+          "population": "Population"
+        }
       },
       "PageNotFound": {
         "missingDestination": "Uh oh, looks like this destination is missing. Was it a typo?",

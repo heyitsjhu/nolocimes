@@ -1,3 +1,5 @@
+import currency from 'currency.js';
+
 const THOUSAND = 1000;
 const MILLION = THOUSAND * THOUSAND;
 const BILLION = MILLION * THOUSAND;
@@ -14,5 +16,18 @@ export const bigNumFormatter = num => {
     return Math.sign(num) * (Math.abs(num) / THOUSAND).toFixed(1) + 'k';
   } else {
     return Math.sign(num) * Math.abs(num);
+  }
+};
+
+export const displayAsCurrency = (num, language = 'en', options) => {
+  const opts =
+    language === 'br'
+      ? { decimal: ',', pattern: '! #', separator: '.', symbol: 'R$', ...options }
+      : { decimal: '.', pattern: '!#', separator: ',', symbol: '$', ...options };
+
+  if (typeof num === 'number') {
+    return currency(num, opts).format();
+  } else {
+    return '-';
   }
 };

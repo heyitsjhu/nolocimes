@@ -58,7 +58,7 @@ const animateInLogoTransitions = () => [
   {
     config: {
       targets: `.${SPLASH_LOGO} .${LOGO_SET_1}`,
-      opacity: 0.2,
+      opacity: 0.3,
       duration: 40,
     },
   },

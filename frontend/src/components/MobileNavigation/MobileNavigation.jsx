@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -21,7 +22,6 @@ import TimelineIcon from '@material-ui/icons/Timeline';
 import IconButton from 'components/IconButton/IconButton';
 import { SITE_NAVIGATION, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
 
 const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex }) => ({
   paperContainer: {
@@ -42,13 +42,13 @@ const ICON_MAPPING = {
 };
 
 export default props => {
-  const classes = useStyles();
   const { t } = useCopy();
   const history = useHistory();
-  const [appState, dispatch] = useContext(AppContext);
-  const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
+  const classes = useStyles();
+  const siteSettings = useSelector(state => state.siteSettings);
   const [open, setOpen] = useState(false);
 
+  const { isInteractive } = siteSettings;
   const PROJECTS_NAV_SET = SITE_NAVIGATION.mapping.filter(item => item.grouping === 1);
   const JHU_NAV_SET = SITE_NAVIGATION.mapping.filter(item => item.grouping === 2);
 

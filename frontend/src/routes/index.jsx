@@ -6,7 +6,6 @@ const AnbuBlockchainPage = lazy(() => import('pages/AnbuBlockchain/AnbuBlockchai
 const BlogPage = lazy(() => import('pages/Blog/Blog'));
 const BlogPostPage = lazy(() => import('pages/BlogPost/BlogPost'));
 const CandleMonkeysPage = lazy(() => import('pages/CandleMonkeys/CandleMonkeys'));
-const CandleMonkeysTickerPage = lazy(() => import('pages/CandleMonkeysTicker/CandleMonkeysTicker'));
 const CoronavirusPage = lazy(() => import('pages/Coronavirus/Coronavirus'));
 const PageNotFoundPage = lazy(() => import('pages/PageNotFound/PageNotFound'));
 const PhotographyPage = lazy(() => import('pages/Photography/Photography'));
@@ -30,9 +29,6 @@ const AppRoutes = () => (
       </Route>
       <Route exact path={ROUTES.CANDLE_MONKEYS}>
         <CandleMonkeysPage />
-      </Route>
-      <Route path={ROUTES.CANDLE_MONKEYS_TICKER}>
-        <CandleMonkeysTickerPage />
       </Route>
       <Route path={ROUTES.CORONAVIRUS}>
         <CoronavirusPage />

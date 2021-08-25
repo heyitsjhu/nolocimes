@@ -9,7 +9,6 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Typography from '@material-ui/core/Typography';
 
-import { AppContext } from 'stores';
 import { useCopy } from 'hooks/useCopy';
 
 const useStyles = makeStyles(({ palette, spacing, transitions }) => ({

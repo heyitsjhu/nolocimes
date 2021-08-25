@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useReducer } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Box from '@material-ui/core/Box';
@@ -14,7 +15,6 @@ import TextField from '@material-ui/core/TextField';
 
 import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
 
 import CHART_METRICS from './options/chartMetrics.json';
 
@@ -45,8 +45,8 @@ const stateReducer = (state, action) => {
 export default props => {
   const classes = useStyles();
   const { t } = useCopy();
-  const [appState, dispatch] = useContext(AppContext);
-  const { controlPanel, countries, history } = appState[STORE_KEYS.CORONAVIRUS];
+  const coronavirus = useSelector(state => state.coronavirus);
+  const { controlPanel, countries, history } = coronavirus;
   const [state, dispatchState] = useReducer(stateReducer, controlPanel);
 
   const stateHandler = (key, value) => (event, autocompleteValue, autocompleteReason) => {

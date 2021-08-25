@@ -1,3 +1,5 @@
+import { REGEX } from 'const';
+
 const lowerCaseA = 97;
 const lowerCaseZ = 122;
 
@@ -29,7 +31,20 @@ export const convertDateToQuarter = dateString => {
   return `${quarter} '${year.slice(2)}`;
 };
 
+/**
+ * TODO
+ * @param {*} quarterString
+ * @returns
+ */
 export const getShortenedQuarter = quarterString => {
   const [quarter, year] = quarterString.split(' ');
   return `${quarter} '${year.slice(2)}`;
+};
+
+/**
+ * TODO
+ * @param {*} typedString
+ */
+export const parseTypedString = typedString => {
+  return typedString.replace(REGEX.TYPEDJS_PAUSE_STRING, '');
 };

@@ -2,5 +2,7 @@
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "editor.wordWrapColumn": 100,
-  "editor.wordWrap": "wordWrapColumn"
+  "editor.wordWrap": "wordWrapColumn",
+  "bracket-pair-colorizer-2.colors": ["Gold", "Orchid", "LightSkyBlue"],
+  "bracket-pair-colorizer-2.forceUniqueOpeningColor": true
 }

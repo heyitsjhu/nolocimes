@@ -13,7 +13,7 @@ import { useCopy } from 'hooks/useCopy';
 import { useEventListener } from 'hooks/useEventListener';
 import PageLayout from '../PageLayout/PageLayout';
 
-const useStyles = makeStyles(({ palette, presets, spacing, transitions, typography }) => ({
+const useStyles = makeStyles(({ presets, spacing, transitions, typography }) => ({
   poweredByScrollLayout: {
     '& > div:nth-child(2)': {
       ...presets.flexColumnCentered,
@@ -107,7 +107,6 @@ export default props => {
 
   const handleScrollActivity = event => {
     setHideScrollIcon(poweredByScrollRef.current.scrollTop > 5);
-    console.log('rerendering', poweredByScrollRef.current?.scrollTop);
   };
 
   useEventListener('scroll', handleScrollActivity, poweredByScrollRef.current);

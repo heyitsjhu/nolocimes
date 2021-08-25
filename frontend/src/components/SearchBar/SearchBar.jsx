@@ -87,11 +87,13 @@ export default props => {
   };
 
   // TODO clear search input after user selects result.
+  // TODO verify the what the user inputs is actually a valid ticker.
   const handleOnChange = (event, newValue) => {
-    setValue(newValue);
-
     if (newValue) {
-      const ticker = newValue.substr(0, newValue.indexOf(' '));
+      setValue(newValue);
+
+      const ticker =
+        newValue.indexOf(' ') !== -1 ? newValue.substr(0, newValue.indexOf(' ')) : newValue;
       history.push(ROUTES.TO_TICKER(ticker));
     }
   };

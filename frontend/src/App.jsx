@@ -1,9 +1,10 @@
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Trans } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import * as am4core from '@amcharts/amcharts4/core';
@@ -20,14 +21,14 @@ import {
   ParticleCanvas,
   SplashLogo,
 } from 'components';
-import { CLASSES, LOCAL_STORAGE_KEY, ROUTES, STORE_KEYS } from 'const';
-import { useNotification } from 'hooks/useNotification';
+import { CLASSES, LOCAL_STORAGE_KEY, ROUTES, SEO, STORE_KEYS } from 'const';
+import { useNotifications } from 'hooks/useNotifications';
 import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
-import { AppContext, ThemeContext } from 'stores';
-import { updateAppState } from 'stores/actions/appActions';
+import { ThemeContext } from 'store';
+import { updateSiteSettings } from 'redux/reducers/siteSettings';
 import * as Utils from 'utils';
 
 am4core.useTheme(am4themes_animated);
@@ -61,59 +62,62 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions, zIndex })
 }));
 
 const App = () => {
-  const classes = useStyles();
   const { t } = useCopy();
+  const dispatch = useDispatch();
   const history = useHistory();
+  const siteSettings = useSelector(state => state.siteSettings);
+  const classes = useStyles();
   const isHome = useIsHome();
-  const [appState, dispatch] = useContext(AppContext);
   const { setDarkMode } = useContext(ThemeContext);
-  const { setNotification } = useNotification();
-  const { acceptedCookies, isDarkMode, isOnMobile, viewedIntro } = appState[
-    STORE_KEYS.SITE_SETTINGS
-  ];
+  const { setNotification } = useNotifications();
   const appRef = useRef();
 
+  const { acceptedCookies, isDarkMode, isOnMobile, viewedIntro } = siteSettings;
+
   const onStartAnimation = useCallback(() => {
-    // dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', undefined, false));
-  }, [dispatch]);
+    dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, false));
+  }, []);
 
   const onEndAnimation = useCallback(() => {
     if (!viewedIntro) {
-      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'viewedIntro', undefined, true));
+      dispatch(updateSiteSettings(STORE_KEYS.VIEWED_INTRO, null, null, true));
     }
-    // dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isInteractive', undefined, true));
-  }, [dispatch]);
+    dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, true));
+  }, []);
 
   useScrollToTop(appRef);
 
   useEffect(() => {
-    // localStorage.removeItem(LOCAL_STORAGE_KEY); // force remove local storage (dev only)
+    // DEV ONLY: Uncomment the following line to force removal of local storage cookie
+    // localStorage.removeItem(LOCAL_STORAGE_KEY);
     const storedCookies = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
 
+    // TODO: Cookies seem to be resetting when refreshing browser.
     if (storedCookies && storedCookies.viewedIntro) {
-      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, undefined, undefined, storedCookies));
+      dispatch(updateSiteSettings(null, null, null, storedCookies));
     } // skip intro if user arrives to a page other than the homepage
     else if (!isHome && !viewedIntro) {
-      dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'viewedIntro', undefined, true));
+      dispatch(updateSiteSettings(STORE_KEYS.VIEWED_INTRO, null, null, true));
     }
 
     if (!(acceptedCookies || (storedCookies && storedCookies.acceptedCookies))) {
       setNotification({
-        buttonText: 'Accept',
-        delay: 5000,
-        message: (
+        [STORE_KEYS.BUTTON_TEXT]: 'common.accept',
+        [STORE_KEYS.DELAY]: 5000,
+        [STORE_KEYS.MESSAGE]: (
           <Trans i18nKey="components.PrivacyPolicy.alertMessage">
             {' '}
             <Link onClick={() => history.push(ROUTES.PRIVACY_POLICY)} />.
           </Trans>
         ),
-        severity: 'info',
-        onClose: () =>
-          dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'acceptedCookies', undefined, true)),
+        [STORE_KEYS.SEVERITY]: 'info',
+        [STORE_KEYS.ON_CLOSE]: () => {
+          dispatch(updateSiteSettings(STORE_KEYS.ACCEPTED_COOKIES, null, null, true));
+        },
       });
     }
 
-    dispatch(updateAppState(STORE_KEYS.SITE_SETTINGS, 'isOnMobile', undefined, isMobile));
+    dispatch(updateSiteSettings(STORE_KEYS.IS_ON_MOBILE, null, null, isMobile));
 
     const animation = getAnimation({
       onStartAnimation,
@@ -125,7 +129,7 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // setDarkMode(isDarkMode);
+    setDarkMode(isDarkMode);
   }, [isDarkMode]);
 
   return (
@@ -139,10 +143,7 @@ const App = () => {
         ])}
         ref={appRef}
       >
-        <Helmet
-          title={t('components.Helmet.home.title')}
-          meta={[{ name: 'description', content: t('components.Helmet.home.meta.description') }]}
-        />
+        <Helmet {...SEO.HOMEPAGE(t)} />
         <NotificationBanner />
         <Header />
         <Breadcrumbs />

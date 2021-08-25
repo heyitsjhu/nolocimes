@@ -1,4 +1,5 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -14,8 +15,7 @@ import classnames from 'classnames';
 
 import { ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
-import { updateAppState } from 'stores/actions/appActions';
+import { updateSiteSettings } from 'redux/reducers/siteSettings';
 import { IconButton, ReportBug } from '..';
 import ParticleCanvasControls from './ParticleCanvasControls';
 
@@ -49,13 +49,15 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
 }));
 
 export default () => {
-  const classes = useStyles();
-  const history = useHistory();
   const { t } = useCopy();
-  const [appState, dispatch] = useContext(AppContext);
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const classes = useStyles();
+  const siteSettings = useSelector(state => state.siteSettings);
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
-  const { isInteractive, isDarkMode, isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
+
+  const { isInteractive, isDarkMode } = siteSettings;
 
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen);
@@ -70,10 +72,8 @@ export default () => {
   };
 
   const handleSettingsChange = event => {
-    if (event.target.name === 'isDarkMode') {
-      dispatch(
-        updateAppState(STORE_KEYS.SITE_SETTINGS, 'isDarkMode', undefined, event.target.checked)
-      );
+    if (event.target.name === STORE_KEYS.IS_DARK_MODE) {
+      dispatch(updateSiteSettings(STORE_KEYS.IS_DARK_MODE, null, null, event.target.checked));
     }
   };
 

@@ -1,3 +1,4 @@
+import { displayAsCurrency } from 'helpers';
 import { formatHash, formatTimestamp } from 'utils';
 
 export const anbuColumnDefs = {
@@ -37,6 +38,7 @@ export const anbuColumnDefs = {
     {
       colId: 'amount',
       colLabel: 'common.amount',
+      valueFormatter: displayAsCurrency,
     },
   ],
 };

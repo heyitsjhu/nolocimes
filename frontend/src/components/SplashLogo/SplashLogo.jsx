@@ -1,10 +1,9 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
-import { STORE_KEYS } from 'const';
 import { useIsHome } from 'hooks/useIsHome';
-import { AppContext } from 'stores';
 import palette from 'theme/palette';
 import { getElClass } from 'utils';
 
@@ -40,9 +39,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default props => {
+  const siteSettings = useSelector(state => state.siteSettings);
   const isHome = useIsHome();
-  const [appState, dispatch] = useContext(AppContext);
-  const { viewedIntro } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { viewedIntro } = siteSettings;
+
   const classes = useStyles({
     set1Fill: viewedIntro ? palette.grey[600] : palette.grey[600],
     set2Fill: viewedIntro ? palette.primary.dark : palette.grey[600],

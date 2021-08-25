@@ -21,13 +21,11 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
  */
 export default ({ className, component, id, ...typedProps }) => {
   const classes = useStyles();
-  const [state, setState] = useState(typedProps);
   const [typed, setTyped] = useState();
   const typedRef = useRef({});
 
   const create = (id, options) => {
     const newTyped = new Typed(`#${id}`, options);
-    setState(options);
     setTyped(newTyped);
 
     typedRef.current = newTyped;

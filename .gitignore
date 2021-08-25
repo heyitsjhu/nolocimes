@@ -13,6 +13,7 @@
 # production
 /build
 **/build
+/packages/**/lib
 
 # misc
 .DS_Store

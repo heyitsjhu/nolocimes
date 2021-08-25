@@ -1,4 +1,5 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
@@ -10,12 +11,11 @@ import LinkedInIcon from '@material-ui/icons/LinkedIn';
 import PersonIcon from '@material-ui/icons/Person';
 
 import { Dialog, IconButton, SiteLogo } from 'components';
-import { LINKS, STORE_KEYS } from 'const';
+import { LINKS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
 import { getElId } from 'utils';
 
-const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex }) => ({
+const useStyles = makeStyles(({ breakpoints, palette, spacing, zIndex }) => ({
   businessCardLayout: {
     display: 'flex',
     flexDirection: 'column',
@@ -86,9 +86,9 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
 export default () => {
   const { t } = useCopy();
   const classes = useStyles();
-  const [appState, dispatch] = useContext(AppContext);
+  const siteSettings = useSelector(state => state.siteSettings);
   const [open, setOpen] = useState(false);
-  const { isInteractive, isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isInteractive, isOnMobile } = siteSettings;
 
   const openBusinessCard = () => setOpen(true);
   const closeBusinessCard = () => setOpen(false);

@@ -1,13 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
 
 import { Helmet } from 'components';
+import { CLASSES, SEO } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { CLASSES, STORE_KEYS } from 'const';
-import { AppContext } from 'stores';
+import { updateSiteSettings } from 'redux/reducers/siteSettings';
 import themeMapping from 'theme';
 import { formatThemeProperty } from 'utils';
 
@@ -73,8 +74,9 @@ const textMapping = {
 export default props => {
   const { t } = useCopy();
   const classes = useStyles();
-  const [appState, dispatch] = useContext(AppContext);
-  const { isOnMobile, isDarkMode } = appState[STORE_KEYS.SITE_SETTINGS];
+  const siteSettings = useSelector(state => state.siteSettings);
+
+  const { isOnMobile, isDarkMode } = siteSettings;
   const theme = themeMapping[isDarkMode ? 'dark' : 'light']();
 
   const renderTypography = theme => {
@@ -85,15 +87,7 @@ export default props => {
 
         return (
           <>
-            <Helmet
-              title={t('components.Helmet.styleGuide.title')}
-              meta={[
-                {
-                  name: 'description',
-                  content: t('components.Helmet.styleGuide.meta.description'),
-                },
-              ]}
-            />
+            <Helmet {...SEO.STYLEGUIDE(t)} />
             <Box
               className={classnames([classes.typographySegment, isOnMobile && CLASSES.IS_MOBILE])}
               key={type}

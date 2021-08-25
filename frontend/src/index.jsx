@@ -5,8 +5,7 @@ import { debugContextDevtool } from 'react-context-devtool';
 import { BrowserRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
-import ApplicationProviders from 'stores';
-import ThemeProvider from 'stores/providers/themeProvider';
+import ApplicationProviders from 'store';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -15,12 +14,10 @@ const container = document.getElementById('root');
 ReactDOM.render(
   <React.StrictMode>
     <ApplicationProviders>
-      <ThemeProvider>
-        <BrowserRouter>
-          <CssBaseline />
-          <App />
-        </BrowserRouter>
-      </ThemeProvider>
+      <BrowserRouter>
+        <CssBaseline />
+        <App />
+      </BrowserRouter>
     </ApplicationProviders>
   </React.StrictMode>,
   container

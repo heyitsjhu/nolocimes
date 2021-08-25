@@ -38,7 +38,7 @@ const useStyles = makeStyles(({ palette, shared }) => ({
       borderBottom: shared.borderDefault,
     },
     '& .MuiTableCell-stickyHeader': {
-      backgroundColor: fade(palette.background.default, 0.9),
+      backgroundColor: fade(palette.background.default, 0.99),
     },
   },
   cellStyles: {
@@ -88,7 +88,8 @@ export default ({
         )}
         <TableRow {...TableRowProps}>
           {columns.map(({ colId, colLabel, valueFormatter, ...column }, i) => (
-            <TableCell {...column} key={`${colLabel}--${i}`}>
+            // https://github.com/mui-org/material-ui/issues/23090
+            <TableCell {...column} key={`${colLabel}--${i}`} style={{ top: 26 }}>
               <Box className={classes.cellStyles}>{t(colLabel)}</Box>
             </TableCell>
           ))}

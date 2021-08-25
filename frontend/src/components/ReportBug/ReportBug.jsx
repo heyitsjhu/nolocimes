@@ -1,21 +1,22 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import BugReportIcon from '@material-ui/icons/BugReport';
 
 import { LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
 
 import { Dialog, IconButton } from '..';
 
 const useStyles = makeStyles(theme => ({}));
 
 export default () => {
-  const classes = useStyles();
   const { t } = useCopy();
-  const [appState, dispatch] = useContext(AppContext);
-  const { isInteractive } = appState[STORE_KEYS.SITE_SETTINGS];
+  const classes = useStyles();
+  const siteSettings = useSelector(state => state.siteSettings);
   const [open, setOpen] = useState(false);
+
+  const { isInteractive } = siteSettings;
 
   const handleClose = () => {
     setOpen(false);

@@ -61,7 +61,14 @@ class AnbuBlockchain {
     const transaction = new AnbuTransaction(Date.now(), sender, recipient, amount);
     this.transactionsQueue.push(transaction);
 
-    return transaction;
+    // return transaction;
+    return {
+      blockTransactionLimit: this.blockTransactionLimit,
+      chain: this.chain,
+      difficulty: this.difficulty,
+      transactionsQueue: this.transactionsQueue,
+      miningReward: this.miningReward,
+    };
   }
 
   getDetails() {
@@ -105,7 +112,7 @@ class AnbuBlockchain {
     for (const block of this.chain) {
       for (const transaction of block.transactions) {
         if (transaction.sender === address) {
-          balance -= transaction.amaount;
+          balance -= transaction.amount;
         }
 
         if (transaction.recipient === address) {
@@ -113,6 +120,8 @@ class AnbuBlockchain {
         }
       }
     }
+
+    console.log({ address, balance });
 
     return { address, balance };
   }

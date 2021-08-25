@@ -1,18 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Box, Link, Typography } from '@material-ui/core';
 import ArrowRightAltRoundedIcon from '@material-ui/icons/ArrowRightAltRounded';
 import classnames from 'classnames';
 
 import { BlogHero, Helmet, Post } from 'components';
-import { ROUTES, STORE_KEYS } from 'const';
+import { ROUTES, SEO, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
-import { fetchContentAssets, fetchContentPosts } from 'stores/actions/contentActions';
+// import { useGetEntriesQuery } from 'api/contentful';
 import * as PostUtils from 'utils/postHelpers';
 
 import { PageLayout } from '..';
+import { useContentfulService } from 'services/contentfulService';
 
 const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   blogPostLayout: {
@@ -60,32 +61,38 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
 export default props => {
   const { t } = useCopy();
   const classes = useStyles();
+  const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const [appState, dispatch] = useContext(AppContext);
-  const [post, setPost] = useState(undefined);
+  const content = useSelector(state => state.content);
+  const { getPosts } = useContentfulService();
+  const { posts } = content;
+
+  const [post, setPost] = useState();
   const [postIndex, setPostIndex] = useState(null);
-  const { assets, posts } = appState[STORE_KEYS.CONTENT];
   const heroImageUrl = PostUtils.getPostHeroImageUrl(post);
 
-  const setPostFromURL = () => {
+  const setPostFromURL = useCallback(() => {
     const urlSlug = location.pathname.split('/')[2];
-    const post = appState.content.posts.find((post, index) => {
+    const post = posts.find((post, index) => {
       setPostIndex(index);
       return PostUtils.getPostSlug(post) === urlSlug;
     });
 
     setPost(post);
-  };
+  }, [location.pathname, posts]);
 
   useEffect(() => {
-    if (assets.length === 0) {
-      fetchContentAssets().then(dispatch);
-    }
     if (posts.length === 0) {
-      fetchContentPosts().then(dispatch);
+      getPosts();
     }
   }, []);
+
+  // useEffect(() => {
+  //   if (postsData) {
+  //     dispatch(updateContentful(STORE_KEYS.POSTS, null, null, postsData.items));
+  //   }
+  // }, [postsData]);
 
   useEffect(() => {
     setPostFromURL();
@@ -123,10 +130,7 @@ export default props => {
   return (
     <PageLayout pageName="blogPost" pageLayoutClassName={classes.blogPostLayout}>
       {typeof post !== 'undefined' && (
-        <Helmet
-          title={`${post.fields.title} | ${t('common.jhuSoftwareEngineer')}`}
-          meta={[{ name: 'description', content: post.fields.description }]}
-        />
+        <Helmet {...SEO.BLOG_POST(t, post.fields.title, post.fields.description)} />
       )}
       <BlogHero srcUrl={heroImageUrl} />
       <Box className={classes.backButtonContainer}>

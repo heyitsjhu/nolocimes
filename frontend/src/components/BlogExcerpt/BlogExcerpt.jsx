@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
-import { POSTS, ROUTES, STORE_KEYS } from 'const';
-import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
+import { POSTS, ROUTES } from 'const';
 import * as PostUtils from 'utils/postHelpers';
 import { PostRenderer } from '../renderers';
 
@@ -39,9 +38,9 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
 
 export default ({ component, post, reverseLayout }) => {
   const classes = useStyles();
-  const { t } = useCopy();
-  const [appState, dispatch] = useContext(AppContext);
-  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
+  const siteSettings = useSelector(state => state.siteSettings);
+
+  const { isOnMobile } = siteSettings;
   const postDate = PostUtils.getPostDate(post);
   const postTags = PostUtils.getPostTags(post);
   const postSlug = PostUtils.getPostSlug(post);

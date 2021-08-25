@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -6,11 +7,9 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
 
-import { CLASSES, ROUTES, STORE_KEYS } from 'const';
+import { CLASSES, ROUTES } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
-import { AppContext } from 'stores';
-
 import * as Utils from 'utils';
 
 import { GitHubExternalLink, SiteSettingsMenu } from '..';
@@ -42,38 +41,36 @@ const useStyles = makeStyles(({ palette, spacing, shared, zIndex }) => ({
 }));
 
 export default () => {
-  const classes = useStyles();
-  const history = useHistory();
   const { t } = useCopy();
+  const history = useHistory();
+  const classes = useStyles();
+  const siteSettings = useSelector(state => state.siteSettings);
   const isHome = useIsHome();
-  const [appState, dispatch] = useContext(AppContext);
-  const { isOnMobile } = appState[STORE_KEYS.SITE_SETTINGS];
+  const { isOnMobile } = siteSettings;
 
   return (
-    <>
-      <Box
-        id={Utils.getElId('site', 'footer')}
-        className={classnames([
-          classes.footer,
-          !isHome && CLASSES.IS_NOT_HOME,
-          isOnMobile && CLASSES.IS_MOBILE,
-        ])}
-        component="footer"
-      >
-        <SiteSettingsMenu />
-        <Typography color="textSecondary" variant="caption">
-          {t('components.Footer.copyright')}
-          {!isOnMobile && (
-            <>
-              <Box className={classes.verticalDivider} />
-              <Link color="textSecondary" onClick={() => history.push(ROUTES.PRIVACY_POLICY)}>
-                {t('components.Footer.privacyPolicy')}
-              </Link>
-            </>
-          )}
-        </Typography>
-        <GitHubExternalLink />
-      </Box>
-    </>
+    <Box
+      id={Utils.getElId('site', 'footer')}
+      className={classnames([
+        classes.footer,
+        !isHome && CLASSES.IS_NOT_HOME,
+        isOnMobile && CLASSES.IS_MOBILE,
+      ])}
+      component="footer"
+    >
+      <SiteSettingsMenu />
+      <Typography color="textSecondary" variant="caption">
+        {t('components.Footer.copyright')}
+        {!isOnMobile && (
+          <>
+            <Box className={classes.verticalDivider} />
+            <Link color="textSecondary" onClick={() => history.push(ROUTES.PRIVACY_POLICY)}>
+              {t('components.Footer.privacyPolicy')}
+            </Link>
+          </>
+        )}
+      </Typography>
+      <GitHubExternalLink />
+    </Box>
   );
 };

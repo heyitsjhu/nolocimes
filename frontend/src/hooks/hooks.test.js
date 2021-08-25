@@ -12,7 +12,7 @@ jest.mock('react-router-dom', () => ({
     .mockReturnValueOnce({ pathname: '/blog' }),
 }));
 
-jest.mock('const', () => ({ ROUTES: { HOME: '/' } }));
+jest.mock('const', () => ({ STORE_KEYS: {}, ROUTES: { HOME: '/' } }));
 
 import { useCopy } from './useCopy';
 import { useDebounce } from './useDebounce';

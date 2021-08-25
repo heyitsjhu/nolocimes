@@ -2,7 +2,6 @@ export { default as AnbuBlockchainPage } from './AnbuBlockchain/AnbuBlockchain';
 export { default as BlogPage } from './Blog/Blog';
 export { default as BlogPostPage } from './BlogPost/BlogPost';
 export { default as CandleMonkeysPage } from './CandleMonkeys/CandleMonkeys';
-export { default as CandleMonkeysTickerPage } from './CandleMonkeysTicker/CandleMonkeysTicker';
 export { default as CoronavirusPage } from './Coronavirus/Coronavirus';
 export { default as PageLayout } from './PageLayout/PageLayout';
 export { default as PageNotFoundPage } from './PageNotFound/PageNotFound';

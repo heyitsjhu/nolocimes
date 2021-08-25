@@ -13,7 +13,6 @@ import { DateTime } from 'luxon';
 
 import TruncateText from 'components/TruncateText/TruncateText';
 import { POSTS, ROUTES, STORE_KEYS } from 'const';
-import { AppContext } from 'stores';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
   [POSTS.POST_BLOCKQUOTE]: {
@@ -190,14 +189,16 @@ const PostCoverImage = ({ postPart, imageUrl, postUrl, ...otherProps }) => {
           e.preventDefault();
           history.push(postUrl);
         }}
-      />
+      >
+        <span />
+      </Link>
     </Box>
   );
 };
 
 const PostTags = ({ tags, ...otherProps }) => {
-  const [appState] = useContext(AppContext);
-  const { activeTag } = appState[STORE_KEYS.BLOG];
+  // const { activeTag } = appState[STORE_KEYS.BLOG];
+  const activeTag = 'general';
 
   return (
     <Box {...otherProps}>

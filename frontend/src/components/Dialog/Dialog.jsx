@@ -16,6 +16,7 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
     border: shared.borderDefault,
     borderTop: shared.borderSignature,
     backgroundColor: palette.background.default,
+    width: '100%',
   },
   dialogActions: {
     '& > :not(:first-child)': {

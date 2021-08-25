@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 import am4themes_animated from '@amcharts/amcharts4/themes/animated';
@@ -7,8 +8,6 @@ import Box from '@material-ui/core/Box';
 import classnames from 'classnames';
 
 import { BIG_NUMBER_PREFIXES, STORE_KEYS } from 'const';
-import { AppContext } from 'stores';
-// import { updateAppState } from 'stores/actions/appActions';
 import palette from 'theme/palette';
 
 const PRIMARY_COLOR = palette.primary.main;
@@ -19,7 +18,6 @@ const SCROLLBAR_COLOR = palette.grey[800];
 
 const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   covidLineChartContainer: {
-    // marginTop: spacing(3),
     marginBottom: spacing(4),
     width: '100%',
     height: `calc(100% - ${spacing(4)}px)`,
@@ -28,8 +26,8 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
 
 export default props => {
   const classes = useStyles();
-  const [appState, dispatch] = useContext(AppContext);
-  const { chartMetric } = appState[STORE_KEYS.CORONAVIRUS].controlPanel;
+  const coronavirus = useSelector(state => state.coronavirus);
+  const { chartMetric } = coronavirus[STORE_KEYS.CONTROL_PANEL];
   const chart = useRef({});
 
   const setDateAxis = chart => {

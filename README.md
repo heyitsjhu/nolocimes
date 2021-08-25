@@ -46,15 +46,17 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 
 [rollbar](https://rollbar.com)
 [js-logger](https://github.com/jonnyreeves/js-logger)
+[redux-logger](https://github.com/LogRocket/redux-logger)
 
 #### Frontend
 
 [animejs](https://animejs.com/)
 [crypto-js](https://github.com/brix/crypto-js)
+[redux](https://redux.js.org/)
+[redux-toolkit](https://redux-toolkit.js.org/)
 [react-image-lightbox](https://github.com/frontend-collective/react-image-lightbox)
 [react-photo-gallery](https://github.com/neptunian/react-photo-gallery)
 [typed.js](http://mattboldt.github.io/typed.js)
-[use-reducer-logger](https://github.com/jefflombard/use-reducer-logger)
 [why-did-you-render](https://github.com/welldone-software/why-did-you-render)
 
 #### Content Management

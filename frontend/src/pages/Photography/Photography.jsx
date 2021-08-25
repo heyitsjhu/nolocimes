@@ -1,14 +1,15 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import PhotoGallery from 'react-photo-gallery';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
-import { GalleryImage } from 'components';
-import { STORE_KEYS } from 'const';
+import { GalleryImage, Helmet } from 'components';
+import { SEO } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { AppContext } from 'stores';
-import { fetchContentImages } from 'stores/actions/contentActions';
+import { useContentfulService } from 'services/contentfulService';
+
 import PageLayout from '../PageLayout/PageLayout';
 
 const useStyles = makeStyles(({ palette, spacing }) => ({
@@ -45,11 +46,13 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
 export default () => {
   const { t } = useCopy();
   const classes = useStyles();
-  const [appState, dispatch] = useContext(AppContext);
+  const content = useSelector(state => state.content);
+  const { getAssets } = useContentfulService();
+  const { images } = content;
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [photos, setPhotos] = useState([]);
-  const images = appState[STORE_KEYS.CONTENT][STORE_KEYS.IMAGES];
 
   const openLightbox = useCallback((event, { photo, index }) => {
     setCurrentImageIndex(index);
@@ -62,8 +65,8 @@ export default () => {
   };
 
   useEffect(() => {
-    fetchContentImages(appState[STORE_KEYS.CONTENT]).then(dispatch);
-  }, [dispatch]);
+    getAssets();
+  }, []);
 
   useEffect(() => {
     const photos = formatImagesData(images);
@@ -108,6 +111,7 @@ export default () => {
 
   return (
     <PageLayout pageName="photography" pageLayoutClassName={classes.photographyLayout}>
+      <Helmet {...SEO.PHOTOGRAPHY(t)} />
       <PhotoGallery
         className={classes.galleryContainer}
         photos={photos}

@@ -1,4 +1,5 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Alert, AlertTitle } from '@material-ui/lab';
 import Button from '@material-ui/core/Button';
@@ -6,60 +7,69 @@ import Fade from '@material-ui/core/Fade';
 import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
 
-import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
-import { useNotification } from 'hooks/useNotification';
-import { AppContext } from 'stores';
+import { useNotifications } from 'hooks/useNotifications';
 
-const useStyles = makeStyles(({ transitions, spacing, zIndex }) => ({
-  notificationBanner: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    padding: spacing(1),
-    width: '100%',
-    borderRadius: 0,
-    zIndex: zIndex.notificationBanner,
-    '& .MuiAlert-message': {
-      padding: '7px 0',
+const useStyles = isMobile =>
+  makeStyles(({ spacing, zIndex }) => ({
+    notificationBanner: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      flexDirection: isMobile ? 'column' : 'row',
+      padding: spacing(1),
+      width: '100%',
+      borderRadius: 0,
+      zIndex: zIndex.notificationBanner,
+      '& .MuiAlert-icon': {
+        display: isMobile ? 'none' : 'flex',
+      },
+      '& .MuiAlert-message': {
+        padding: '7px 0',
+      },
+      '& .MuiAlert-action': {
+        paddingRight: spacing(2),
+      },
     },
-    '& .MuiAlert-action': {
-      paddingRight: spacing(2),
-    },
-  },
-}));
+  }));
 
 export default () => {
   const { t } = useCopy();
-  const classes = useStyles();
-  const [appState, dispatch] = useContext(AppContext);
-  const { resetNotification } = useNotification();
-  const { buttonText, message, onClose, severity, show, title } = appState[STORE_KEYS.NOTIFICATION];
+  const dispatch = useDispatch();
+  const notifications = useSelector(state => state.notifications);
+  const siteSettings = useSelector(state => state.siteSettings);
+  const { resetNotification } = useNotifications();
+
+  const { buttonText, message, onClose, severity, show, title } = notifications;
+  const { isInteractive, isOnMobile } = siteSettings;
+  const classes = useStyles(isOnMobile)();
 
   const handleOnClose = () => {
     onClose && onClose();
-    resetNotification();
+    dispatch(resetNotification());
   };
 
   const renderActionButton = () => {
     return (
       buttonText && (
         <Button color="inherit" size="small" onClick={handleOnClose}>
-          {buttonText}
+          {t(buttonText)}
         </Button>
       )
     );
   };
 
   const renderAlertMessage = () => {
-    if (typeof message === 'string') {
+    if (typeof message === 'function') {
+      return message();
+    } else if (typeof message === 'string') {
       return <Typography>{t(message)}</Typography>;
     } else {
       return message;
     }
   };
 
-  return appState[STORE_KEYS.SITE_SETTINGS].isInteractive && message ? (
+  return isInteractive && message ? (
     <Fade in={show}>
       <Alert
         className={classnames(classes.notificationBanner)}
