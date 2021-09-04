@@ -32,9 +32,10 @@ export const convertDateToQuarter = dateString => {
 };
 
 /**
- * TODO
- * @param {*} quarterString
- * @returns
+ * Given a string containing the quarter and year
+ * (e.g., Q1 2021), returns the shortened version (e.g., Q1 21).
+ * @param {string} quarterString
+ * @returns {string} Shortened quarter/year string
  */
 export const getShortenedQuarter = quarterString => {
   const [quarter, year] = quarterString.split(' ');

@@ -152,7 +152,6 @@ export default props => {
     if (data) {
       const chartData = Utils.convertCovidStatisticsDataForAmcharts(data, countries);
 
-      console.log('theres data', coro, chartData);
       setChartData(chartData);
     }
   }, [data]);

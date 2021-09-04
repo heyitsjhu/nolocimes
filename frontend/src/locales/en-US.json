@@ -41,8 +41,10 @@
       "dismiss": "Dismiss",
       "fetchingResults": "Fetching results",
       "fiscalDate": "Fiscal date",
+      "glossary": "Glossary",
       "hash": "Hash",
       "hold": "Hold",
+      "instructions": "Instructions",
       "jhuSoftwareEngineer": "Johnny Hu - Software Engineer",
       "mine": "Mine",
       "miningReward": "Mining Reward",
@@ -65,6 +67,7 @@
       "skip": "Skip",
       "tutorial": "Tutorial",
       "tutorialCompleted": "Tutorial Completed",
+      "tutorialSkipped": "Tutorial Skipped",
       "underweightAbbr": "Underw.",
       "underweight": "Underweight"
     },
@@ -89,9 +92,9 @@
       },
       "Helmet": {
         "anbuBlockchain": {
-          "title": "Anbu Blockchain | Johnny Hu - Software Engineer",
+          "title": "ANBU Blockchain - A New Blockchain Universe | Johnny Hu - Software Engineer",
           "meta": {
-            "description": "Anbu is a blockchain application built on Javascript. It demonstrates the blockchain technology through a sample application for visitors to interact with."
+            "description": "ANBU Blockchain is a project, written in JavaScript, with the sole intent of demonstrating the basics of blockchain technology in an interactive way. The blockchain itself is fictional and does not retain any monetary value."
           }
         },
         "blog": {
@@ -127,7 +130,7 @@
       },
       "HomeLogoNavigation": {
         "navMapping": {
-          "navId1": "Anbu Blockchain",
+          "navId1": "ANBU Blockchain",
           "navId2": "Candle Monkeys",
           "navId3": "Coronavirus",
           "navId4": "Nolocimes",
@@ -155,7 +158,7 @@
       "AnbuBlockchain": {
         "console": {
           "blockchainCreated": "$ ANBU blockchain initialized. New genesis block #{{hashId}}# created.",
-          "blockMined": "$ New ANBU block #{{hashId}}# containing ({{noOfTransactions}}) transactions successfully mined.",
+          "blockMined": "$ New ANBU block #{{hashId}}# containing ({{noOfTransactions}}) transactions successfully mined. ({{duration}} seconds)",
           "blockchainResetted": "$ Existing ANBU blockchain has been reset.",
           "blockchainTransactionPosted": "$ New transaction posted. #{{sender}}# >> {{amount}} >> #{{recipient}}#"
         },
@@ -170,18 +173,20 @@
           "createBlockchain": "Create Blockchain",
           "mineTransactions": "Mine Transactions"
         },
-        "narrative": {
-          "0": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
-          "1": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
-          "2": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
-          "3": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
-          "4": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
-          "5": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum.",
-          "6": "^1000 <b>What is blockchain?</b> ^1000 <br> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ornare sapien ipsum, et bibendum nibh ultrices sit amet. Praesent ullamcorper faucibus viverra. Duis volutpat diam at erat hendrerit sodales. Aenean nec bibendum ante, non hendrerit mi. Etiam vehicula mauris rhoncus ligula ultricies iaculis. Fusce tristique mollis diam, elementum efficitur justo dictum eget. Nam auctor dui eget tempor tempus. Vivamus placerat ac turpis et posuere. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae risus sed nunc convallis interdum."
+        "pageDescription": "This project stemmed from my curiosity about blockchain technology and cryptocurrency. So, as I learned more about the topic, I decided to challenge myself to build an application where users can learn the very basics of blockchain technology in an interactive way.",
+        "tutorial": {
+          "1": "<b>Welcome to Early Access!</b> <br> You have been selected to participate as an early access, pilot user for a new blockchain technology, called ANBU Technologies. Its (fictional) business model is too complex to detail here, but to support its operations, it supplies its own cryptocurrency, called the ANBUcoin, which is the digital currency used to reward miners who help secure and verify the blockchain's transactions. <br><br> As an early access user, you get to witness the blockchain's initialization. What a treat! Go ahead and click on the \"Create\" button on the right.",
+          "2": "<b>ANBU: A New Blockchain Universe Begins</b> <br> And so, it begins! <br><br> Under the \"Create\" button, you'll notice a couple of new entries in the—not so real—console window. The first indicates the blockchain's initialization, which sets up the underlying technology and creates the very first block in the blockchain, called the Genesis Block. The second is a newly posted transaction on the blockchain's ledger, sent from the <em>#system#</em> to user <em>#3268151e#</em> in the amount of <em>$100,000</em>. <br><br> Wait! If you look above the \"Create\" button, you'll notice an Account Number listed. That user, is you! Wow, look at you, richer already. <br><br> Next, notice the entries in the two tables below. The ANBU Blocks table shows you the mined and verified blocks in the blockchain. Each block has a unique identifier—like an ID—denoted by the value in the hash column, and is always linked to the previous block in the blockchain. The only exception is the Genesis Block since it's the first block in the blockchain. The ANBU Transactions table is the blockchain's ledger and it lists all new transactions related to the ANBUcoin as they happen. <br><br> You might have noticed that your Account Balance is still $0 even though the ledger shows a transaction of you receiving $100,000. ...yeah, more on that in a second. I promise it's not a bug. Let's add another transaction to the ledger. Go ahead and click on the \"Add\" button.",
+          "3": "<b>Small Beginnings, Big Ambitions</b> <br> The ledger grows with every new transaction and tells us that the technology is becoming more and more popular. This latest transaction may or may not include you as the sender or recipient, because it's all random! :) <br><br> Let's simulate a few more transactions. Click on the \"Add\" button until it disables itself.",
+          "4": "<b>Wow, ANBU's Really Picking Up Steam!</b> <br> Nice! We have a number of transactions in the ledger now. But no one's actually getting paid, as you can verify by looking at your Account Balance—it's still at zero! <br><br> Now, before you start calling this a scam, hear me out. <br><br> ANBU Technologies' blockchain is a decentralized, peer-to-peer network that relies on \"miners\" to secure and verify transactions involving its cryptocurrency (ANBUcoin) by solving (often) extremely complex computational math problems. In return, the miner is paid a reward—usually in the digital asset. This reward system also injects new ANBUcoin into the circulation since it's paid out by the system. Please note, this is a very watered-down version of how complex the underlying technology of a blockchain actually is. But nevertheless it highlights why your account hasn't been updated yet. The transactions need to be verified and secured through mining! Once a block of transactions is successfully mined, everyone's account balances update accordingly to those newly mined transactions and the block is moved onto the blockchain where it can never be changed. <br><br> And guess who's going to help us with mining these transactions? That's right, you are! Click on the \"Mine\" button to start mining.",
+          "5": "<b>ANBU's P2P Network Strengthens</b> <br> Great job! You just successfully helped mine an ANBU block. <br><br> In the ANBU Transactions table, notice that the first two transactions in the ledger are no longer there. Your Account Balance has also been updated with the $100,000 the system paid you. (Note: If the second transaction involved you as a sender or recipient, then your balance will take that into account.) The console also informs you that a new ANBU block containing (2) transactions has been successfully mined. <br><br> In the ANBU Blocks table, you will see the newly mined ANBU block with its unique hash ID. Also notice that it is linked to the previous block, via its hash ID. This is true for all blocks created after the Genesis Block. Finally, to see the transactions that were mined, hover over the row for the block. <br><br> Feel free to take a look around and when you're ready, click on the \"Next\" button below.",
+          "6": "<b>Why Only (2) Transactions?</b> <br> The answer is simple: Because that was the rule set when the blockchain was created. But here's the fun part, I'll let you change it (and more)! <br><br> Take a look at the options sandwiched between the \"Create | Add | Mine | Reset\" buttons and the console, which are now available to you. <br><br> <b>Block Size</b> - Controls how many transactions a block will contain. <br> <b>Difficulty</b> - Determines the computational math problem's complexity when mining. The higher the difficulty, the longer it will take to successfully mine a block. <br> <b>Mining Reward</b> - The amount paid out by the system to a miner for successfully mining a block.",
+          "7": "<b>Modify, Modify, Modify</b> <br> Feel free to change the settings to Block Size, Difficulty and Mining Reward. When you're ready, click on the \"Mine\" button again to mine the next block using the new settings.",
+          "8": "<b>Congratulations!</b> <br><br> You've reached the end of the tutorial. Thank you for interacting with this! <br><br> If you increased the Block Size, you'll see this reflected in the number of transactions stored in the newly add block in the ANBU Blocks table. You'll also no longer see those transactions in the ANBU Transactions table. <br><br> If you increased the Difficulty, depending on how difficult you made it, you may have noticed a \"Mining in progress\" dialog when you executed the last mining process. Basically, difficulty increases the \"complexity\" of the computational math problem, which means it takes a miner longer to solve the problem. You can also see the duration of the mining process in the message shown in the console. <br><br> Finally, if you increased the Mining Reward, then you'll notice in the ANBU Transactions table, the latest entry, which is the system's payout to you for successfully mining the latest block, will reflect the value you selected. <br><br> That's it. Remember: This is a very simplified illustration of how an actual blockchain works. I hope it was as enjoyable for you as it was for me to build this. :) <br><br> Feel free to continue playing around here or visit one of the other projects on the site."
         },
         "table": {
-          "blocks": "Anbu Blocks",
-          "transactions": "Anbu Transactions"
+          "blocks": "ANBU Blocks",
+          "transactions": "ANBU Transactions"
         },
         "tutorialDescription": "Unless you've visited before, I'd highly recommend you take the narrated tutorial to learn about the basics of blockchain and how to use this demo.",
         "viewBalance": "View Balance"

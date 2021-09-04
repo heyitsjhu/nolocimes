@@ -30,7 +30,7 @@ export const CLASSES = {
   IS_MOBILE: 'isMobile',
   IS_NOT_HOME: 'isNotHome',
 };
-export const DEFAULT_NARRATION_SPEED = 20;
+export const DEFAULT_TUTORIAL_SPEED = 20;
 export const DEFAULT_NOTIFICATION_DELAY = 1000;
 export const DEFAULT_NOTISTACK_PROPS = {
   anchorOrigin: { horizontal: 'right', vertical: 'bottom' },

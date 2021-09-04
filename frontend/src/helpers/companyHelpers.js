@@ -22,7 +22,7 @@ const getStatsComponent = (key, value) => {
 export const statsExtractor = (data, statKeys) => {
   let stats = {};
 
-  statKeys.map(statKey => {
+  statKeys.forEach(statKey => {
     stats[statKey] = getStatsComponent(statKey, data[statKey]);
   });
 

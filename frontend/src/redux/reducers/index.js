@@ -17,6 +17,7 @@ const middlewareConfig = {
 
 const logger = createLogger({
   predicate: (getState, action) => !action.type.includes('__rtkq/focused'),
+  collapsed: true,
 });
 
 export const reducers = {

@@ -1,7 +1,6 @@
 // import './wdyr';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { debugContextDevtool } from 'react-context-devtool';
 import { BrowserRouter } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import App from './App';
@@ -23,12 +22,8 @@ ReactDOM.render(
   container
 );
 
-// For development, enables use of React Context DevTool Chrome Extension
-debugContextDevtool(container, {
-  disable: process.env.NODE_ENV === 'production',
-});
-
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// TODO: Setup a function to send web vitals to a logging service
+reportWebVitals(console.log);

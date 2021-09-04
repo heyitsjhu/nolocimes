@@ -14,7 +14,7 @@ export const formatThemeProperty = property => {
 };
 
 export const formatHash = (hash, length = 8) => {
-  return hash ? hash.slice(0, length) : '-';
+  return hash ? hash.slice(0, length) : 'system';
 };
 
 export const formatTimestamp = timestamp => {

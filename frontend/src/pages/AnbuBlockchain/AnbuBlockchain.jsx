@@ -1,3 +1,18 @@
+/**
+ * IDEA: Create a sample blockchain, backed by a pseudo-cryptocurrency, that attempts
+ * to solve some real world problem (e.g., something in real estate, like fractional ownership?). Create a story that supports the actions the user will be able to perform.
+ *
+ * Have the user "assume" to role of a miner and allow them to mine blocks of transactions.
+ * Let the user trigger new transactions under the block chain so they can mine them.
+ * Create a set of "crypto users" the user can select as the buyer/sellers in the transactions.
+ * Allow the user to select an amount (or some monetary value) to exchange in the transaction.
+ * Create a table that visualizes the blockchain's transactions (queued and mined), aka its ledger.
+ *
+ * Allow the user to "attempt" to hack the blockchain by modifying one of the mined transactions.
+ * Create a stats section where user can see all users' balances, including theirs.
+ *
+ * Add limitations to the number of transactions the user can create (to avoid overloading the website -- this is just a sample after all!)
+ */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
@@ -18,19 +33,26 @@ import { ButtonGroup, Dialog, Helmet, Select, Table, Typed } from 'components';
 import {
   ANBU_GLOSSARY_TERMS,
   ANBU_SAMPLE_USER_HASHES,
-  DEFAULT_NARRATION_SPEED,
+  DEFAULT_TUTORIAL_SPEED,
   SEO,
   STORE_KEYS,
 } from 'const';
 import { displayAsCurrency, parseTypedString } from 'helpers';
 import { useCopy } from 'hooks/useCopy';
+import { updateAnbuBlockchain } from 'redux/reducers/anbu';
 import { useAnbuService } from 'services/anbuService';
-import { formatHash, formatTimestamp, getElId, getRandomNumber } from 'utils';
+import {
+  formatHash,
+  formatTimestamp,
+  getElId,
+  getRandomNumber,
+  scrollToLatestChildElement,
+} from 'utils';
+
 import PageLayout from '../PageLayout/PageLayout';
 import { anbuColumnDefs } from './columnDefs';
-import { updateAnbuBlockchain } from 'redux/reducers/anbu';
 
-const useStyles = makeStyles(({ palette, shared, spacing }) => ({
+const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
   anbuBlockchainLayout: {},
   innerContainer: { display: 'flex', flexDirection: 'column' },
   twoColumn: {
@@ -40,14 +62,21 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
       '&:last-child': { paddingLeft: spacing(2) },
     },
   },
-  narrationPrompt: {
-    padding: `${spacing(1)}px ${spacing(2)}px`,
+  tutorialPrompt: {
+    padding: `${spacing(1)}px 0`,
     height: '100%',
     width: '100%',
     borderBottom: `1px solid ${palette.primary.main}`,
     overflowY: 'auto',
     '& p': {
       marginBottom: spacing(2),
+      padding: `0 ${spacing(2)}px`,
+      '&:last-child:not(:first-child)': {
+        animation: `$highlightTutorialPrompt 3000ms ${transitions.easing.easeInOut}`,
+      },
+      '& > b': {
+        textDecoration: 'underline',
+      },
     },
   },
   balanceContainer: {
@@ -138,6 +167,11 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
     paddingBottom: spacing(1),
     borderBottom: shared.borderDefault,
   },
+  '@keyframes highlightTutorialPrompt': {
+    '0%': { 'background-color': palette.background.paper },
+    '20%': { 'background-color': palette.background.paper },
+    '100%': { 'background-color': 'transparent' },
+  },
 }));
 
 export default () => {
@@ -145,171 +179,100 @@ export default () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const anbuBlockchain = useSelector(state => state.anbu);
-
   const siteSettings = useSelector(state => state.siteSettings);
-  const { account, anbuCoin, settings } = anbuBlockchain;
+  const { account, anbuCoin, consoleOutputs, tutorialOutputs, settings } = anbuBlockchain;
   const { language } = siteSettings;
   const {
-    initializeAnbuCoin,
-    getBalanceOfAddress,
     createTransaction,
+    initializeAnbuCoin,
     mineTransactionsQueue,
     resetBlockchain,
     updateBlockchainSettings,
-    setCurrentStep,
+    updateTutorialProgression,
   } = useAnbuService();
 
-  const [consoleOutputs, setConsoleOutputs] = useState([]);
-  const [narrationOutputs, setNarrationOutputs] = useState([
-    'pages.AnbuBlockchain.narrative.' + settings[STORE_KEYS.NARRATIVE_STEP],
-  ]);
   const [miningInProgress, setMiningInProgress] = useState(false);
   const [tabValue, setTabValue] = useState(0);
 
   const blocksTableRef = useRef({});
   const consoleRef = useRef({});
-  const narrationPromptRef = useRef({});
+  const tutorialPromptRef = useRef({});
   const transactionsTableRef = useRef({});
 
-  const handleTutorialProgression = targetStep => {
-    let newNarrations = [];
-    for (let i = settings[STORE_KEYS.NARRATIVE_STEP]; i < targetStep; i++) {
-      newNarrations.push('pages.AnbuBlockchain.narrative.' + (i + 1));
-    }
-
-    dispatch(
-      updateAnbuBlockchain(STORE_KEYS.SETTINGS, STORE_KEYS.NARRATIVE_STEP, undefined, targetStep)
-    );
-
-    if (targetStep >= settings[STORE_KEYS.NARRATIVE_MAX_STEP]) {
-      newNarrations.push('');
-
-      dispatch(
-        updateAnbuBlockchain(STORE_KEYS.SETTINGS, STORE_KEYS.TUTORIAL_COMPLETED, undefined, true)
-      );
-    }
-
-    setNarrationOutputs([...narrationOutputs, ...newNarrations]);
-  };
-
-  const handleSkipTutorial = () => {
-    handleTutorialProgression(settings[STORE_KEYS.NARRATIVE_MAX_STEP]);
-  };
-
-  const handleTabChange = (event, newValue) => {
-    setTabValue(newValue);
-    if (newValue === 1) {
-      handleTutorialProgression(settings[STORE_KEYS.NARRATIVE_STEP] + 1);
-    }
-  };
-
-  const onChangeHandler = key => e => {
-    dispatch(updateAnbuBlockchain(STORE_KEYS.SETTINGS, key, undefined, Number(e.target.value)));
-    updateBlockchainSettings(settings);
-  };
-
   const handleCreateBlockchain = () => {
-    initializeAnbuCoin(settings[STORE_KEYS.DIFFICULTY], settings[STORE_KEYS.MINING_REWARD])
-      .then(anbuCoin => {
-        const block = anbuCoin?.chain?.length > 0 ? anbuCoin.chain[0] : null;
-        if (block) {
-          setConsoleOutputs([
-            ...consoleOutputs,
-            {
-              message: 'pages.AnbuBlockchain.console.blockchainCreated',
-              options: { hashId: formatHash(block.hash) },
-            },
-          ]);
-        }
-      })
-      .then(() => createTransaction(null, account[STORE_KEYS.ADDRESS], 100000))
-      .then(() => setCurrentStep(settings[STORE_KEYS.CURRENT_STEP] + 1));
+    initializeAnbuCoin(settings[STORE_KEYS.DIFFICULTY], settings[STORE_KEYS.MINING_REWARD]).then(
+      handleTutorialProgression
+    );
   };
 
   const handleAddTransaction = () => {
     const sender = ANBU_SAMPLE_USER_HASHES[getRandomNumber(1, 0)];
     let recipient = ANBU_SAMPLE_USER_HASHES[getRandomNumber(1, 0)];
+
     while (sender === recipient || !recipient) {
       recipient = ANBU_SAMPLE_USER_HASHES[getRandomNumber(1, 0)];
     }
 
-    createTransaction(sender, recipient, getRandomNumber())
-      .then(anbuCoin => {
-        const latestTransaction =
-          anbuCoin?.transactionsQueue.length > 0
-            ? anbuCoin.transactionsQueue[anbuCoin.transactionsQueue.length - 1]
-            : null;
-
-        if (latestTransaction) {
-          setConsoleOutputs([
-            ...consoleOutputs,
-            {
-              message: 'pages.AnbuBlockchain.console.blockchainTransactionPosted',
-              options: {
-                sender: formatHash(latestTransaction.sender),
-                recipient: formatHash(latestTransaction.recipient),
-                amount: latestTransaction.amount,
-              },
-            },
-          ]);
-        }
-      })
-      .then(() => setCurrentStep(settings[STORE_KEYS.CURRENT_STEP] + 1));
-  };
-
-  const handleMineTransactions = () => {
-    // TODO capture how long the mining process took
-    setMiningInProgress(true);
-
-    mineTransactionsQueue(account[STORE_KEYS.ADDRESS])
-      .then(anbuCoin => {
-        const latestBlock =
-          anbuCoin?.chain.length > 0 ? anbuCoin.chain[anbuCoin.chain.length - 1] : null;
-
-        setConsoleOutputs([
-          ...consoleOutputs,
-          {
-            message: 'pages.AnbuBlockchain.console.blockMined',
-            options: {
-              hashId: formatHash(latestBlock.hash),
-              noOfTransactions: latestBlock.transactions.length,
-            },
-          },
-        ]);
-
-        return anbuCoin;
-      })
-      .then(() => getBalanceOfAddress(account[STORE_KEYS.ADDRESS]))
-      .then(() => {
-        setCurrentStep(settings[STORE_KEYS.CURRENT_STEP] + 1);
-        setMiningInProgress(false);
-      });
-  };
-
-  const handleResetBlockchain = () => {
-    resetBlockchain().then(() => {
-      handleClearConsole();
-      setConsoleOutputs([
-        {
-          message: 'pages.AnbuBlockchain.console.blockchainResetted',
-          options: {},
-        },
-      ]);
-      setCurrentStep(1);
+    createTransaction(sender, recipient, getRandomNumber()).then(() => {
+      if (
+        settings[STORE_KEYS.TUTORIAL_STEP] < 3 ||
+        (settings[STORE_KEYS.TUTORIAL_STEP] === 3 &&
+          anbuCoin[STORE_KEYS.TRANSACTIONS_QUEUE].length === 4)
+      ) {
+        handleTutorialProgression();
+      }
     });
   };
 
+  const handleMineTransactions = () => {
+    setMiningInProgress(true);
+
+    mineTransactionsQueue(account[STORE_KEYS.ADDRESS]).then(() => {
+      if (settings[STORE_KEYS.TUTORIAL_STEP] === 4 || settings[STORE_KEYS.TUTORIAL_STEP] === 7) {
+        handleTutorialProgression();
+      }
+      setMiningInProgress(false);
+    });
+  };
+
+  const handleResetBlockchain = () => {
+    resetBlockchain();
+  };
+
+  const onChangeHandler = name => e => {
+    if (settings[STORE_KEYS.TUTORIAL_STEP] === 6) {
+      handleTutorialProgression();
+    }
+
+    updateBlockchainSettings(name, Number(e.target.value));
+  };
+
+  const handleTutorialProgression = () => {
+    updateTutorialProgression(settings[STORE_KEYS.TUTORIAL_STEP] + 1);
+  };
+
+  const handleSkipTutorial = () => {
+    updateTutorialProgression(settings[STORE_KEYS.TUTORIAL_MAX_STEP]);
+  };
+
+  // TODO: Double-check if this is still necessary?
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   const handleClearConsole = () => {
-    setConsoleOutputs([]);
+    dispatch(updateAnbuBlockchain(STORE_KEYS.CONSOLE_OUTPUTS, undefined, undefined, []));
   };
 
   const renderConsoleOutput = useCallback(
     outputs => {
       return outputs.map(({ message, options }, i) => {
-        const key = 'console-output-' + i;
+        const key = 'anbu-console-output-' + i;
         const consoleOutput = t(message, options);
 
-        if (i === outputs.length - 1) {
+        if (undefined) {
+          // i === outputs.length - 1
+          // TODO: Fix issue where Typed re-renders on store update
           return (
             <Typed
               className={classes.consoleText}
@@ -338,19 +301,21 @@ export default () => {
     [consoleOutputs]
   );
 
-  const renderNarrationOutput = useCallback(
+  const renderTutorialOutput = useCallback(
     outputs => {
       return outputs.map((output, i) => {
-        const key = 'narration-output-' + i;
-        if (i === outputs.length - 1) {
+        const key = 'anbu-tutorial-output-' + i;
+        if (undefined) {
+          // i === outputs.length - 1
+          // TODO: Fix issue where Typed re-renders on store update
           return (
             <Typed
               fadeOut
-              id="typedjs-narration-output"
+              id="typedjs-tutorial-output"
               key={key}
               showCursor={false}
               strings={[t(output)]}
-              typeSpeed={DEFAULT_NARRATION_SPEED}
+              typeSpeed={DEFAULT_TUTORIAL_SPEED}
             />
           );
         } else {
@@ -358,12 +323,13 @@ export default () => {
             <Typography
               dangerouslySetInnerHTML={{ __html: parseTypedString(t(output)) }}
               key={key}
+              variant="body2"
             />
           );
         }
       });
     },
-    [narrationOutputs]
+    [tutorialOutputs]
   );
 
   const renderTooltip = useCallback(
@@ -400,47 +366,56 @@ export default () => {
         Icon: DeveloperBoardIcon,
         label: 'common.create',
         onClick: handleCreateBlockchain,
-        disabled: settings[STORE_KEYS.CURRENT_STEP] !== 1,
+        disabled: anbuCoin[STORE_KEYS.CHAIN].length !== 0 || miningInProgress,
       },
       {
         Icon: ReceiptIcon,
         label: 'common.add',
         onClick: handleAddTransaction,
-        disabled: settings[STORE_KEYS.CURRENT_STEP] < 2,
+        disabled:
+          anbuCoin[STORE_KEYS.CHAIN].length === 0 ||
+          settings[STORE_KEYS.TUTORIAL_STEP] < 2 ||
+          (settings[STORE_KEYS.TUTORIAL_STEP] > 3 && settings[STORE_KEYS.TUTORIAL_STEP] < 8) ||
+          miningInProgress,
       },
       {
         Icon: SelectAllIcon,
         label: 'common.mine',
         onClick: handleMineTransactions,
         disabled:
-          settings[STORE_KEYS.CURRENT_STEP] === 1 ||
-          anbuCoin.transactionsQueue.length === 0 ||
+          settings[STORE_KEYS.TUTORIAL_STEP] < 4 ||
+          settings[STORE_KEYS.TUTORIAL_STEP] === 5 ||
+          settings[STORE_KEYS.TUTORIAL_STEP] === 6 ||
+          anbuCoin[STORE_KEYS.TRANSACTIONS_QUEUE].length === 0 ||
           miningInProgress,
       },
       {
         Icon: LoopIcon,
         label: 'common.reset',
         onClick: handleResetBlockchain,
-        disabled: settings[STORE_KEYS.CURRENT_STEP] < 3,
+        disabled:
+          anbuCoin[STORE_KEYS.CHAIN].length === 0 ||
+          !settings[STORE_KEYS.TUTORIAL_COMPLETED] ||
+          miningInProgress,
       },
     ],
   };
 
   const interationSettingsInputs = [
     {
-      disabled: settings[STORE_KEYS.CURRENT_STEP] === 1,
-      id: STORE_KEYS.BLOCK_SIZE,
+      disabled: settings[STORE_KEYS.TUTORIAL_STEP] < 6,
+      id: STORE_KEYS.BLOCK_TRANSACTION_LIMIT,
       label: 'common.blockSize',
       options: [2, 4, 6, 8, 10].map(n => ({ label: n, value: n })),
     },
     {
-      disabled: settings[STORE_KEYS.CURRENT_STEP] === 1,
+      disabled: settings[STORE_KEYS.TUTORIAL_STEP] < 6,
       id: STORE_KEYS.DIFFICULTY,
       label: 'common.difficulty',
       options: [1, 2, 3, 4, 5].map(n => ({ label: n, value: n })),
     },
     {
-      disabled: settings[STORE_KEYS.CURRENT_STEP] === 1,
+      disabled: settings[STORE_KEYS.TUTORIAL_STEP] < 6,
       id: STORE_KEYS.MINING_REWARD,
       label: 'common.miningReward',
       options: [100, 250, 500, 750, 1000].map(n => ({ label: n, value: n })),
@@ -448,11 +423,13 @@ export default () => {
   ];
 
   useEffect(() => {
+    // TODO: Investigate why, if using the clean up method, it sometimes triggers pre-maturely (from idling on the page too long?), which breaks the page
+    resetBlockchain(true);
+
     return () => {
-      resetBlockchain();
       consoleRef.current = null;
       blocksTableRef.current = null;
-      narrationPromptRef.current = null;
+      tutorialPromptRef.current = null;
       transactionsTableRef.current = null;
     };
   }, []);
@@ -464,16 +441,17 @@ export default () => {
   }, [consoleOutputs]);
 
   useEffect(() => {
+    // TODO: switching back and forth between tabs brings scroll back to the very top
+    if (tutorialPromptRef.current) {
+      scrollToLatestChildElement(tutorialPromptRef.current, { verticalAdjustment: 32 });
+    }
+  }, [tutorialOutputs]);
+
+  useEffect(() => {
     if (blocksTableRef.current) {
       blocksTableRef.current.scrollTo(0, blocksTableRef.current.scrollHeight);
     }
   }, [anbuCoin.chain]);
-
-  useEffect(() => {
-    if (narrationPromptRef.current) {
-      narrationPromptRef.current.scrollTo(0, narrationPromptRef.current.scrollHeight);
-    }
-  }, [narrationOutputs]);
 
   useEffect(() => {
     if (transactionsTableRef.current) {
@@ -481,25 +459,10 @@ export default () => {
     }
   }, [anbuCoin.transactionsQueue]);
 
-  /**
-   * IDEA: Create a sample blockchain, backed by a pseudo-cryptocurrency, that attempts
-   * to solve some real world problem (e.g., something in real estate, like fractional ownership?). Create a story that supports the actions the user will be able to perform.
-   *
-   * Have the user "assume" to role of a miner and allow them to mine blocks of transactions.
-   * Let the user trigger new transactions under the block chain so they can mine them.
-   * Create a set of "crypto users" the user can select as the buyer/sellers in the transactions.
-   * Allow the user to select an amount (or some monetary value) to exchange in the transaction.
-   * Create a table that visualizes the blockchain's transactions (queued and mined), aka its ledger.
-   *
-   * Allow the user to "attempt" to hack the blockchain by modifying one of the mined transactions.
-   * Create a stats section where user can see all users' balances, including theirs.
-   *
-   * Add limitations to the number of transactions the user can create (to avoid overloading the website -- this is just a sample after all!)
-   */
-
   return (
     <PageLayout
       className={classes.innerContainer}
+      pageDescription={'pages.AnbuBlockchain.pageDescription'}
       pageName="anbuBlockchain"
       pageLayoutClassName={classes.anbuBlockchainLayout}
     >
@@ -515,32 +478,36 @@ export default () => {
             variant="fullWidth"
             onChange={handleTabChange}
           >
-            <Tab label="Instructions" />
-            <Tab label="Glossary" />
+            <Tab label={t('common.instructions')} />
+            <Tab label={t('common.glossary')} />
           </Tabs>
 
           {tabValue === 0 && (
             <>
-              <Box className={classes.narrationPrompt} ref={narrationPromptRef}>
-                {renderNarrationOutput(narrationOutputs)}
+              <Box className={classes.tutorialPrompt} ref={tutorialPromptRef}>
+                {renderTutorialOutput(tutorialOutputs)}
               </Box>
               <ButtonGroup justifyRight>
-                {!settings[STORE_KEYS.TUTORIAL_COMPLETED] && (
-                  <Link onClick={handleSkipTutorial} color="textSecondary">
-                    {t('common.skip')}
+                {settings[STORE_KEYS.TUTORIAL_COMPLETED] ? (
+                  <Typography
+                    color="textSecondary"
+                    style={{ fontStyle: 'italic' }}
+                    variant="caption"
+                  >
+                    {settings[STORE_KEYS.TUTORIAL_SKIPPED]
+                      ? t('common.tutorialSkipped')
+                      : t('common.tutorialCompleted')}
+                  </Typography>
+                ) : (
+                  <Link onClick={handleSkipTutorial} color="textSecondary" variant="caption">
+                    {`${t('common.skip')} ${t('common.tutorial')}`}
                   </Link>
                 )}
-                <Button
-                  color="primary"
-                  disabled={settings[STORE_KEYS.TUTORIAL_COMPLETED]}
-                  target="_blank"
-                  variant="contained"
-                  onClick={() => handleTutorialProgression(settings[STORE_KEYS.NARRATIVE_STEP] + 1)}
-                >
-                  {!settings[STORE_KEYS.TUTORIAL_COMPLETED]
-                    ? t('common.next')
-                    : t('common.tutorialCompleted')}
-                </Button>
+                {settings[STORE_KEYS.TUTORIAL_STEP] === 5 && (
+                  <Button onClick={handleTutorialProgression} color="primary" variant="contained">
+                    {t('common.next')}
+                  </Button>
+                )}
               </ButtonGroup>
             </>
           )}

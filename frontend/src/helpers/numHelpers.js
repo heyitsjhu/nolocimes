@@ -1,4 +1,5 @@
 import currency from 'currency.js';
+import numeral from 'numeral';
 
 const THOUSAND = 1000;
 const MILLION = THOUSAND * THOUSAND;
@@ -30,4 +31,15 @@ export const displayAsCurrency = (num, language = 'en', options) => {
   } else {
     return '-';
   }
+};
+
+/**
+ * Formats a number based on the format passed in.
+ * Please see numeral.js library for all format options.
+ * @param {number} number - The number to format
+ * @param {string} [format] - Format based on numeral.js
+ * @returns {string} - The formatted number
+ */
+export const formatNumber = (number, format = '0,0.0[0]') => {
+  return numeral(number).format(format);
 };

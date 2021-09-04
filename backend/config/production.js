@@ -31,5 +31,5 @@ module.exports = {
   rapidApiCovidTotalsUrl: process.env.RAPIDAPI_COVID_TOTALS_URL,
   rapidApiKey: process.env.RAPIDAPI_KEY,
   redirectDomain: process.env.REDIRECT_DOMAIN,
-  rollbarServerToken: process.env.ROLLBAR_SERVE_TOKEN,
+  rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN,
 };

@@ -1,5 +1,5 @@
 // https://material.io/resources/color
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles/colorManipulator';
 
 export const black = '#000';
 export const white = '#fff';
@@ -36,17 +36,17 @@ export default {
   contrastThreshold: 3,
   grey: greys,
   overlay: {
-    dark: fade(black, 0.6),
-    darker: fade(black, 0.8),
-    darkest: fade(black, 0.9),
+    dark: alpha(black, 0.6),
+    darker: alpha(black, 0.8),
+    darkest: alpha(black, 0.9),
   },
   primary: {
     ...primary,
-    transparent: fade(primary.main, 0.7),
+    transparent: alpha(primary.main, 0.7),
   },
   secondary: {
     ...secondary,
-    transparent: fade(secondary.main, 0.7),
+    transparent: alpha(secondary.main, 0.7),
   },
   error: {
     main: red,
@@ -57,9 +57,9 @@ export default {
   text: {
     primary: greys[200],
     secondary: greys[400],
-    disabled: fade(greys[200], 0.5),
-    hint: fade(greys[200], 0.5),
-    icon: fade(greys[200], 0.5),
+    disabled: alpha(greys[200], 0.5),
+    hint: alpha(greys[200], 0.5),
+    icon: alpha(greys[200], 0.5),
   },
   tonalOffset: 0.2,
 };

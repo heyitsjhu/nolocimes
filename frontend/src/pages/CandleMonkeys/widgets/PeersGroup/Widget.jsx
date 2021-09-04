@@ -77,7 +77,7 @@ export default () => {
       disablePadding
     >
       {stockPeers.map(peerTicker => {
-        if (!data[peerTicker]) return;
+        if (!data[peerTicker]) return <></>;
 
         const url = ROUTES.TO_TICKER(peerTicker);
         const { latestPrice, change, changePercent, companyName, primaryExchange, symbol } = data[

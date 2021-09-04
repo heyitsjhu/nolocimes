@@ -88,7 +88,7 @@ describe('formatters - formatHash', () => {
     expect(hash1).toMatch('jkl342ij');
     expect(hash2).toMatch('owe98453jkhb');
     expect(hash3).toMatch('vier9');
-    expect(hash4).toMatch('-');
+    expect(hash4).toMatch('system');
   });
 });
 

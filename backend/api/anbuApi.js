@@ -1,10 +1,5 @@
-// Not actually an api, but we'll pretend. :)
 import SHA256 from 'crypto-js/sha256';
 
-import constants from '../const';
-import Logger from '../utils/logger';
-
-// create transaction (just an example)
 class AnbuTransaction {
   constructor(timestamp, sender, recipient, amount) {
     this.timestamp = timestamp;
@@ -14,9 +9,6 @@ class AnbuTransaction {
   }
 }
 
-// Block sizes cannot exceed 1MB in size so size of transactions
-// must be limited. Usually, miners (in Proof of Work consensus)
-// can choose which transactions to include.
 class AnbuBlock {
   constructor(index, timestamp, transactions, previousHash = '') {
     this.index = index;
@@ -54,21 +46,14 @@ class AnbuBlockchain {
   }
 
   createGenesisBlock() {
-    return new AnbuBlock(0, Date.now(), 'Anbu Genesis Block', '0');
+    return new AnbuBlock(0, Date.now(), 'ANBU Genesis Block', '0');
   }
 
   createTransaction(sender, recipient, amount) {
     const transaction = new AnbuTransaction(Date.now(), sender, recipient, amount);
     this.transactionsQueue.push(transaction);
 
-    // return transaction;
-    return {
-      blockTransactionLimit: this.blockTransactionLimit,
-      chain: this.chain,
-      difficulty: this.difficulty,
-      transactionsQueue: this.transactionsQueue,
-      miningReward: this.miningReward,
-    };
+    return transaction;
   }
 
   getDetails() {
@@ -121,15 +106,11 @@ class AnbuBlockchain {
       }
     }
 
-    console.log({ address, balance });
-
     return { address, balance };
   }
 
-  updateSettings(blockSize, difficulty, miningReward) {
-    this.blockTransactionLimit = +blockSize || this.blockTransactionLimit;
-    this.difficulty = +difficulty || this.difficulty;
-    this.miningReward = +miningReward || this.miningReward;
+  updateSettings(name, value) {
+    this[name] = +value || this[name];
 
     return this.getDetails();
   }
@@ -139,11 +120,10 @@ class AnbuBlockchain {
       const currentBlock = this.chain[i];
       const previousBlock = this.chain[i - 1];
 
-      if (currentBlock.hash !== currentBlock.calculateHash()) {
-        return false;
-      }
+      const isCurrentHashValid = currentBlock.hash === currentBlock.calculateHash();
+      const isLinkToPreviousBlockValid = currentBlock.previousHash === previousBlock.hash;
 
-      if (currentBlock.previousHash !== previousBlock.hash) {
+      if (!isCurrentHashValid || !isLinkToPreviousBlockValid) {
         return false;
       }
     }
@@ -152,5 +132,4 @@ class AnbuBlockchain {
   }
 }
 
-// export an instance of api class
 export default AnbuBlockchain;

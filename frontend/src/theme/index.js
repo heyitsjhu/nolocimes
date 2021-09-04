@@ -1,4 +1,4 @@
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+import { createTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import breakpoints from './breakpoints';
 import overrides from './overrides';
 import palette from './palette';
@@ -19,10 +19,10 @@ const themeBase = {
 };
 
 export default {
-  dark: () => responsiveFontSizes(createMuiTheme({ ...themeBase, palette })),
+  dark: () => responsiveFontSizes(createTheme({ ...themeBase, palette })),
   light: () =>
     responsiveFontSizes(
-      createMuiTheme({
+      createTheme({
         ...themeBase,
         palette: {
           type: 'light',

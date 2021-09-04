@@ -23,12 +23,6 @@ class AnbuAPI {
     return response.data;
   };
 
-  getLatestBlock = async () => {
-    const response = await fetchApi.get('/api/anbu/latestBlock');
-
-    return response.data;
-  };
-
   getDetails = async () => {
     const response = await fetchApi.get('/api/anbu/details');
 
@@ -36,13 +30,13 @@ class AnbuAPI {
   };
 
   getLatestBlock = async () => {
-    const response = await fetchApi.get('/api/anbu/latestBlock');
+    const response = await fetchApi.get('/api/anbu/latest-block');
 
     return response.data;
   };
 
   mineTransactionsQueue = async miningRewardAddress => {
-    const response = await fetchApi.get('/api/anbu/mineTransactions', { miningRewardAddress });
+    const response = await fetchApi.get('/api/anbu/mine-transactions', { miningRewardAddress });
 
     return response.data;
   };
@@ -53,11 +47,10 @@ class AnbuAPI {
     return response.data;
   };
 
-  updateBlockchainSettings = async ({ blockSize, difficulty, miningReward }) => {
-    const response = await fetchApi.get('/api/anbu/updateSettings', {
-      blockSize,
-      difficulty,
-      miningReward,
+  updateBlockchainSettings = async ({ name, value }) => {
+    const response = await fetchApi.get('/api/anbu/update-settings', {
+      name,
+      value,
     });
 
     return response.data;

@@ -13,7 +13,7 @@ const fetchApi = {
     let response;
 
     try {
-      // check status code, handle errors
+      // TODO: check status code, handle errors
       response = await axios.get(uri, { params });
 
       log.info(
@@ -23,7 +23,7 @@ const fetchApi = {
         'color: orange'
       );
     } catch (error) {
-      // do a better handling of api errors.
+      // TODO: do a better handling of api errors.
       response = error;
       log.error(
         `%cfetchApi %c[GET] ${uri} %c:params: ${JSON.stringify(params)}`,

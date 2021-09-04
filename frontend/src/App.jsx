@@ -4,7 +4,7 @@ import { Trans } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { isMobile } from 'react-device-detect';
 import { makeStyles } from '@material-ui/core/styles';
-import { fade } from '@material-ui/core/styles/colorManipulator';
+import { alpha } from '@material-ui/core/styles/colorManipulator';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
 import * as am4core from '@amcharts/amcharts4/core';
@@ -54,7 +54,7 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions, zIndex })
         position: 'fixed',
         width: `calc(100% - ${spacing(10) + 4}px)`,
         height: `calc(100% - ${spacing(10) + 6}px)`,
-        backgroundColor: fade(palette.background.default, 0.7),
+        backgroundColor: alpha(palette.background.default, 0.7),
         zIndex: 2,
       },
     },
@@ -72,17 +72,21 @@ const App = () => {
   const { setNotification } = useNotifications();
   const appRef = useRef();
 
-  const { acceptedCookies, isDarkMode, isOnMobile, viewedIntro } = siteSettings;
+  const { acceptedCookies, isDarkMode, isInteractive, isOnMobile, viewedIntro } = siteSettings;
 
   const onStartAnimation = useCallback(() => {
-    dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, false));
+    if (isInteractive) {
+      dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, false));
+    }
   }, []);
 
   const onEndAnimation = useCallback(() => {
     if (!viewedIntro) {
       dispatch(updateSiteSettings(STORE_KEYS.VIEWED_INTRO, null, null, true));
     }
-    dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, true));
+    if (!isInteractive) {
+      dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, true));
+    }
   }, []);
 
   useScrollToTop(appRef);

@@ -39,3 +39,17 @@ export const getElTestId = name => {
 };
 
 // export const preventDefault = event => event.preventDefault();
+
+export const scrollToLatestChildElement = (element, options) => {
+  if (element && element.children.length) {
+    const childrenLength = element.children.length;
+    const latestChildElement = element.children[childrenLength - 1];
+
+    const { verticalAdjustment } = options;
+
+    const scrollToY =
+      element.scrollHeight - latestChildElement.scrollHeight - (verticalAdjustment || 0);
+
+    element.scrollTo({ behavior: 'smooth', left: 0, top: scrollToY });
+  }
+};

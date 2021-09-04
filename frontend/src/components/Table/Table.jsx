@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import { makeStyles } from '@material-ui/core/styles';
+import { alpha } from '@material-ui/core/styles/colorManipulator';
 import Box from '@material-ui/core/Box';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -18,7 +18,7 @@ const useStyles = makeStyles(({ palette, shared }) => ({
   tableContainer: {
     height: '100%',
     width: '100%',
-    backgroundColor: fade(palette.background.default, 0.6),
+    backgroundColor: alpha(palette.background.default, 0.6),
     '-ms-overflow-style': 'none',
     'scrollbar-width': 'none',
     '&::-webkit-scrollbar': {
@@ -38,7 +38,7 @@ const useStyles = makeStyles(({ palette, shared }) => ({
       borderBottom: shared.borderDefault,
     },
     '& .MuiTableCell-stickyHeader': {
-      backgroundColor: fade(palette.background.default, 0.99),
+      backgroundColor: alpha(palette.background.default, 0.99),
     },
   },
   cellStyles: {
@@ -89,7 +89,7 @@ export default ({
         <TableRow {...TableRowProps}>
           {columns.map(({ colId, colLabel, valueFormatter, ...column }, i) => (
             // https://github.com/mui-org/material-ui/issues/23090
-            <TableCell {...column} key={`${colLabel}--${i}`} style={{ top: 26 }}>
+            <TableCell {...column} key={`${id}-${colLabel}--${i}`} style={{ top: 26 }}>
               <Box className={classes.cellStyles}>{t(colLabel)}</Box>
             </TableCell>
           ))}
@@ -98,15 +98,10 @@ export default ({
     );
   };
 
-  const renderRowWithTooltip = (row, index) => {
+  const renderRowWithTooltip = (row, index, key) => {
     return (
-      <Tooltip
-        interactive
-        key={`table-row-tooltip-${index}`}
-        placement="top"
-        title={tooltipRenderer(row)}
-      >
-        <WrappedTableRow row={row} index={index} />
+      <Tooltip interactive key={key} placement="top" title={tooltipRenderer(row)}>
+        <WrappedTableRow row={row} index={index} key={key} />
       </Tooltip>
     );
   };
@@ -116,7 +111,6 @@ export default ({
       <TableRow
         {...props}
         className={classnames([tooltipRenderer && classes.clickable, props.className])}
-        key={`table-body-row-${index}`}
         ref={ref}
       >
         {columns.map((column, j) => renderTableCell(column, row, j))}
@@ -126,11 +120,17 @@ export default ({
 
   const renderBodyRows = () => {
     return rowData.length ? (
-      rowData.map((row, i) =>
-        tooltipRenderer ? renderRowWithTooltip(row, i) : <WrappedTableRow row={row} index={i} />
-      )
+      rowData.map((row, i) => {
+        const key = `${id}-table-row-tooltip-${i}`;
+
+        return tooltipRenderer ? (
+          renderRowWithTooltip(row, i, key)
+        ) : (
+          <WrappedTableRow row={row} index={i} key={key} />
+        );
+      })
     ) : (
-      <TableRow key={`table-body-row-0`}>
+      <TableRow key={`${id}-table-body-row-none`}>
         <TableCell align="center" colSpan={columns.length}>
           <i>{t('components.Table.noData')}</i>
         </TableCell>
@@ -144,7 +144,7 @@ export default ({
     const component = cellIndex === 0 ? 'th' : 'td';
 
     return (
-      <Element component={component} key={`${cellIndex}--${colId}`} scope="row">
+      <Element component={component} key={`${id}-${cellIndex}--${colId}`} scope="row">
         <Box className={classes.cellStyles}>{cellValue}</Box>
       </Element>
     );
