@@ -93,7 +93,7 @@ describe('formatters - formatHash', () => {
 });
 
 describe('formatters - formatTimestamp', () => {
-  test('it formats a timestamp correctly using luxon', () => {
+  test.skip('it formats a timestamp correctly using luxon', () => {
     const datetime1 = Utils.formatTimestamp(1616104167413);
     const datetime2 = Utils.formatTimestamp(1616104207375);
 
