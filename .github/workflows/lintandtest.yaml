@@ -33,7 +33,7 @@ jobs:
         run: |
           npm run cloc
           npm run lint
-          npm test
+          npm test -- --coverage
         env:
           CI: false
       - name: Send coverage to coveralls
