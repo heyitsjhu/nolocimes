@@ -12,6 +12,10 @@
 
 `auto-changelog`, `commit message` structure and `husky` enforcement
 
+## Deployment
+
+Currently auto deploys from heroku when development branch is pushed to GitHub.
+
 ## Code Quality
 
 Various formatting, linting, and pre-commit tools are used to ensure code consistency.
