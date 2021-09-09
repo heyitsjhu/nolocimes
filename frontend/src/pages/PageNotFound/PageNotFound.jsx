@@ -10,7 +10,7 @@ import { ROUTES } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import PageLayout from '../PageLayout/PageLayout';
 
-const useStyles = makeStyles(({ palette, spacing }) => ({
+const useStyles = makeStyles(({ spacing }) => ({
   notFoundLayout: {
     '& > div:nth-child(2)': {
       display: 'flex',
@@ -22,8 +22,19 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
       },
     },
   },
+  notFoundRoot: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   iconContainer: {
     margin: spacing(2),
+    marginBottom: spacing(3),
+    '& + p': {
+      maxWidth: 450,
+      textAlign: 'center',
+    },
   },
 }));
 
@@ -32,7 +43,6 @@ export default props => {
   const classes = useStyles();
   const location = useLocation();
   const history = useHistory();
-  const { unfoundPath } = location.state;
 
   const handleClick = e => {
     e.preventDefault();
@@ -40,23 +50,26 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="notFound" pageLayoutClassName={classes.notFoundLayout}>
-      <Typography color="textPrimary">{t('pages.PageNotFound.missingDestination')}</Typography>
-      <Typography color="textPrimary" variant="subtitle2">
+    <PageLayout
+      className={classes.notFoundRoot}
+      pageName="notFound"
+      pageLayoutClassName={classes.notFoundLayout}
+    >
+      <Typography variant="subtitle2">
         {window.location.origin}
-        {unfoundPath}
+        {location.pathname}
       </Typography>
 
       <Box className={classes.iconContainer}>
         <LocationOffIcon color="primary" style={{ fontSize: 84 }} />
       </Box>
 
-      <Typography color="textPrimary" variant="subtitle2">
-        {t('pages.PageNotFound.theresNothingHere')}
-      </Typography>
-      <Link color="primary" onClick={handleClick}>
-        {t('pages.PageNotFound.backHomeButton')}
-      </Link>
+      <Typography>{t('pages.PageNotFound.missingDestination')}</Typography>
+      <Box mt={2}>
+        <Link color="primary" onClick={handleClick} variant="subtitle2">
+          {t('pages.PageNotFound.backHomeButton')}
+        </Link>
+      </Box>
     </PageLayout>
   );
 };

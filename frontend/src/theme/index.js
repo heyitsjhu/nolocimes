@@ -19,19 +19,22 @@ const themeBase = {
 };
 
 export default {
-  dark: () => responsiveFontSizes(createTheme({ ...themeBase, palette })),
+  // TODO: revisit if responsive font sizes is what we want.
+  dark: () =>
+    createTheme({ ...themeBase, palette }) ||
+    responsiveFontSizes(createTheme({ ...themeBase, palette })),
   light: () =>
-    responsiveFontSizes(
-      createTheme({
-        ...themeBase,
-        palette: {
-          type: 'light',
-          background: { paper: palette.grey[200] },
-          grey: palette.grey,
-          primary: palette.primary,
-          secondary: palette.secondary,
-          overlay: palette.overlay,
-        },
-      })
-    ),
+    // responsiveFontSizes(
+    createTheme({
+      ...themeBase,
+      palette: {
+        type: 'light',
+        background: { paper: palette.grey[200] },
+        grey: palette.grey,
+        primary: palette.primary,
+        secondary: palette.secondary,
+        overlay: palette.overlay,
+      },
+    }),
+  // ),
 };

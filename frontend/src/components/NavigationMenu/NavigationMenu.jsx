@@ -14,13 +14,13 @@ import CreateIcon from '@material-ui/icons/Create';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import DeveloperBoardIcon from '@material-ui/icons/DeveloperBoard';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
-import LabelOffIcon from '@material-ui/icons/LabelOff';
 import MenuIcon from '@material-ui/icons/Menu';
+import PersonRoundedIcon from '@material-ui/icons/PersonRounded';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
 import TimelineIcon from '@material-ui/icons/Timeline';
 
-import IconButton from 'components/IconButton/IconButton';
-import { SITE_NAVIGATION, STORE_KEYS } from 'const';
+import { FeatureToggle, IconButton } from 'components';
+import { FEATURE_FLAGS, SITE_NAVIGATION } from 'const';
 import { useCopy } from 'hooks/useCopy';
 
 const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex }) => ({
@@ -31,12 +31,12 @@ const useStyles = makeStyles(({ breakpoints, palette, shared, spacing, zIndex })
 }));
 
 const ICON_MAPPING = {
+  about: () => <PersonRoundedIcon fontSize="small" />,
   anbu: () => <DeveloperBoardIcon fontSize="small" />,
   blog: () => <CreateIcon fontSize="small" />,
   candlemonkeys: () => <DashboardIcon fontSize="small" />,
   coronavirus: () => <TimelineIcon fontSize="small" />,
   nolocimes: () => <AccountTreeIcon fontSize="small" />,
-  none: () => <LabelOffIcon fontSize="small" />,
   photography: () => <PhotoLibraryIcon fontSize="small" />,
   poweredbyscroll: () => <ImportExportIcon fontSize="small" />,
 };
@@ -108,7 +108,7 @@ export default props => {
   };
 
   return (
-    <>
+    <FeatureToggle flag={FEATURE_FLAGS.NAVIGATION_MENU}>
       <IconButton
         aria-label={t('a11y.ariaLabel.mobileMenuButton')}
         onClick={isInteractive ? toggleMenu(true) : undefined}
@@ -123,6 +123,6 @@ export default props => {
       >
         {renderNavList()}
       </Drawer>
-    </>
+    </FeatureToggle>
   );
 };

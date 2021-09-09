@@ -3,7 +3,8 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import BugReportIcon from '@material-ui/icons/BugReport';
 
-import { LINKS, STORE_KEYS } from 'const';
+import { FeatureToggle } from 'components';
+import { FEATURE_FLAGS, LINKS, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 
 import { Dialog, IconButton } from '..';
@@ -23,7 +24,7 @@ export default () => {
   };
 
   return (
-    <>
+    <FeatureToggle flag={FEATURE_FLAGS.REPORT_BUG}>
       <IconButton
         aria-label={t('a11y.ariaLabel.reportBugButton')}
         tooltip={t('tooltips.reportBugButton')}
@@ -54,6 +55,6 @@ export default () => {
           </>
         )}
       /> */}
-    </>
+    </FeatureToggle>
   );
 };

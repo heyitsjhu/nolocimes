@@ -1,8 +1,8 @@
 // https://material.io/resources/color
 import { alpha } from '@material-ui/core/styles/colorManipulator';
 
-export const black = '#000';
-export const white = '#fff';
+export const black = '#000000';
+export const white = '#ffffff';
 export const green = '#7ac74f';
 export const red = '#b33951';
 const primary = { light: '#ffc97f', main: '#cc9851', dark: '#986a25', contrastText: black };
@@ -35,6 +35,10 @@ export default {
   common: { black, white },
   contrastThreshold: 3,
   grey: greys,
+  tonalOffset: 0.2,
+  action: {
+    active: white,
+  },
   overlay: {
     dark: alpha(black, 0.6),
     darker: alpha(black, 0.8),
@@ -57,9 +61,8 @@ export default {
   text: {
     primary: greys[200],
     secondary: greys[400],
-    disabled: alpha(greys[200], 0.5),
+    disabled: alpha(white, 0.3),
     hint: alpha(greys[200], 0.5),
-    icon: alpha(greys[200], 0.5),
+    icon: greys[700],
   },
-  tonalOffset: 0.2,
 };

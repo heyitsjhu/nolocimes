@@ -67,6 +67,10 @@ export default props => {
   };
 
   useEffect(() => {
+    return () => chart.current?.dispose();
+  }, []);
+
+  useEffect(() => {
     const { earnings } = stockEarnings;
     const { estimates } = stockEstimates;
     if (earnings && estimates) {

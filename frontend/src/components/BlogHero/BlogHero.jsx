@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import heroImageUrl from 'static/images/blogHeroImage.jpg';
 
 const useStyles = makeStyles(theme => ({
-  jottingPadHeroComponent: {
+  blogHeroComponent: {
     width: '100%',
     height: '50vh',
     maxHeight: 480,
@@ -20,10 +20,7 @@ export default ({ srcUrl }) => {
   const imgUrl = srcUrl ? srcUrl : heroImageUrl;
 
   return (
-    <Box
-      className={classes.jottingPadHeroComponent}
-      style={{ backgroundImage: `url('${imgUrl}')` }}
-    >
+    <Box className={classes.blogHeroComponent} style={{ backgroundImage: `url('${imgUrl}')` }}>
       {/* {props.title && <Typography variant="h5">{props.title}</Typography>} */}
     </Box>
   );

@@ -92,6 +92,10 @@ export default () => {
   };
 
   useEffect(() => {
+    return () => chart.current?.dispose();
+  }, []);
+
+  useEffect(() => {
     if (analystRecommendations) {
       const latestRecommendation = analystRecommendations.find(
         recommendation => recommendation.consensusEndDate === null

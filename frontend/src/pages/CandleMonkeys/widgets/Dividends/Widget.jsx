@@ -50,6 +50,10 @@ export default props => {
   };
 
   useEffect(() => {
+    return () => chart.current?.dispose();
+  }, []);
+
+  useEffect(() => {
     if (dividends && dividendsNext) {
       const data = transformDividendsData(dividends, dividendsNext).map(item => ({
         ...item,

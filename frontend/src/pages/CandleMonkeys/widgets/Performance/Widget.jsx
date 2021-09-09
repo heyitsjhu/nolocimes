@@ -23,6 +23,10 @@ export default props => {
   const chart = useRef(null);
 
   useEffect(() => {
+    return () => chart.current?.dispose();
+  }, []);
+
+  useEffect(() => {
     if (advancedStats) {
       const data = [
         { category: '5YR', changePercent: advancedStats.year5ChangePercent },

@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef } from 'react';
 import * as am4core from '@amcharts/amcharts4/core';
 import * as am4charts from '@amcharts/amcharts4/charts';
 
@@ -58,6 +58,10 @@ const drawBarSeries = (chart, lowValue, highValue, color) => {
 
 export default ({ data, id, title }) => {
   const chart = useRef(null);
+
+  useEffect(() => {
+    return () => chart.current?.dispose();
+  }, []);
 
   useLayoutEffect(() => {
     /** 

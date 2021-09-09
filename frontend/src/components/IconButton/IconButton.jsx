@@ -8,11 +8,11 @@ const useStyles = makeStyles(({ palette, transitions, spacing, zIndex }) => ({
   iconButton: {
     padding: spacing(1) / 2,
     '& svg': {
-      fill: palette.grey[700],
+      fill: palette.text.icon,
       transition: `fill ${transitions.duration.longer}ms ${transitions.easing.easeInOut}`,
     },
     "& svg[class*='siteLogo'] path": {
-      fill: palette.grey[700],
+      fill: palette.text.icon,
     },
     '&:hover, &.Mui-focusVisible': {
       backgroundColor: 'transparent',

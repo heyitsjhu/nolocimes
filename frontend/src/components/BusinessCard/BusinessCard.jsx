@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Link from '@material-ui/core/Link';
@@ -8,7 +8,7 @@ import DomainIcon from '@material-ui/icons/Domain';
 import EmailIcon from '@material-ui/icons/Email';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import PersonIcon from '@material-ui/icons/Person';
+import PersonPinRoundedIcon from '@material-ui/icons/PersonPinRounded';
 
 import { Dialog, IconButton, SiteLogo } from 'components';
 import { LINKS } from 'const';
@@ -71,12 +71,10 @@ const useStyles = makeStyles(({ breakpoints, palette, spacing, zIndex }) => ({
   contentText: {
     display: 'flex',
     alignItems: 'center',
-    // color: palette.grey[300],
     letterSpacing: '.05rem',
     lineHeight: 1.65,
   },
   name: {
-    // color: palette.grey[300],
     textTransform: 'uppercase',
     letterSpacing: '0.2rem',
     lineHeight: 1.1,
@@ -99,7 +97,7 @@ export default () => {
         aria-label={t('a11y.ariaLabel.businessCardButton')}
         onClick={isInteractive ? openBusinessCard : undefined}
       >
-        <PersonIcon fontSize="small" />
+        <PersonPinRoundedIcon fontSize="small" />
       </IconButton>
 
       <Dialog

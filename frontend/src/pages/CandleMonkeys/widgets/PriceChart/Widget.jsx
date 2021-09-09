@@ -42,6 +42,10 @@ export default props => {
   };
 
   useEffect(() => {
+    return () => chart.current?.dispose();
+  }, []);
+
+  useEffect(() => {
     if (intradayPrices && intradayPrices.length) {
       const dataWithFormattedDate = formatDataDates(intradayPrices);
       setChartData(dataWithFormattedDate);

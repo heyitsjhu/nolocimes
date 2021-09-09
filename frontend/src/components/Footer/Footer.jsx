@@ -12,7 +12,7 @@ import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
 import * as Utils from 'utils';
 
-import { GitHubExternalLink, SiteSettingsMenu } from '..';
+import { BusinessCard, GitHubExternalLink, SiteSettingsMenu } from '..';
 
 const useStyles = makeStyles(({ palette, spacing, shared, zIndex }) => ({
   footer: {
@@ -70,7 +70,10 @@ export default () => {
           </>
         )}
       </Typography>
-      <GitHubExternalLink />
+      <Box display="flex">
+        <BusinessCard />
+        <GitHubExternalLink />
+      </Box>
     </Box>
   );
 };

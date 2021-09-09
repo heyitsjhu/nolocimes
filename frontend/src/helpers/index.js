@@ -1,3 +1,4 @@
+export * from './colorHelpers';
 export * from './companyHelpers';
 export * from './dataHelpers';
 export * from './gridHelpers';

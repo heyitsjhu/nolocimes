@@ -39,6 +39,7 @@ export const DEFAULT_NOTISTACK_PROPS = {
 };
 export const DEFAULT_TOOLTIP_ENTER_DELAY = 500;
 export const DEFAULT_TOOLTIP_LEAVE_DELAY = 200;
+export const IS_DEV = process.env.NODE_ENV === 'development';
 export const LOCAL_STORAGE_KEY = 'dl_heyitsjhu';
 export const PAGE_LAYOUT_FADE_TIMEOUT = 1500;
 export const PARTICLE_CANVAS_DEFAULTS = {
@@ -86,6 +87,7 @@ export const REGEX = {
 
 export const ROUTES = {
   HOME: '/',
+  ABOUT: '/about',
   ANBU_BLOCKCHAIN: '/anbu-blockchain',
   BLOG: '/blog',
   BLOG_POST: '/blog/:postId',
@@ -161,14 +163,14 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: true,
+      disabled: false,
       grouping: 2,
-      icon: 'none',
+      icon: 'about',
       id: 'nav-id-6',
       placement: 'left',
       text: 'components.HomeLogoNavigation.navMapping.navId6',
       title: '',
-      url: ROUTES.PROFILE,
+      url: ROUTES.ABOUT,
     },
     {
       altText: '',
@@ -193,4 +195,71 @@ export const SITE_NAVIGATION = {
       url: ROUTES.PHOTOGRAPHY,
     },
   ],
+};
+
+export const STYLE_GUIDE = {
+  OPTIONS: {
+    COLORS: {
+      ACTIONS: [
+        { label: 'common.active', value: 'active' },
+        { label: 'common.disabled', value: 'disabled' },
+        { label: 'common.focus', value: 'focus' },
+        { label: 'common.hover', value: 'hover' },
+        { label: 'common.selected', value: 'selected' },
+      ],
+      COMMON: [
+        { label: 'common.black', value: 'black' },
+        { label: 'common.white', value: 'white' },
+      ],
+      MAIN: [
+        { label: 'common.primary', value: 'primary' },
+        { label: 'common.secondary', value: 'secondary' },
+        { label: 'common.success', value: 'success' },
+        { label: 'common.info', value: 'info' },
+        { label: 'common.warning', value: 'warning' },
+        { label: 'common.error', value: 'error' },
+      ],
+      OTHERS: [
+        { label: 'common.background', value: 'background' },
+        { label: 'common.overlay', value: 'overlay' },
+      ],
+
+      TEXT: [
+        { label: 'common.primary', value: 'primary' },
+        { label: 'common.secondary', value: 'secondary' },
+        { label: 'common.disabled', value: 'disabled' },
+        { label: 'common.hint', value: 'hint' },
+        { label: 'common.icon', value: 'icon' },
+      ],
+      VARIANTS: [
+        { label: 'common.dark', value: 'dark' },
+        { label: 'common.main', value: 'main' },
+        { label: 'common.light', value: 'light' },
+      ],
+      VARIANTS_BACKGROUND: [
+        { label: 'common.default', value: 'default' },
+        { label: 'common.paper', value: 'paper' },
+      ],
+      VARIANTS_OVERLAY: [
+        { label: 'common.dark', value: 'dark' },
+        { label: 'common.darker', value: 'darker' },
+        { label: 'common.darkest', value: 'darkest' },
+      ],
+    },
+    TYPOGRAPHY: [
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'body1',
+      'body2',
+      'subtitle1',
+      'subtitle2',
+      'button',
+      'caption',
+      'overline',
+    ],
+  },
 };

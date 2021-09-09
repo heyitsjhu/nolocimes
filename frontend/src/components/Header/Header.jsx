@@ -9,7 +9,7 @@ import { CLASSES, ROUTES } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useIsHome } from 'hooks/useIsHome';
 import * as Utils from 'utils';
-import { BusinessCard, IconButton, MobileNavigation, SiteLogo } from '..';
+import { BusinessCard, IconButton, NavigationMenu, SiteLogo } from '..';
 
 const useStyles = makeStyles(({ palette, spacing, zIndex }) => ({
   header: {
@@ -27,9 +27,6 @@ const useStyles = makeStyles(({ palette, spacing, zIndex }) => ({
     [`&.${CLASSES.IS_MOBILE}.${CLASSES.IS_NOT_HOME}`]: {
       backgroundColor: palette.background.default,
     },
-  },
-  iconSet: {
-    '& > *': { marginLeft: spacing(1) },
   },
 }));
 
@@ -57,10 +54,7 @@ export default () => {
       >
         <SiteLogo id={Utils.getElId('site', 'logo')} size={20} />
       </IconButton>
-      <Box>
-        <BusinessCard />
-        <MobileNavigation />
-      </Box>
+      <NavigationMenu />
     </Box>
   );
 };

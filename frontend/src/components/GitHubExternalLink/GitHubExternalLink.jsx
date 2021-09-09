@@ -29,7 +29,6 @@ export default () => {
     <Box>
       <IconButton
         aria-label={t('a11y.ariaLabel.githubSourceUrl')}
-        noPadding
         tooltip={t('tooltips.githubIconButton')}
         onClick={isInteractive ? () => setOpen(true) : undefined}
       >

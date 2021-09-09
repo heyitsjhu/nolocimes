@@ -13,7 +13,8 @@ import TuneIcon from '@material-ui/icons/Tune';
 import StyleIcon from '@material-ui/icons/Style';
 import classnames from 'classnames';
 
-import { ROUTES, STORE_KEYS } from 'const';
+import { FeatureToggle } from 'components';
+import { FEATURE_FLAGS, ROUTES, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { updateSiteSettings } from 'redux/reducers/siteSettings';
 import { IconButton, ReportBug } from '..';
@@ -127,13 +128,15 @@ export default () => {
                       label={t('common.darkMode')}
                     />
                     <Box>
-                      <IconButton
-                        aria-label={t('a11y.ariaLabel.styleGuideButton')}
-                        tooltip={t('tooltips.styleGuideButton')}
-                        onClick={handleStyleGuideClick}
-                      >
-                        <StyleIcon fontSize="small" />
-                      </IconButton>
+                      <FeatureToggle flag={FEATURE_FLAGS.STYLE_GUIDE}>
+                        <IconButton
+                          aria-label={t('a11y.ariaLabel.styleGuideButton')}
+                          tooltip={t('tooltips.styleGuideButton')}
+                          onClick={handleStyleGuideClick}
+                        >
+                          <StyleIcon fontSize="small" />
+                        </IconButton>
+                      </FeatureToggle>
                       <ReportBug />
                     </Box>
                   </Box>

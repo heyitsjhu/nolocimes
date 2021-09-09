@@ -76,6 +76,7 @@ const App = () => {
 
   const onStartAnimation = useCallback(() => {
     if (isInteractive) {
+      console.log('ani-start');
       dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, false));
     }
   }, []);

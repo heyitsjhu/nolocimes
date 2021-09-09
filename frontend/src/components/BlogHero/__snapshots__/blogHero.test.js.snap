@@ -2,7 +2,7 @@
 
 exports[`[components] - BlogHero it renders without failing snapshot 1`] = `
 <div
-  className="MuiBox-root MuiBox-root-2 makeStyles-jottingPadHeroComponent-1"
+  className="MuiBox-root MuiBox-root-2 makeStyles-blogHeroComponent-1"
   style={
     Object {
       "backgroundImage": "url('')",
