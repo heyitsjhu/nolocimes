@@ -97,6 +97,7 @@ describe('formatters - formatTimestamp', () => {
     const datetime1 = Utils.formatTimestamp(1616104167413);
     const datetime2 = Utils.formatTimestamp(1616104207375);
 
+    // TODO: fix issue with github actions running tests in a diff timezone
     expect(datetime1).toMatch('Mar 18, 2021, 2:49:27 PM');
     expect(datetime2).toMatch('Mar 18, 2021, 2:50:07 PM');
   });
