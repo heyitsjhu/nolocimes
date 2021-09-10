@@ -80,9 +80,8 @@ export default () => {
         if (!data[peerTicker]) return <></>;
 
         const url = ROUTES.TO_TICKER(peerTicker);
-        const { latestPrice, change, changePercent, companyName, primaryExchange, symbol } = data[
-          peerTicker
-        ].quote;
+        const { latestPrice, change, changePercent, companyName, primaryExchange, symbol } =
+          data[peerTicker].quote;
 
         return (
           <ListItem key={`peer-${peerTicker}`} className={classes.peersGroupListItem}>

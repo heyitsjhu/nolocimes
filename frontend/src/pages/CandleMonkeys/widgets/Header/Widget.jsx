@@ -26,9 +26,8 @@ const useStyles = makeStyles(({ palette, shared, spacing }) => ({
 export default props => {
   const classes = useStyles();
   const candleMonkeys = useSelector(state => state.candleMonkeys);
-  const { companyName, exchange, symbol } = candleMonkeys[STORE_KEYS.STOCK_DATA][
-    STORE_KEYS.COMPANY
-  ];
+  const { companyName, exchange, symbol } =
+    candleMonkeys[STORE_KEYS.STOCK_DATA][STORE_KEYS.COMPANY];
 
   return (
     <Box className={classnames([getElClass('comp', 'companyHeader'), classes.container])}>

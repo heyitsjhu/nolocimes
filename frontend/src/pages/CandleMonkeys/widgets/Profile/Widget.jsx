@@ -11,17 +11,8 @@ import { getElClass } from 'utils';
 export default props => {
   const { t } = useCopy();
   const candleMonkeys = useSelector(state => state.candleMonkeys);
-  const {
-    CEO,
-    city,
-    employees,
-    description,
-    industry,
-    phone,
-    sector,
-    state,
-    website,
-  } = candleMonkeys[STORE_KEYS.STOCK_DATA][STORE_KEYS.COMPANY];
+  const { CEO, city, employees, description, industry, phone, sector, state, website } =
+    candleMonkeys[STORE_KEYS.STOCK_DATA][STORE_KEYS.COMPANY];
 
   return (
     <Box className={classnames([getElClass('comp', 'companyProfile')])}>

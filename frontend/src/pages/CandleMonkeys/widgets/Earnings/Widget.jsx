@@ -19,9 +19,8 @@ import { FORECAST_LINE_DASH, FORECAST_COLUMN_DASH, FORECAST_OPACITY } from 'cons
 export default props => {
   const { t } = useCopy();
   const candleMonkeys = useSelector(state => state.candleMonkeys);
-  const { earnings: stockEarnings, estimates: stockEstimates } = candleMonkeys[
-    STORE_KEYS.STOCK_DATA
-  ];
+  const { earnings: stockEarnings, estimates: stockEstimates } =
+    candleMonkeys[STORE_KEYS.STOCK_DATA];
   const [earningsData, setEarningsData] = useState(null);
   const chartId = getElId('id', 'chart--earnings-estimates');
   const chart = useRef(null);
