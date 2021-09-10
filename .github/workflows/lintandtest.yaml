@@ -24,6 +24,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Bootstrap folders, install dependencies
+        run: |
+          npm run bootstrap
       - name: Run cloc, lint and test scripts
         run: |
           npm run cloc
@@ -39,7 +42,6 @@ jobs:
           path-to-lcov: './coverage/lcov.info'
       - name: Run build scripts
         run: |
-          npm run bootstrap
           npm run build
         env:
           SKIP_PREFLIGHT_CHECK: true
