@@ -1,4 +1,4 @@
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/) ![Last commit](https://img.shields.io/github/last-commit/heyitsjhu/nolocimes)
+![Last commit](https://img.shields.io/github/last-commit/heyitsjhu/nolocimes)
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/heyitsjhu/nolocimes/gha-lint-test-and-build/master) [![Coverage Status](https://coveralls.io/repos/github/heyitsjhu/nolocimes/badge.svg?branch=master)](https://coveralls.io/github/heyitsjhu/nolocimes?branch=master)
 
@@ -14,7 +14,9 @@
 
 ## Deployment
 
-Currently auto deploys from heroku when development branch is pushed to GitHub.
+https://www.heyitsjhu.com is actually linked to heyitsjhu.github.io, where master is the build folder of this repository. (To be reviewed)
+
+Currently, there's an auto-deploy at Heroku for the development branch, whenever it's pushed to GitHub. (Can use as development testing? https://fierce-inlet-78360.herokuapp.com/)
 
 ## Code Quality
 
@@ -70,8 +72,6 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 ## Troubleshooting
 
 ### Failing Tests
-
-If the test suites begin failing, especially in tests for files you didn't modify, try running `lerna bootstrap` in the repo's root. This can happen if you run `npm install` to add a new package instead of using lerna.
 
 ### References
 

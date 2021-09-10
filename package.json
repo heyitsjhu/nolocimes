@@ -13,26 +13,24 @@
   },
   "homepage": "https://github.com/heyitsjhu/nolocimes#readme",
   "scripts": {
-    "bootstrap": "lerna exec -- npm install",
-    "build": "run-p build:*",
-    "build:client": "cd frontend && npm install && npm run build",
+    "bootstrap": "npm install && npm install --prefix frontend",
+    "build": "npm run build -- prefix frontend",
     "changelog": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p -u",
     "changelog-debug": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p --template json --output changelog-preview.json",
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules,build --exclude-ext=html --exclude-list-file=.clocignore *",
     "deploy": "git push heroku master",
-    "heroku-postbuild": "npm run bootstrap && cd frontend && npm run build",
+    "heroku-postbuild": "npm install && cd frontend && npm install && npm run build",
     "lint": "eslint backend frontend --ext .js,.jsx --color --fix-dry-run",
     "pre-commit": "npm run pretty-quick && npm test -- --changedFilesWithAncestor",
     "pre-push": "run-s lint test",
     "pretty-check": "prettier --check \"{backend,frontend}/**/*.{js,jsx}\"",
     "pretty-format": "npm run pretty-check -- --write",
     "pretty-quick": "pretty-quick --staged --pattern \"{backend,frontend}/**/*.*{js,jsx}\"",
-    "start": "cd backend && npm start",
+    "start": "npm run start:server",
     "start:dev": "run-p start:client start:server",
     "start:client": "npm start --prefix frontend",
     "start:server": "nodemon -r esm index.js",
-    "test": "jest",
-    "version": "lerna version"
+    "test": "jest"
   },
   "husky": {
     "hooks": {
@@ -45,6 +43,7 @@
     "verbose": true,
     "moduleDirectories": [
       "node_modules",
+      "frontend/node_modules",
       "backend",
       "frontend/src"
     ],
@@ -115,17 +114,12 @@
     "husky": "^4.3.0",
     "jest": "26.6.0",
     "js-logger": "^1.6.0",
-    "lerna": "^3.22.1",
     "luxon": "^1.26.0",
     "madge": "^4.0.2",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.1.2",
     "pretty": "^2.0.0",
     "pretty-quick": "^3.1.0",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.0",
     "react-test-renderer": "^17.0.1",
     "typescript": "^4.0.5"
   },

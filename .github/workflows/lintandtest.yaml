@@ -24,11 +24,6 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install and run lerna bootstrap
-        run: |
-          npm install -g lerna
-          lerna bootstrap
-        # TODO: lerna bootstrap doesn't install all dependencies at the moment
       - name: Run cloc, lint and test scripts
         run: |
           npm run cloc
@@ -44,6 +39,7 @@ jobs:
           path-to-lcov: './coverage/lcov.info'
       - name: Run build scripts
         run: |
+          npm run bootstrap
           npm run build
         env:
           SKIP_PREFLIGHT_CHECK: true
