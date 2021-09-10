@@ -14,7 +14,7 @@
   "homepage": "https://github.com/heyitsjhu/nolocimes#readme",
   "scripts": {
     "bootstrap": "npm install && npm install --prefix frontend",
-    "build": "npm run build -- prefix frontend",
+    "build": "npm run build --prefix frontend",
     "changelog": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p -u",
     "changelog-debug": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p --template json --output changelog-preview.json",
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules,build --exclude-ext=html --exclude-list-file=.clocignore *",
