@@ -40,6 +40,7 @@ export const DEFAULT_NOTISTACK_PROPS = {
 export const DEFAULT_TOOLTIP_ENTER_DELAY = 500;
 export const DEFAULT_TOOLTIP_LEAVE_DELAY = 200;
 export const IS_DEV = process.env.NODE_ENV === 'development';
+export const IS_PROD = process.env.NODE_ENV === 'production';
 export const LOCAL_STORAGE_KEY = 'dl_heyitsjhu';
 export const PAGE_LAYOUT_FADE_TIMEOUT = 1500;
 export const PARTICLE_CANVAS_DEFAULTS = {

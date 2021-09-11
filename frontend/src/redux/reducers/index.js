@@ -1,6 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger';
 
+import { IS_DEV } from 'const';
+
 import anbuReducer from './anbu';
 import candleMonkeysReducer from './candleMonkeys';
 import contentReducer from './contentful';
@@ -16,9 +18,15 @@ const middlewareConfig = {
 };
 
 const logger = createLogger({
-  predicate: (getState, action) => !action.type.includes('__rtkq/focused'),
+  predicate: (getState, action) => !action.type.includes('__rtkq'),
   collapsed: true,
 });
+
+const middlewares = [];
+
+if (IS_DEV) {
+  middlewares.push(logger);
+}
 
 export const reducers = {
   anbu: anbuReducer,
@@ -31,6 +39,6 @@ export const reducers = {
 };
 
 export default configureStore({
-  middleware: getDefaultMiddleware => getDefaultMiddleware(middlewareConfig).concat(logger),
+  middleware: getDefaultMiddleware => getDefaultMiddleware(middlewareConfig).concat(middlewares),
   reducer: reducers,
 });
