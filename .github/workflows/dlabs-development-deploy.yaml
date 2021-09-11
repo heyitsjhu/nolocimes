@@ -1,4 +1,4 @@
-name: dlabs-development-deploy
+name: dlabs-development-workflow
 
 on: # push events on, and pull requests against, development branch
   push:
@@ -9,7 +9,7 @@ on: # push events on, and pull requests against, development branch
       - development
 
 jobs:
-  lint-test-and-build:
+  dlabs-development-deploy-workflow:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -18,29 +18,24 @@ jobs:
         node-version: [12.x]
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Bootstrap folders, install dependencies
+      - name: Prepare, lint and test repository
         run: |
           npm run bootstrap
-      - name: Run cloc, lint and test scripts
-        run: |
-          npm run cloc
           npm run lint
           npm test -- --coverage
-        env:
-          CI: false
-      - name: Send coverage to coveralls
+      - name: Send test coverage to coveralls
         if: ${{ success() }}
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: './coverage/lcov.info'
-      - name: Run build scripts
+      - name: Build production folder
         run: |
           npm run build
         env:

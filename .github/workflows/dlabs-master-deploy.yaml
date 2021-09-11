@@ -1,6 +1,6 @@
-name: dlabs-development-deploy
+name: dlabs-master-app-engine-deploy
 
-on: # push events on, and pull requests against, development branch
+on: # push events on, and pull requests against, master branch
   push:
     branches:
       - master
@@ -9,7 +9,7 @@ on: # push events on, and pull requests against, development branch
       - master
 
 jobs:
-  dlabs-deploy-to-app-engine:
+  dlabs-master-deploy-to-app-engine:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -18,15 +18,25 @@ jobs:
         node-version: [12.x.x]
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Install Dependencies and Build Production Folder
+      - name: Prepare, lint and test repository
         run: |
           npm run bootstrap
+          npm run lint
+          npm test -- --coverage
+      - name: Send test coverage to coveralls
+        if: ${{ success() }}
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: './coverage/lcov.info'
+      - name: Build production folder
+        run: |
           npm run build
         env:
           SKIP_PREFLIGHT_CHECK: true

@@ -1,4 +1,4 @@
-name: gha-automerge
+name: dlabs-automerge-workflow
 
 on: # pull requests against development branch
   pull_request:
@@ -22,7 +22,7 @@ on: # pull requests against development branch
       - completed
   status: {}
 jobs:
-  automerge:
+  dlabs-automerge-workflow:
     runs-on: ubuntu-latest
     steps:
       - name: automerge # https://github.com/pascalgn/automerge-action
