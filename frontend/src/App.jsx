@@ -105,22 +105,23 @@ const App = () => {
       dispatch(updateSiteSettings(STORE_KEYS.VIEWED_INTRO, null, null, true));
     }
 
-    if (!(acceptedCookies || (storedCookies && storedCookies.acceptedCookies))) {
-      setNotification({
-        [STORE_KEYS.BUTTON_TEXT]: 'common.accept',
-        [STORE_KEYS.DELAY]: 5000,
-        [STORE_KEYS.MESSAGE]: (
-          <Trans i18nKey="components.PrivacyPolicy.alertMessage">
-            {' '}
-            <Link onClick={() => history.push(ROUTES.PRIVACY_POLICY)} />.
-          </Trans>
-        ),
-        [STORE_KEYS.SEVERITY]: 'info',
-        [STORE_KEYS.ON_CLOSE]: () => {
-          dispatch(updateSiteSettings(STORE_KEYS.ACCEPTED_COOKIES, null, null, true));
-        },
-      });
-    }
+    // TODO: Disabled - Until there's actually some cookies policy to include
+    // if (!(acceptedCookies || (storedCookies && storedCookies.acceptedCookies))) {
+    //   setNotification({
+    //     [STORE_KEYS.BUTTON_TEXT]: 'common.accept',
+    //     [STORE_KEYS.DELAY]: 5000,
+    //     [STORE_KEYS.MESSAGE]: (
+    //       <Trans i18nKey="components.PrivacyPolicy.alertMessage">
+    //         {' '}
+    //         <Link onClick={() => history.push(ROUTES.PRIVACY_POLICY)} />.
+    //       </Trans>
+    //     ),
+    //     [STORE_KEYS.SEVERITY]: 'info',
+    //     [STORE_KEYS.ON_CLOSE]: () => {
+    //       dispatch(updateSiteSettings(STORE_KEYS.ACCEPTED_COOKIES, null, null, true));
+    //     },
+    //   });
+    // }
 
     dispatch(updateSiteSettings(STORE_KEYS.IS_ON_MOBILE, null, null, isMobile));
 
