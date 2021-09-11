@@ -41,15 +41,13 @@ jobs:
         env:
           SKIP_PREFLIGHT_CHECK: true
           CI: false
-      - name: Deploy Google Cloud App Engine
+      - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@master
         with:
           version: '290.0.1'
           service_account_key: ${{ secrets.GCP_SA_KEY }}
           export_default_credentials: true
-      - name: Deploy
+      - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@main
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-      - name: Deployment Success
-        run: curl "${{ steps.deploy.outputs.url }}"
