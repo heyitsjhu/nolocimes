@@ -1,4 +1,4 @@
-name: dlabs-master-app-engine-deploy
+name: dlabs-app-engine-deploy
 
 on: # push events on, and pull requests against, master branch
   push:
@@ -9,7 +9,7 @@ on: # push events on, and pull requests against, master branch
       - master
 
 jobs:
-  dlabs-master-deploy-to-app-engine:
+  dlabs-app-engine-deployment:
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -44,5 +44,6 @@ jobs:
       - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@main
         with:
-          credentials: ${{ secrets.GCP_APP_ENGINE_SA_KEY }},
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials: ${{ secrets.GCP_SA_KEY }},
+      - name: Deployment Success
+        run: curl "${{ steps.deploy.outputs.url }}"
