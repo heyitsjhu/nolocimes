@@ -46,6 +46,12 @@
     }
   },
   "jest": {
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text-summary",
+      "clover"
+    ],
     "moduleDirectories": [
       "node_modules",
       "frontend/node_modules",
