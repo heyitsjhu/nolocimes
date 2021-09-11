@@ -6,13 +6,33 @@
 
 # Project Nolocimes
 
-## Getting Started
+The official development playground for Johnny Hu (heyitsjhu).
 
-## Versioning
+## Introduction / About Me
+
+Hi there, I'm Johnny. This repository serves as a sandbox for me to practice, improve and showcase my development skills. You can view this as sort of a code-focused resume aimed at providing you with a look into my coding style and philosophy.
+
+Within most of the folders, you will find a README.md file detailing my thoughts and rational behind the code written in the files.
+
+## Getting Started / Project Information
+
+Let's get started.
+
+This project is a typical full-stack JavaScript application with a [React](https://reactjs.org/) frontend and [Node.js](https://nodejs.org/) backend.
+
+### Methodology
+
+### Folder Structure
+
+### Versioning
 
 `auto-changelog`, `commit message` structure and `husky` enforcement
 
-## Deployment
+### Deployment
+
+Production deployment is handled by **[TBD]**.
+
+**Development** deployment is handled by [Heroku](https://www.heroku.com/) and is linked to the repository's `development` branch. When new changes are pushed or merged to the branch—and passes the required GitHub Actions—then Heroku will automatically deploy the changes. Those changes will then be available for viewing [here](https://nolocimes-dev.herokuapp.com/), which may contain upcoming features that I'm currently working on but aren't yet ready for production release. That being said, because it is a development deployment, expect it to be potentially buggy.
 
 https://www.heyitsjhu.com is actually linked to heyitsjhu.github.io, where master is the build folder of this repository. (To be reviewed)
 

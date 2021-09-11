@@ -1,9 +1,13 @@
 {
-  "name": "project-nolocimes",
   "private": true,
+  "version": "0.0.1-alpha.4",
+  "name": "project-nolocimes",
   "description": "The official development playground of Dreamist Labs' heyitsjhu",
   "author": "Johnny Hu <johnny@dreamistlabs.com>",
   "license": "UNLICENSED",
+  "engines": {
+    "node": "12.x.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/heyitsjhu/nolocimes.git"

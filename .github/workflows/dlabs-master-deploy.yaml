@@ -1,0 +1,38 @@
+name: dlabs-development-deploy
+
+on: # push events on, and pull requests against, development branch
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  dlabs-deploy-to-app-engine:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        node-version: [12.x.x]
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install Dependencies and Build Production Folder
+        run: |
+          npm run bootstrap
+          npm run build
+        env:
+          SKIP_PREFLIGHT_CHECK: true
+          CI: false
+      - id: Deploy to App Engine
+        uses: google-github-actions/deploy-appengine@main
+        with:
+          credentials: ${{ secrets.GCP_APP_ENGINE_SA_KEY }},
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
