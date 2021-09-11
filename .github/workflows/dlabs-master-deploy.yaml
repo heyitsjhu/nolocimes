@@ -41,7 +41,7 @@ jobs:
         env:
           SKIP_PREFLIGHT_CHECK: true
           CI: false
-      - id: Deploy to App Engine
+      - name: Deploy to App Engine
         uses: google-github-actions/deploy-appengine@main
         with:
           credentials: ${{ secrets.GCP_APP_ENGINE_SA_KEY }},

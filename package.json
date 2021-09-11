@@ -22,7 +22,7 @@
     "changelog": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p -u",
     "changelog-debug": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p --template json --output changelog-preview.json",
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules,build,coverage --exclude-ext=html --exclude-list-file=.clocignore *",
-    "cloc:persist": "npm run cloc -- --out=CLOC.md && git add CLOC.md",
+    "cloc:persist": "npm run cloc -- --md --out=CLOC.md && git add CLOC.md",
     "deploy": "git push heroku master",
     "heroku-postbuild": "npm run bootstrap && npm run build",
     "heroku-log": "heroku logs --tail -a nolocimes-dev",
