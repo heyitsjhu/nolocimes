@@ -46,7 +46,6 @@
     }
   },
   "jest": {
-    "verbose": true,
     "moduleDirectories": [
       "node_modules",
       "frontend/node_modules",
