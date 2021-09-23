@@ -19,4 +19,11 @@ module.exports = function (UI) {
 
     return subject.replace(replaceRegex, '').trim();
   });
+
+  UI.registerHelper('filterPostV1Releases', releases => {
+    // Matches Semver formatted versions from v1 and onwards (e.g., v1.x.x, v1.x.x-a.1, v1.x.x-rc.3, etc)
+    const postV1Regex = new RegExp(/^v([0-9][0-9]*)\.(\d*)\.(\d*)[\-(\w)\.\d*]*/);
+
+    return releases.filter(release => release.title.match(postV1Regex));
+  });
 };

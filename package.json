@@ -19,8 +19,8 @@
   "scripts": {
     "bootstrap": "npm install && npm install --prefix frontend",
     "build": "npm run build --prefix frontend",
-    "changelog": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p -u",
-    "changelog-debug": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs -p --template json --output changelog-preview.json",
+    "changelog": "auto-changelog --handlebars-setup handlebars.js --template changelog-template.hbs --package",
+    "changelog-debug": "auto-changelog --handlebars-setup handlebars.js -p --template json --output changelog-preview.json",
     "cloc": "cloc --skip-win-hidden --exclude-dir=node_modules,build,coverage --exclude-ext=html --exclude-list-file=.clocignore *",
     "cloc:persist": "npm run cloc -- --md --out=CLOC.md && git add CLOC.md",
     "deploy": "git push heroku master",
