@@ -1,4 +1,5 @@
 import SHA256 from 'crypto-js/sha256';
+import featureFlags from './featureFlags';
 
 export const ANBU_GLOSSARY_TERMS = ['blockchain'];
 export const ANBU_SAMPLE_USERS = [
@@ -96,7 +97,6 @@ export const ROUTES = {
   CANDLE_MONKEYS: '/candle-monkeys',
   CANDLE_MONKEYS_TICKER: '/candle-monkeys/stock',
   CORONAVIRUS: '/coronavirus',
-  PAGE_NOT_FOUND: '/404',
   POWERED_BY_SCROLL: '/powered-by-scroll',
   PRIVACY_POLICY: '/privacy-policy',
   PHOTOGRAPHY: '/photography',
@@ -106,10 +106,10 @@ export const ROUTES = {
 
 export const SITE_NAVIGATION = {
   anchorPosition: 'right',
-  mapping: [
+  items: [
     {
       altText: '',
-      disabled: false,
+      disabled: !featureFlags.ANBU_BLOCKCHAIN,
       grouping: 1,
       icon: 'anbu',
       id: 'nav-id-1',
@@ -120,7 +120,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: false,
+      disabled: !featureFlags.CANDLE_MONKEYS,
       grouping: 1,
       icon: 'candlemonkeys',
       id: 'nav-id-2',
@@ -131,7 +131,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: false,
+      disabled: !featureFlags.CORONAVIRUS,
       grouping: 1,
       icon: 'coronavirus',
       id: 'nav-id-3',
@@ -142,7 +142,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: true,
+      disabled: !featureFlags.PROJECT_NOLOCIMES,
       grouping: 1,
       icon: 'nolocimes',
       id: 'nav-id-4',
@@ -153,7 +153,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: false,
+      disabled: !featureFlags.POWERED_BY_SCROLL,
       grouping: 1,
       icon: 'poweredbyscroll',
       id: 'nav-id-5',
@@ -164,7 +164,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: false,
+      disabled: !featureFlags.ABOUT,
       grouping: 2,
       icon: 'about',
       id: 'nav-id-6',
@@ -175,7 +175,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: false,
+      disabled: !featureFlags.BLOG,
       grouping: 2,
       icon: 'blog',
       id: 'nav-id-7',
@@ -186,7 +186,7 @@ export const SITE_NAVIGATION = {
     },
     {
       altText: '',
-      disabled: false,
+      disabled: !featureFlags.PHOTOGRAPHY,
       grouping: 2,
       icon: 'photography',
       id: 'nav-id-8',

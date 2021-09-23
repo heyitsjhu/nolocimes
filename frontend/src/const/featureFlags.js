@@ -1,14 +1,15 @@
 export default {
   ABOUT: false,
-  ANBU_BLOCKCHAIN: false,
+  ANBU_BLOCKCHAIN: true,
   BLOG: false,
   BLOG_POST: false,
   CANDLE_MONKEYS: false,
   CORONAVIRUS: false,
-  NAVIGATION_MENU: false,
-  PHOTOGRAPHY: false,
+  NAVIGATION_MENU: true,
+  PHOTOGRAPHY: true,
   POWERED_BY_SCROLL: false,
   PRIVACY_POLICY: false,
   REPORT_BUG: false,
+  SIMULATE: true,
   STYLE_GUIDE: false,
 };

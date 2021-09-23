@@ -3,12 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Drawer from '@material-ui/core/Drawer';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import Typography from '@material-ui/core/Typography';
 import AccountTreeIcon from '@material-ui/icons/AccountTree';
 import CreateIcon from '@material-ui/icons/Create';
 import DashboardIcon from '@material-ui/icons/Dashboard';
@@ -49,8 +50,9 @@ export default props => {
   const [open, setOpen] = useState(false);
 
   const { isInteractive } = siteSettings;
-  const PROJECTS_NAV_SET = SITE_NAVIGATION.mapping.filter(item => item.grouping === 1);
-  const JHU_NAV_SET = SITE_NAVIGATION.mapping.filter(item => item.grouping === 2);
+  const PROJECTS_NAV_SET = SITE_NAVIGATION.items.filter(item => item.grouping === 1);
+  const JHU_NAV_SET = SITE_NAVIGATION.items.filter(item => item.grouping === 2);
+  const hasDisabledItem = SITE_NAVIGATION.items.some(item => item.disabled === true);
 
   const toggleMenu = open => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -83,7 +85,7 @@ export default props => {
               {ICON_MAPPING[navItem.icon] && (
                 <ListItemIcon>{ICON_MAPPING[navItem.icon]()}</ListItemIcon>
               )}
-              <ListItemText primary={t(navItem.text)} />
+              <ListItemText primary={`${t(navItem.text)}${navItem.disabled ? ' *' : ''}`} />
             </ListItem>
           ))}
         </List>
@@ -99,7 +101,7 @@ export default props => {
               {ICON_MAPPING[navItem.icon] && (
                 <ListItemIcon>{ICON_MAPPING[navItem.icon]()}</ListItemIcon>
               )}
-              <ListItemText primary={t(navItem.text)} />
+              <ListItemText primary={`${t(navItem.text)}${navItem.disabled ? ' *' : ''}`} />
             </ListItem>
           ))}
         </List>
@@ -115,14 +117,22 @@ export default props => {
       >
         <MenuIcon />
       </IconButton>
-      <Drawer
+      <SwipeableDrawer
         anchor={SITE_NAVIGATION.anchorPosition}
         open={open}
         PaperProps={{ className: classes.paperContainer }}
         onClose={toggleMenu(false)}
       >
         {renderNavList()}
-      </Drawer>
+
+        {hasDisabledItem && (
+          <Box py={1} px={2}>
+            <Typography color="textSecondary" style={{ fontStyle: 'italic' }} variant="caption">
+              * {t('common.comingSoon')}
+            </Typography>
+          </Box>
+        )}
+      </SwipeableDrawer>
     </FeatureToggle>
   );
 };

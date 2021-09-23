@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { FEATURE_FLAGS, IS_DEV, ROUTES } from 'const';
+import { FEATURE_FLAGS, ROUTES } from 'const';
+import { isFeatureOn } from 'helpers';
 
 const AnbuBlockchainPage = lazy(() => import('pages/AnbuBlockchain/AnbuBlockchain'));
 const BlogPage = lazy(() => import('pages/Blog/Blog'));
@@ -13,11 +14,6 @@ const PoweredByScrollPage = lazy(() => import('pages/PoweredByScroll/PoweredBySc
 const PrivacyPolicyPage = lazy(() => import('pages/PrivacyPolicy/PrivacyPolicy'));
 const AboutPage = lazy(() => import('pages/About/About'));
 const StyleGuidePage = lazy(() => import('pages/StyleGuide/StyleGuide'));
-
-const isFeatureOn = featureFlag => {
-  return featureFlag;
-  return IS_DEV || featureFlag;
-};
 
 const AppRoutes = () => (
   // TODO: Add a proper loading component to Suspense
