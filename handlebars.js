@@ -13,13 +13,14 @@ module.exports = function (UI) {
     }
   });
 
-  // TODO: Add a helper that removes the prefixes in the commit messages (eg, other, feature, etc)
+  // Removes the prefixes in the commit messages (eg, other, feature, etc)
   UI.registerHelper('removePrefix', subject => {
     const replaceRegex = new RegExp(/^(.+:)/m);
 
     return subject.replace(replaceRegex, '').trim();
   });
 
+  // Filters releases to exclude pre-V1 commits
   UI.registerHelper('filterPostV1Releases', releases => {
     // Matches Semver formatted versions from v1 and onwards (e.g., v1.x.x, v1.x.x-a.1, v1.x.x-rc.3, etc)
     const postV1Regex = new RegExp(/^v([0-9][0-9]*)\.(\d*)\.(\d*)[\-(\w)\.\d*]*/);
