@@ -1,11 +1,12 @@
 /** Particle Canvas - Credit: Nokey (https://codepen.io/jkiss/pen/OVEeqK) */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import classnames from 'classnames';
 
 import { PARTICLE_CANVAS_MOBILE_DEFAULTS, STORE_KEYS } from 'const';
 import { useEventListener } from 'hooks/useEventListener';
+import { updateParticleCanvas } from 'redux/reducers/particleCanvas';
 import { getElClass, getElId } from 'utils';
 
 import { getDisOf, getRandomSpeed, randomArrayItem, randomNumFrom, randomSidePos } from './utils';
@@ -24,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const particleCanvas = useSelector(state => state.particleCanvas);
   const siteSettings = useSelector(state => state.siteSettings);
   const [isReady, setIsReady] = useState(false);
@@ -220,7 +222,7 @@ export default () => {
 
   useEffect(() => {
     if (isOnMobile) {
-      particleCanvas.set(p => PARTICLE_CANVAS_MOBILE_DEFAULTS);
+      dispatch(updateParticleCanvas(null, null, null, PARTICLE_CANVAS_MOBILE_DEFAULTS));
     }
     setIsReady(true);
   }, [isOnMobile]);
