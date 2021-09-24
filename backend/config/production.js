@@ -15,7 +15,6 @@
  *
  */
 module.exports = {
-  baseUrl: process.env.BASE_URL,
   contentfulSpace: process.env.CONTENTFUL_SPACE,
   contentfulAccessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
   contentfulAccessTokenPreview: process.env.CONTENTFUL_ACCESS_TOKEN_PREVIEW,
@@ -30,6 +29,5 @@ module.exports = {
   rapidApiCovidStatsUrl: process.env.RAPIDAPI_COVID_STATS_URL,
   rapidApiCovidTotalsUrl: process.env.RAPIDAPI_COVID_TOTALS_URL,
   rapidApiKey: process.env.RAPIDAPI_KEY,
-  redirectDomain: process.env.REDIRECT_DOMAIN,
   rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN,
 };

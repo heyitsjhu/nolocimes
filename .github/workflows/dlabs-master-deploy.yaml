@@ -41,6 +41,25 @@ jobs:
         env:
           SKIP_PREFLIGHT_CHECK: true
           CI: false
+      - name: Append env variables to app.yaml
+        uses: ikuanyshbekov/app-yaml-env-compiler@v1.0
+        env:
+          CONTENTFUL_SPACE: ${{ secrets.CONTENTFUL_SPACE}}
+          CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN}}
+          CONTENTFUL_ACCESS_TOKEN_PREVIEW: ${{ secrets.CONTENTFUL_ACCESS_TOKEN_PREVIEW}}
+          GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID}}
+          GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET}}
+          IEX_API_BASE_URL: ${{ secrets.IEX_API_BASE_URL}}
+          IEX_CLIENT_PUBLISHABLE: ${{ secrets.IEX_CLIENT_PUBLISHABLE}}
+          IEX_CLIENT_SECRET: ${{ secrets.IEX_CLIENT_SECRET}}
+          MONGO_URI: ${{ secrets.MONGO_URI}}
+          COOKIE_KEY_1: ${{ secrets.COOKIE_KEY_1}}
+          COOKIE_KEY_2: ${{ secrets.COOKIE_KEY_2}}
+          RAPIDAPI_COVID_STATS_URL: ${{ secrets.RAPIDAPI_COVID_STATS_URL}}
+          RAPIDAPI_COVID_TOTALS_URL: ${{ secrets.RAPIDAPI_COVID_TOTALS_URL}}
+          RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY}}
+          REDIRECT_DOMAIN: ${{ secrets.REDIRECT_DOMAIN}}
+          ROLLBAR_SERVER_TOKEN: ${{ secrets.ROLLBAR_SERVER_TOKEN}}
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@master
         with:
