@@ -23,15 +23,17 @@ env_variables:
   RAPIDAPI_COVID_STATS_URL: $RAPIDAPI_COVID_STATS_URL
   RAPIDAPI_COVID_TOTALS_URL: $RAPIDAPI_COVID_TOTALS_URL
   RAPIDAPI_KEY: $RAPIDAPI_KEY
-  REDIRECT_DOMAIN: $REDIRECT_DOMAIN
   ROLLBAR_SERVER_TOKEN: $ROLLBAR_SERVER_TOKEN
 
 handlers:
   - url: /static
     static_dir: frontend/build/static
-  - url: /(.*\.(json|ico|js))$
+  - url: /(.*\.(json|ico|png|js))$
     static_files: frontend/build/\1
-    upload: frontend/build/.*\.(json|ico|js)$
+    upload: frontend/build/.*\.(json|ico|png|js)$
+  - url: /api/.*
+    secure: always
+    script: auto
   - url: .*
     static_files: frontend/build/index.html
     upload: frontend/build/index.html

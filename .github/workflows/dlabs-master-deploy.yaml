@@ -24,17 +24,17 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Prepare, lint and test repository
-        run: |
-          npm run bootstrap
-          npm run lint
-          npm test -- --coverage
-      - name: Send test coverage to coveralls
-        if: ${{ success() }}
-        uses: coverallsapp/github-action@master
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: './coverage/lcov.info'
+      # - name: Prepare, lint and test repository
+      #   run: |
+      #     npm run bootstrap
+      #     npm run lint
+      #     npm test -- --coverage
+      # - name: Send test coverage to coveralls
+      #   if: ${{ success() }}
+      #   uses: coverallsapp/github-action@master
+      #   with:
+      #     github-token: ${{ secrets.GITHUB_TOKEN }}
+      #     path-to-lcov: './coverage/lcov.info'
       - name: Build production folder
         run: |
           npm run build
@@ -58,7 +58,6 @@ jobs:
           RAPIDAPI_COVID_STATS_URL: ${{ secrets.RAPIDAPI_COVID_STATS_URL}}
           RAPIDAPI_COVID_TOTALS_URL: ${{ secrets.RAPIDAPI_COVID_TOTALS_URL}}
           RAPIDAPI_KEY: ${{ secrets.RAPIDAPI_KEY}}
-          REDIRECT_DOMAIN: ${{ secrets.REDIRECT_DOMAIN}}
           ROLLBAR_SERVER_TOKEN: ${{ secrets.ROLLBAR_SERVER_TOKEN}}
       - name: Setup gcloud
         uses: google-github-actions/setup-gcloud@master
