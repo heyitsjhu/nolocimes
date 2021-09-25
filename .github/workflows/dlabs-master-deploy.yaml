@@ -24,9 +24,9 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      # - name: Prepare, lint and test repository
-      #   run: |
-      #     npm run bootstrap
+      - name: Prepare, lint and test repository
+        run: |
+          npm run bootstrap
       #     npm run lint
       #     npm test -- --coverage
       # - name: Send test coverage to coveralls
