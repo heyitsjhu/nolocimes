@@ -9,9 +9,12 @@ automatic_scaling:
   max_instances: 1
 
 handlers:
-  - url: /.*
+  - url: /static
+    static_dir: frontend/build/static
+  - url: /(.*\.(json|ico|js))$
+    static_files: frontend/build/\1
+    upload: frontend/build/.*\.(json|ico|js)$
+  - url: .*
     static_files: frontend/build/index.html
     upload: frontend/build/index.html
     secure: always
-  - url: /
-    static_dir: frontend/build
