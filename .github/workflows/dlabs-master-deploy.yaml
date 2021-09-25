@@ -27,14 +27,14 @@ jobs:
       - name: Prepare, lint and test repository
         run: |
           npm run bootstrap
-      #     npm run lint
-      #     npm test -- --coverage
-      # - name: Send test coverage to coveralls
-      #   if: ${{ success() }}
-      #   uses: coverallsapp/github-action@master
-      #   with:
-      #     github-token: ${{ secrets.GITHUB_TOKEN }}
-      #     path-to-lcov: './coverage/lcov.info'
+          npm run lint
+          npm test -- --coverage
+      - name: Send test coverage to coveralls
+        if: ${{ success() }}
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: './coverage/lcov.info'
       - name: Build production folder
         run: |
           npm run build
