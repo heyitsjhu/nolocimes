@@ -1,10 +1,19 @@
+<div align="center" markdown="1">
+  <img src="https://github.com/heyitsjhu/nolocimes/blob/development/frontend/public/logo192.png" />
+  
+  <h1 align="center">Project Nolocimes</h1>
+  
+  [heyitsjhu](https://www.linkedin.com/in/jgeehenhu/)'s official development playground.
+
+<a href="http://www.heyitsjhu.com/" target="_blank">View Website</a>
+
+</div>
+
 ![Last commit](https://img.shields.io/github/last-commit/heyitsjhu/nolocimes)
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/heyitsjhu/nolocimes/gha-lint-test-and-build/master) [![Coverage Status](https://coveralls.io/repos/github/heyitsjhu/nolocimes/badge.svg?branch=master)](https://coveralls.io/github/heyitsjhu/nolocimes?branch=master)
 
 ![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/heyitsjhu/nolocimes/gha-lint-test-and-build/development) [![Coverage Status](https://coveralls.io/repos/github/heyitsjhu/nolocimes/badge.svg?branch=development)](https://coveralls.io/github/heyitsjhu/nolocimes?branch=development)
-
-# Project Nolocimes
 
 The official development playground for Johnny Hu (heyitsjhu).
 
@@ -30,13 +39,9 @@ This project is a typical full-stack JavaScript application with a [React](https
 
 ### Deployment
 
-Production deployment is handled by **[TBD]**.
+**Production** deployment is handled by [App Engine](https://cloud.google.com/appengine/docs) and is linked to the repo's `master` branch. When changes are made to the branch, it triggers a GitHub Action that includes steps to automatically compile the necessary environment variables—thus, not having to store it in the `app.yaml` file and exposing it on GitHub—and deploy the application to App Engine. The production build can be view [here](https://www.heyitsjhu.com).
 
-**Development** deployment is handled by [Heroku](https://www.heroku.com/) and is linked to the repository's `development` branch. When new changes are pushed or merged to the branch—and passes the required GitHub Actions—then Heroku will automatically deploy the changes. Those changes will then be available for viewing [here](https://nolocimes-dev.herokuapp.com/), which may contain upcoming features that I'm currently working on but aren't yet ready for production release. That being said, because it is a development deployment, expect it to be potentially buggy.
-
-https://www.heyitsjhu.com is actually linked to heyitsjhu.github.io, where master is the build folder of this repository. (To be reviewed)
-
-Currently, there's an auto-deploy at Heroku for the development branch, whenever it's pushed to GitHub. (Can use as development testing? https://fierce-inlet-78360.herokuapp.com/)
+**Development** deployment is handled by [Heroku](https://www.heroku.com/) and is linked to the repo's `development` branch. It works very similar to the pipeline for the `master` branch, except after its GitHub Action passes, a notification/trigger is set to Heroku, where it will then retrieve, build and deploy the branch onto its platform—and can be viewed [here](https://nolocimes-dev.herokuapp.com/). This is likely where I'll do some UI testing outside of my local environment to ensure everything is working as expected, so it'll likely be a bit buggy, but you might find some work-in-progress features ahead of its release.
 
 ## Code Quality
 
@@ -92,22 +97,3 @@ Various formatting, linting, and pre-commit tools are used to ensure code consis
 ## Troubleshooting
 
 ### Failing Tests
-
-### References
-
-#### Web Development
-
-- [Automating Changelog in Node Project](https://medium.com/@tiagoboeing/automating-changelog-in-your-nodejs-project-c54bdbb56e57)
-- [Deploy React and Express to Heroku](https://daveceddia.com/deploy-react-express-app-heroku/)
-- [How to Validate Commit Message Convention](https://dev.to/omarzi/how-to-validate-commit-message-convention-using-commitlint-and-husky-aaa)
-- [Github Actions - Awesome Actions](https://github.com/sdras/awesome-actions)
-- [Jest manual mock for themeprovider](https://stackoverflow.com/questions/58627085/jest-manual-mock-for-themeprovider)
-- [Mocking different values for the same module using Jest](https://medium.com/trabe/mocking-different-values-for-the-same-module-using-jest-a7b8d358d78b)
-- [Using requestAnimationFrame with React Hooks](https://css-tricks.com/using-requestanimationframe-with-react-hooks/)
-- [Using Feature Toggle in a React application (part 1)](https://medium.com/ecovadis-engineering/using-feature-toggle-in-a-react-application-part-1-ee34a0e72cf4)
-
-#### Blockchain
-
-- [Creating a blockchain with Javascript](https://www.youtube.com/watch?v=zVqczFZr124)
-- [How does blockchain work in 7 steps...](https://blog.goodaudience.com/blockchain-for-beginners-what-is-blockchain-519db8c6677a)
-- [Storing data on a blockchain](https://malcoded.com/posts/storing-data-blockchain/)

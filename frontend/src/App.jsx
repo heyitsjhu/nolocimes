@@ -75,11 +75,10 @@ const App = () => {
   const { acceptedCookies, isDarkMode, isInteractive, isOnMobile, viewedIntro } = siteSettings;
 
   const onStartAnimation = useCallback(() => {
-    if (isInteractive) {
-      console.log('ani-start');
+    if (isInteractive && !viewedIntro) {
       dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, false));
     }
-  }, []);
+  }, [isInteractive, viewedIntro]);
 
   const onEndAnimation = useCallback(() => {
     if (!viewedIntro) {
@@ -88,7 +87,7 @@ const App = () => {
     if (!isInteractive) {
       dispatch(updateSiteSettings(STORE_KEYS.IS_INTERACTIVE, null, null, true));
     }
-  }, []);
+  }, [isInteractive, viewedIntro]);
 
   useScrollToTop(appRef);
 
