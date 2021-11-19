@@ -1,8 +1,8 @@
 export default {
   ABOUT: false,
   ANBU_BLOCKCHAIN: true,
-  BLOG: false,
-  BLOG_POST: false,
+  BLOG: true,
+  BLOG_POST: true,
   CANDLE_MONKEYS: false,
   CORONAVIRUS: false,
   NAVIGATION_MENU: true,

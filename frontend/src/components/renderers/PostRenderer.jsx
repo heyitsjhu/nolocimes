@@ -18,15 +18,16 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
   [POSTS.POST_BLOCKQUOTE]: {
     position: 'relative',
     margin: `${spacing(6)}px 0`,
-    padding: spacing(4),
-    paddingLeft: '12em',
+    padding: `${spacing(4)}px ${spacing(2)}px`,
+    paddingLeft: '10vw',
     borderTop: `2px solid ${palette.primary.main}`,
     borderBottom: `2px solid ${palette.primary.main}`,
+    overflowX: 'auto',
     '& .MuiSvgIcon-root': {
       position: 'absolute',
       top: -10,
-      left: '1em',
-      fontSize: '8em',
+      left: '0vw',
+      fontSize: '7.5rem',
       color: palette.primary.main,
       transform: 'rotate(180deg)',
       opacity: 0.15,
@@ -92,28 +93,16 @@ const useStyles = makeStyles(({ palette, spacing }) => ({
     marginLeft: spacing(2),
     marginBottom: spacing(3),
     padding: 0,
+    listStyle: 'auto',
+    listStylePosition: 'inside',
     '& .MuiListItem-root': {
-      paddingTop: 3,
-      paddingBottom: 3,
-      '&:not(.hideBullet)::before': {
-        content: '""',
-        position: 'relative',
-        display: 'inline-block',
-        left: '-1em',
-        width: '0.4em',
-        height: '0.4em',
-        borderRadius: '50%',
-        backgroundColor: palette.grey[600],
-      },
-      '& > .MuiList-root': {
-        marginBottom: 0,
-      },
+      display: 'list-item',
     },
   },
   [POSTS.POST_PARAGRAPHS]: {
     marginBottom: spacing(4),
     lineHeight: 1.8,
-    textIndent: '5%',
+    textIndent: spacing(4),
   },
   [POSTS.POST_TAGS]: {
     marginBottom: spacing(4),
@@ -249,10 +238,7 @@ const PostList = ({ contentPart, ...otherProps }) => {
   const renderListItems = () => {
     return contentPart.content.map((listItem, i) => {
       return (
-        <ListItem
-          key={`${i}-${listItem.content[0].content[0].value}`}
-          className={classnames([typeof listItem === 'object' && 'hideBullet'])}
-        >
+        <ListItem key={`${i}-${listItem.content[0].content[0].value}`}>
           {listItem.content[0].content[0].value}
           {listItem.content[1] && (
             <PostList
@@ -331,7 +317,7 @@ const RenderContentPart = ({ className, contentPart }) => {
   } else if (contentPart.nodeType === 'blockquote') {
     return (
       <PostBlockquote
-        className={classnames(className, classes.postBlockquote)}
+        className={classnames(className, classes.postBlockQuote)}
         contentPart={contentPart}
       />
     );

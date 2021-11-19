@@ -16,9 +16,7 @@ import { PageLayout } from '..';
 import { useContentfulService } from 'services/contentfulService';
 
 const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
-  blogPostLayout: {
-    padding: '0 !important',
-  },
+  blogPostLayout: {},
   backButtonContainer: {
     display: 'flex',
     alignItems: 'center',
@@ -128,7 +126,7 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="blogPost" pageLayoutClassName={classes.blogPostLayout}>
+    <PageLayout pageName="blogPost" pageLayoutClassName={classes.blogPostLayout} noPadding>
       {typeof post !== 'undefined' && (
         <Helmet {...SEO.BLOG_POST(t, post.fields.title, post.fields.description)} />
       )}

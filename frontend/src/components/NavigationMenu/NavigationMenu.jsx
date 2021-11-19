@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -117,7 +117,7 @@ export default props => {
       >
         <MenuIcon />
       </IconButton>
-      <SwipeableDrawer
+      <Drawer
         anchor={SITE_NAVIGATION.anchorPosition}
         open={open}
         PaperProps={{ className: classes.paperContainer }}
@@ -132,7 +132,7 @@ export default props => {
             </Typography>
           </Box>
         )}
-      </SwipeableDrawer>
+      </Drawer>
     </FeatureToggle>
   );
 };

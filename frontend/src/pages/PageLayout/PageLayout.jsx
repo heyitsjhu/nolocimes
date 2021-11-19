@@ -13,14 +13,21 @@ import { useCopy } from 'hooks/useCopy';
 import { useOnClickOutside } from 'hooks/useOnClickOutside';
 import { getElId } from 'utils';
 
-const useStyles = ({ isMobile, noPadding }) =>
+const useStyles = ({ isOnMobile, noPadding }) =>
   makeStyles(({ spacing, zIndex }) => ({
     pageLayout: {
       position: 'relative',
       padding: spacing(noPadding ? 0 : 4),
-      minHeight: '100%',
-      height: !isMobile ? '100%' : 'auto',
       zIndex: zIndex.pageLayout,
+      ...(isOnMobile
+        ? {
+            marginTop: spacing(5),
+            marginBottom: spacing(5),
+            minHeight: `calc(100% - ${spacing(10)}px)`,
+            height: `calc(100% - ${spacing(10)}px)`,
+            overflowY: 'scroll',
+          }
+        : { minHeight: '100%', height: '100%' }),
     },
     pageActionsContainer: {
       width: '100%',
@@ -56,7 +63,6 @@ export default ({
   const siteSettings = useSelector(state => state.siteSettings);
   const { isOnMobile } = siteSettings;
   const classes = useStyles({ isOnMobile, noPadding })();
-
   const handleClose = () => history.push(ROUTES.HOME);
 
   useOnClickOutside(layoutRef, useCallback(handleClose, [handleClose]));
