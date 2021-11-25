@@ -44,6 +44,8 @@ const rollOverCountry = (mapPolygon, imageSeries) => {
 };
 
 const rollOutCountry = (mapPolygon, imageSeries) => {
+  if (!mapPolygon) return;
+
   var image = imageSeries.getImageById(mapPolygon.dataItem.dataContext.id);
 
   resetHover(mapPolygon.parent, imageSeries);
@@ -87,4 +89,36 @@ export const centerImageBubbleOverCountry = (positionType, positionData, target,
   if (polygon) return polygon[`visual${positionType}`];
 
   return positionData;
+};
+
+export const renderHTMLTooltip = (metric, options, t) => {
+  return `
+  <div class="MuiBox-root">
+    <strong>{name}</strong> <br />
+    <p class="MuiTypography-root MuiTypography-caption">
+    ${t('common.population')}:
+    <span class="MuiTypography-root MuiTypography-overline">{population}</span>
+    </p>
+    <hr />
+    <span class="MuiTypography-root MuiTypography-overline">{day}</span>
+    ${options
+      .map(
+        option => `
+      <p class="MuiTypography-root MuiTypography-caption">
+        ${option === metric ? '<strong>' : ''}
+          ${t('pages.Coronavirus.labels.' + option)}: 
+        ${option === metric ? '</strong>' : ''}
+        <span class="MuiTypography-root MuiTypography-${
+          option === metric ? 'caption' : 'overline'
+        }">
+          ${option === metric ? '<strong>' : ''}
+          {${option}}
+          ${option === metric ? '</strong>' : ''}
+        </span>
+      </p>
+    `
+      )
+      .join('')}
+  </div>
+  `;
 };

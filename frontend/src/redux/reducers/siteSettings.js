@@ -19,7 +19,7 @@ export const updateSiteSettings = (firstLevel, secondLevel, thirdLevel, payload)
 };
 
 export default (state = initialState, action) => {
-  let newState = deepClone(state);
+  let newState = state;
 
   switch (action.type) {
     case UPDATE_SITE_SETTINGS:

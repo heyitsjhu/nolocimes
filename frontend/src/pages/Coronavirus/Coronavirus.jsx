@@ -72,17 +72,17 @@ const useStyles = makeStyles(({ palette, spacing, transitions }) => ({
   },
 }));
 
-export default props => {
+export default () => {
   const classes = useStyles();
-  const { t } = useCopy();
 
   return (
     <PageLayout
       pageName="coronavirus"
-      // pageActions={<PageActions />}
+      pageActions={<PageActions />}
       noPadding
       pageLayoutClassName={classes.coronavirusLayout}
     >
+      {/* <PageActions /> */}
       <MapChart id={getElId('chart', 'coronavirus-map')} />
     </PageLayout>
   );

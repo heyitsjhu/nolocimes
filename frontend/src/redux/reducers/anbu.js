@@ -40,7 +40,7 @@ export const resetAnbuBlockchain = (resetSettings = false) => {
 };
 
 export default (state = initialState, action) => {
-  let newState = deepClone(state);
+  let newState = state;
 
   switch (action.type) {
     case UPDATE_ANBU_BLOCKCHAIN:

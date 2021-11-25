@@ -27,6 +27,17 @@ export const BIG_NUMBER_PREFIXES = [
   { number: 1e9, suffix: 'B' },
   { number: 1e12, suffix: 'T' },
 ];
+export const C19_STATISTICS_OPTIONS = [
+  'cases_new',
+  'cases_active',
+  'cases_critical',
+  'cases_recovered',
+  'cases_total',
+  'deaths_new',
+  'deaths_total',
+  'tests_total',
+];
+
 export const CLASSES = {
   IS_MOBILE: 'isMobile',
   IS_NOT_HOME: 'isNotHome',

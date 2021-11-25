@@ -12,7 +12,7 @@ export const updateParticleCanvas = (firstLevel, secondLevel, thirdLevel, payloa
 };
 
 export default (state = initialState || {}, action) => {
-  let newState = deepClone(state);
+  let newState = state;
 
   switch (action.type) {
     case UPDATE_PARTICLE_CANVAS:

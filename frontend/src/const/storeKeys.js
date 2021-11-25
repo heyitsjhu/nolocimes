@@ -12,6 +12,7 @@ const STORE_KEYS = {
   BUTTON_TEXT: 'buttonText',
   CANDLE_MONKEYS: 'candleMonkeys',
   CHAIN: 'chain',
+  CHART_METRIC: 'chartMetric',
   COMPANY: 'company',
   CONSOLE_OUTPUTS: 'consoleOutputs',
   CONTENT: 'content',
@@ -53,6 +54,7 @@ const STORE_KEYS = {
   TUTORIAL_OUTPUTS: 'tutorialOutputs',
   TUTORIAL_SKIPPED: 'tutorialSkipped',
   TUTORIAL_STEP: 'tutorialStep',
+  VIEW_MODE: 'viewMode',
   VIEWED_INTRO: 'viewedIntro',
   WIDGET_DEFAULTS: 'widgetDefaults',
 };

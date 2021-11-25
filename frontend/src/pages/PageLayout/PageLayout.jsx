@@ -23,6 +23,7 @@ const useStyles = ({ isMobile, noPadding }) =>
       zIndex: zIndex.pageLayout,
     },
     pageActionsContainer: {
+      padding: spacing(1),
       width: '100%',
       zIndex: zIndex.pageLayoutPageActions,
     },
@@ -91,7 +92,7 @@ export default ({
           />
         </Box>
       )}
-      <Box className={classes.pageActionsContainer}>{pageActions && pageActions}</Box>
+      {pageActions && <Box className={classes.pageActionsContainer}>{pageActions}</Box>}
       <Fade in={fadeIn} timeout={PAGE_LAYOUT_FADE_TIMEOUT}>
         <Box height="100%" {...otherProps}>
           {children}

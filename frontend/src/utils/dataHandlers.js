@@ -99,22 +99,24 @@ export const convertCovidStatisticsDataForAmcharts = (statisticsData = [], count
   const replaceRegex = new RegExp(/-/, 'gi');
 
   return statisticsData
-    .map(({ country, cases, deaths, tests, day, time }) => {
+    .map(({ cases, continent, country, day, deaths, population, tests, time }) => {
       const countryName = country.replace(replaceRegex, ' ');
-      const countryData = countries.find(countryItem => countryItem.name === countryName);
+      const countryData = countries?.find(countryItem => countryItem.name === countryName);
 
       return {
+        cases_new: cases.new || 0,
+        cases_active: cases.active || 0,
+        cases_critical: cases.critical || 0,
+        cases_recovered: cases.recovered || 0,
+        cases_total: cases.total || 0,
+        continent,
+        day,
+        deaths_new: deaths.new || 0,
+        deaths_total: deaths.total || 0,
         id: countryData ? countryData.alpha2code : undefined,
         name: countryName,
-        cases_new: cases.new,
-        cases_active: cases.active,
-        cases_critical: cases.critical,
-        cases_recovered: cases.recovered,
-        cases_total: cases.total,
-        deaths_new: deaths.new,
-        deaths_total: deaths.total,
-        tests_total: tests.total,
-        day,
+        population,
+        tests_total: tests.total || 0,
         time,
       };
     })

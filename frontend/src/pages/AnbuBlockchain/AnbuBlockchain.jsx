@@ -105,6 +105,7 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
     padding: spacing(1),
     width: '100%',
     height: '100%',
+    minHeight: 130,
     maxHeight: 180,
     border: shared.borderDefault,
     overflowY: 'auto',
@@ -129,10 +130,10 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
   },
   interactionSection: {
     display: 'flex',
+    flexGrow: 1,
     marginBottom: 'auto',
     paddingTop: spacing(1),
     paddingBottom: spacing(1),
-    height: '100%',
     overflow: 'hidden',
     '& > div:first-child': {
       borderRight: shared.borderDefault,
@@ -149,10 +150,9 @@ const useStyles = makeStyles(({ palette, shared, spacing, transitions }) => ({
   },
   tableSection: {
     display: 'flex',
+    flexGrow: 1,
     paddingTop: spacing(1),
-    height: 195,
-    minHeight: 195,
-    maxHeight: 195,
+    minHeight: 270,
   },
   formSelect: {
     width: '100%',
@@ -194,9 +194,9 @@ export default () => {
   const [miningInProgress, setMiningInProgress] = useState(false);
   const [tabValue, setTabValue] = useState(0);
 
-  const blocksTableRef = useRef({});
-  const consoleRef = useRef({});
-  const tutorialPromptRef = useRef({});
+  const blocksTableRef = useRef();
+  const consoleRef = useRef();
+  const tutorialPromptRef = useRef();
   const transactionsTableRef = useRef({});
 
   const handleCreateBlockchain = () => {

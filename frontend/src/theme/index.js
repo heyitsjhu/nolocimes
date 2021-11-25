@@ -20,9 +20,7 @@ const themeBase = {
 
 export default {
   // TODO: revisit if responsive font sizes is what we want.
-  dark: () =>
-    createTheme({ ...themeBase, palette }) ||
-    responsiveFontSizes(createTheme({ ...themeBase, palette })),
+  dark: () => createTheme({ ...themeBase, palette }), // responsiveFontSizes(createTheme({ ...themeBase, palette })),
   light: () =>
     // responsiveFontSizes(
     createTheme({
