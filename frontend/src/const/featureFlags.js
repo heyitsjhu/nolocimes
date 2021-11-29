@@ -3,13 +3,14 @@ export default {
   ANBU_BLOCKCHAIN: true,
   BLOG: true,
   BLOG_POST: true,
-  CANDLE_MONKEYS: false,
+  CANDLE_MONKEYS: true,
   CORONAVIRUS: false,
   NAVIGATION_MENU: true,
   PHOTOGRAPHY: true,
   POWERED_BY_SCROLL: false,
   PRIVACY_POLICY: false,
+  PROJECT_NOLOCIMES: true,
   REPORT_BUG: false,
-  SIMULATE: true,
+  SIMULATE: true, // set to false to bypass feature flags
   STYLE_GUIDE: false,
 };

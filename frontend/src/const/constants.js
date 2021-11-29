@@ -43,6 +43,7 @@ export const DEFAULT_TOOLTIP_LEAVE_DELAY = 200;
 export const IS_DEV = process.env.NODE_ENV === 'development';
 export const IS_PROD = process.env.NODE_ENV === 'production';
 export const LOCAL_STORAGE_KEY = 'dl_heyitsjhu';
+export const LOCAL_STORAGE_NOLOCIMES_KEY = 'project_nolocimes';
 export const PAGE_LAYOUT_FADE_TIMEOUT = 1500;
 export const PARTICLE_CANVAS_DEFAULTS = {
   particleColor: { r: 204, g: 152, b: 81 },
@@ -99,6 +100,7 @@ export const ROUTES = {
   CORONAVIRUS: '/coronavirus',
   POWERED_BY_SCROLL: '/powered-by-scroll',
   PRIVACY_POLICY: '/privacy-policy',
+  PROJECT_NOLOCIMES: '/project-nolocimes',
   PHOTOGRAPHY: '/photography',
   STYLE_GUIDE: '/style-guide',
   TO_TICKER: ticker => `/candle-monkeys?ticker=${ticker}`,

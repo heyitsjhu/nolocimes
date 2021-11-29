@@ -25,6 +25,12 @@ export default {
     title: t('components.Helmet.photography.title'),
     meta: [{ name: 'description', content: t('components.Helmet.photography.meta.description') }],
   }),
+  PROJECT_NOLOCIMES: t => ({
+    title: t('components.Helmet.projectNolocimes.title'),
+    meta: [
+      { name: 'description', content: t('components.Helmet.projectNolocimes.meta.description') },
+    ],
+  }),
   STYLE_GUIDE: t => ({
     title: t('components.Helmet.styleGuide.title'),
     meta: [{ name: 'description', content: t('components.Helmet.styleGuide.meta.description') }],

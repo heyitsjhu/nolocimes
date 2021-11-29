@@ -71,6 +71,7 @@
       "name": "Name",
       "nevermind": "Nevermind",
       "next": "Next",
+      "newGame": "New Game",
       "none": "None",
       "online": "Online",
       "others": "Others",
@@ -86,6 +87,7 @@
       "recipient": "Recipient",
       "reportDate": "Report date",
       "reset": "Reset {{name}}",
+      "resume": "Resume",
       "search": "Search",
       "secondary": "Secondary",
       "selected": "Selected",
@@ -153,8 +155,14 @@
             "description": "See the world through my eyes or, rather, my camera lens."
           }
         },
+        "projectNolocimes": {
+          "title": "Project Nolocimes - A short decision-based game | Johnny Hu - Software Engineer",
+          "meta": {
+            "description": "See how your decisions shape the outcome of your story in this short decision-based game built with JavaScript"
+          }
+        },
         "styleGuide": {
-          "title": "Style Guide | Johnny Hu - Software Engineer",
+          "title": "Style Guide - The site's design pattern | Johnny Hu - Software Engineer",
           "meta": {
             "description": "A visual style guide for this site."
           }
@@ -363,6 +371,9 @@
       "PageNotFound": {
         "missingDestination": "Hey, you—sorry, but I think someone's stolen the page you're looking for. I'm not sure who, but I'll try to find out.",
         "backHomeButton": "Return Home"
+      },
+      "ProjectNolocimes": {
+        "overview": "Project Nolocimes is a short game focused around the decisions you make."
       },
       "StyleGuide": {
         "body1": "This is an example body text (vers 1).",

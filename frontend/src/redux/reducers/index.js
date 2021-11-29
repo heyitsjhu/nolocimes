@@ -9,6 +9,7 @@ import contentReducer from './contentful';
 import coronavirusReducer from './coronavirus';
 import notificationsReducer from './notifications';
 import particleCanvasReducer from './particleCanvas';
+import projectNolocimesReducer from './projectNolocimes';
 import siteSettingsReducer from './siteSettings';
 
 const middlewareConfig = {
@@ -35,6 +36,7 @@ export const reducers = {
   coronavirus: coronavirusReducer,
   notifications: notificationsReducer,
   particleCanvas: particleCanvasReducer,
+  projectNolocimes: projectNolocimesReducer,
   siteSettings: siteSettingsReducer,
 };
 

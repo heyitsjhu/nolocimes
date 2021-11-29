@@ -12,6 +12,7 @@ const PageNotFoundPage = lazy(() => import('pages/PageNotFound/PageNotFound'));
 const PhotographyPage = lazy(() => import('pages/Photography/Photography'));
 const PoweredByScrollPage = lazy(() => import('pages/PoweredByScroll/PoweredByScroll'));
 const PrivacyPolicyPage = lazy(() => import('pages/PrivacyPolicy/PrivacyPolicy'));
+const ProjectNolocimesPage = lazy(() => import('pages/ProjectNolocimes/ProjectNolocimes'));
 const AboutPage = lazy(() => import('pages/About/About'));
 const StyleGuidePage = lazy(() => import('pages/StyleGuide/StyleGuide'));
 
@@ -63,6 +64,11 @@ const AppRoutes = () => (
       {isFeatureOn(FEATURE_FLAGS.PRIVACY_POLICY) && (
         <Route exact path={ROUTES.PRIVACY_POLICY}>
           <PrivacyPolicyPage />
+        </Route>
+      )}
+      {isFeatureOn(FEATURE_FLAGS.PROJECT_NOLOCIMES) && (
+        <Route exact path={ROUTES.PROJECT_NOLOCIMES}>
+          <ProjectNolocimesPage />
         </Route>
       )}
       {isFeatureOn(FEATURE_FLAGS.STYLE_GUIDE) && (
