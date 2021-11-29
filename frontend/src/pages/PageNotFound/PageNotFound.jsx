@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import LocationOffIcon from '@material-ui/icons/LocationOff';
 
-import { ROUTES } from 'const';
+import { ROUTES, SITE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import PageLayout from '../PageLayout/PageLayout';
 
@@ -52,7 +52,7 @@ export default props => {
   return (
     <PageLayout
       className={classes.notFoundRoot}
-      pageName="notFound"
+      pageName={SITE_KEYS.NOT_FOUND}
       pageLayoutClassName={classes.notFoundLayout}
     >
       <Typography variant="subtitle2">

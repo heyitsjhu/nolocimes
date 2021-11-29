@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { MapChart } from 'components';
+import { STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 
 import PageLayout from '../PageLayout/PageLayout';
@@ -78,7 +79,7 @@ export default props => {
 
   return (
     <PageLayout
-      pageName="coronavirus"
+      pageName={STORE_KEYS.CORONAVIRUS}
       // pageActions={<PageActions />}
       noPadding
       pageLayoutClassName={classes.coronavirusLayout}

@@ -5,7 +5,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 
 import { BlogExcerpt, BlogHero, Helmet } from 'components';
-import { SEO } from 'const';
+import { SEO, STORE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useContentfulService } from 'services/contentfulService';
 // import * as PostUtils from 'utils/postHelpers';
@@ -59,7 +59,7 @@ export default () => {
   }, []);
 
   return (
-    <PageLayout pageName="blog" pageLayoutClassName={classes.blogLayout}>
+    <PageLayout pageName={STORE_KEYS.BLOG} pageLayoutClassName={classes.blogLayout}>
       <Helmet {...SEO.BLOG(t)} />
       <BlogHero />
       <Box className={classes.excerptsContainer}>

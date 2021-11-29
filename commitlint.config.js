@@ -1,11 +1,7 @@
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
-    'header-case': [
-      2,
-      'never',
-      ['snake-case', 'kebab-case', 'pascal-case', 'upper-case'],
-    ],
+    'header-case': [2, 'never', ['snake-case', 'kebab-case', 'pascal-case', 'upper-case']],
     'header-max-length': [2, 'always', 72],
     'body-leading-blank': [2, 'always'],
     'footer-leading-blank': [2, 'always'],

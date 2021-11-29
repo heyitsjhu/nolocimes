@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import { ROUTES } from 'const';
+import { ROUTES, SITE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import PageLayout from '../PageLayout/PageLayout';
 
@@ -36,7 +36,7 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="profile" pageLayoutClassName={classes.aboutLayout}>
+    <PageLayout pageName={SITE_KEYS.ABOUT} pageLayoutClassName={classes.aboutLayout}>
       <Typography color="textPrimary">{t('pages.PageNotFound.missingDestination')}</Typography>
       <Typography color="textPrimary" variant="subtitle2">
         sdfsfsfsd

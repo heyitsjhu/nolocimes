@@ -6,7 +6,7 @@ import LightBox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
 import { GalleryImage, Helmet } from 'components';
-import { SEO } from 'const';
+import { SEO, SITE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useEventListener } from 'hooks/useEventListener';
 import { useContentfulService } from 'services/contentfulService';
@@ -132,7 +132,7 @@ export default () => {
   );
 
   return (
-    <PageLayout pageName="photography" pageLayoutClassName={classes.photographyLayout}>
+    <PageLayout pageName={SITE_KEYS.PHOTOGRAPHY} pageLayoutClassName={classes.photographyLayout}>
       <Helmet {...SEO.PHOTOGRAPHY(t)} />
       <PhotoGallery
         className={classes.galleryContainer}

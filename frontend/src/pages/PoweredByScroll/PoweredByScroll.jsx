@@ -8,7 +8,7 @@ import MouseIcon from '@material-ui/icons/Mouse';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import { PoweredByScroll } from 'components';
-import { ROUTES } from 'const';
+import { ROUTES, SITE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { useEventListener } from 'hooks/useEventListener';
 import PageLayout from '../PageLayout/PageLayout';
@@ -112,7 +112,10 @@ export default props => {
   useEventListener('scroll', handleScrollActivity, poweredByScrollRef.current);
 
   return (
-    <PageLayout pageName="poweredByScroll" pageLayoutClassName={classes.poweredByScrollLayout}>
+    <PageLayout
+      pageName={SITE_KEYS.POWERED_BY_SCROLL}
+      pageLayoutClassName={classes.poweredByScrollLayout}
+    >
       <PoweredByScroll
         className={classes.pbsContainer}
         enablePerformances={false}

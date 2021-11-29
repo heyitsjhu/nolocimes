@@ -463,7 +463,7 @@ export default () => {
     <PageLayout
       className={classes.innerContainer}
       pageDescription={'pages.AnbuBlockchain.pageDescription'}
-      pageName="anbuBlockchain"
+      pageName={STORE_KEYS.ANBU_BLOCKCHAIN}
       pageLayoutClassName={classes.anbuBlockchainLayout}
     >
       <Helmet {...SEO.ANBU_BLOCKCHAIN(t)} />

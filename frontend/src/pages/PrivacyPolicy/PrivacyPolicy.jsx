@@ -6,7 +6,7 @@ import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
 import LocationOffIcon from '@material-ui/icons/LocationOff';
 
-import { ROUTES } from 'const';
+import { ROUTES, SITE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import PageLayout from '../PageLayout/PageLayout';
 
@@ -39,7 +39,10 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="privacyPolicy" pageLayoutClassName={classes.privacyPolicyLayout}>
+    <PageLayout
+      pageName={SITE_KEYS.PRIVACY_POLICY}
+      pageLayoutClassName={classes.privacyPolicyLayout}
+    >
       <Typography color="textPrimary">{t('pages.PageNotFound.missingDestination')}</Typography>
       <Typography color="textPrimary" variant="subtitle2">
         {window.location.origin}

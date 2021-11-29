@@ -54,7 +54,10 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="candleMonkeys" pageLayoutClassName={classes.candleMonkeysLayout}>
+    <PageLayout
+      pageName={STORE_KEYS.CANDLE_MONKEYS}
+      pageLayoutClassName={classes.candleMonkeysLayout}
+    >
       <Helmet {...SEO.CANDLE_MONKEYS(t)} />
       <AgGridView layout={gridLayout} cols={12} rowHeight={35} isDraggable={false}>
         {viewWidgets.map(({ key, type }) => {

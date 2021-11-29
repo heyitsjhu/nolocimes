@@ -7,7 +7,7 @@ import ArrowRightAltRoundedIcon from '@material-ui/icons/ArrowRightAltRounded';
 import classnames from 'classnames';
 
 import { BlogHero, Helmet, Post } from 'components';
-import { ROUTES, SEO, STORE_KEYS } from 'const';
+import { ROUTES, SEO, SITE_KEYS } from 'const';
 import { useCopy } from 'hooks/useCopy';
 // import { useGetEntriesQuery } from 'api/contentful';
 import * as PostUtils from 'utils/postHelpers';
@@ -126,7 +126,11 @@ export default props => {
   };
 
   return (
-    <PageLayout pageName="blogPost" pageLayoutClassName={classes.blogPostLayout} noPadding>
+    <PageLayout
+      pageName={SITE_KEYS.BLOG_POST}
+      pageLayoutClassName={classes.blogPostLayout}
+      noPadding
+    >
       {typeof post !== 'undefined' && (
         <Helmet {...SEO.BLOG_POST(t, post.fields.title, post.fields.description)} />
       )}

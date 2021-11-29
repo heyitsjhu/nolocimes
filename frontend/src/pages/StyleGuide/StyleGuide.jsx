@@ -6,7 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import classnames from 'classnames';
 
 import { Helmet, SGColorBox, SGSection } from 'components';
-import { CLASSES, SEO, STYLE_GUIDE } from 'const';
+import { CLASSES, SEO, SITE_KEYS, STYLE_GUIDE } from 'const';
 import { useCopy } from 'hooks/useCopy';
 import { updateSiteSettings } from 'redux/reducers/siteSettings';
 import themeMapping from 'theme';
@@ -227,7 +227,7 @@ export default () => {
   };
 
   return (
-    <PageLayout pageName="style-guide" pageLayoutClassName={classes.styleGuideLayout}>
+    <PageLayout pageName={SITE_KEYS.STYLE_GUIDE} pageLayoutClassName={classes.styleGuideLayout}>
       <Helmet {...SEO.STYLE_GUIDE(t)} />
       {renderTypography(theme, t)}
       {renderPaletteSection(theme, t)}

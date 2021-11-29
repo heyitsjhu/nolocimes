@@ -104,6 +104,16 @@ export const ROUTES = {
   TO_TICKER: ticker => `/candle-monkeys?ticker=${ticker}`,
 };
 
+export const STORE_KEYS = {
+  ABOUT: 'about',
+  BLOG_POST: 'blogPost',
+  NOT_FOUND: 'notFound',
+  PHOTOGRAPHY: 'photography',
+  POWERED_BY_SCROLL: 'poweredByScroll',
+  PRIVACY_POLICY: 'privacyPolicy',
+  STYLE_GUIDE: 'styleGuide',
+};
+
 export const SITE_NAVIGATION = {
   anchorPosition: 'right',
   items: [
