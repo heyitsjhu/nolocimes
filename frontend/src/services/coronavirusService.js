@@ -53,6 +53,7 @@ export const useCoronavirusService = () => {
   };
 
   useEffect(() => {
+    console.log('initial load?');
     getInitialData();
   }, []);
 

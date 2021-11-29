@@ -104,7 +104,7 @@ export const updateCandleMonkeys = (firstLevel, secondLevel, thirdLevel, payload
 };
 
 export default (state = isDev && staticState ? staticState : initialState, action) => {
-  let newState = deepClone(state);
+  let newState = state;
 
   switch (action.type) {
     case UPDATE_CANDLE_MONKEYS:

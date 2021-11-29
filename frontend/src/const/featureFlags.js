@@ -4,7 +4,7 @@ export default {
   BLOG: true,
   BLOG_POST: true,
   CANDLE_MONKEYS: true,
-  CORONAVIRUS: false,
+  CORONAVIRUS: true,
   NAVIGATION_MENU: true,
   PHOTOGRAPHY: true,
   POWERED_BY_SCROLL: false,

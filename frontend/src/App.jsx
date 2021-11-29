@@ -2,7 +2,7 @@ import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Trans } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 import { makeStyles } from '@material-ui/core/styles';
 import { alpha } from '@material-ui/core/styles/colorManipulator';
 import Box from '@material-ui/core/Box';
@@ -14,6 +14,7 @@ import classnames from 'classnames';
 import getAnimation from 'animations';
 import {
   Breadcrumbs,
+  BusinessCard,
   Footer,
   Header,
   Helmet,
@@ -24,6 +25,7 @@ import {
 import { CLASSES, LOCAL_STORAGE_KEY, ROUTES, SEO, STORE_KEYS } from 'const';
 import { useNotifications } from 'hooks/useNotifications';
 import { useCopy } from 'hooks/useCopy';
+import { useDeviceDetect } from 'hooks/useDeviceDetect';
 import { useIsHome } from 'hooks/useIsHome';
 import { useScrollToTop } from 'hooks/useScrollToTop';
 import AppRoutes from 'routes';
@@ -68,6 +70,8 @@ const App = () => {
   const siteSettings = useSelector(state => state.siteSettings);
   const classes = useStyles();
   const isHome = useIsHome();
+  const { isMobileOnly, isMobile, isDesktop, isLandscape, isPortrait, orientation } =
+    useDeviceDetect();
   const { setDarkMode } = useContext(ThemeContext);
   const { setNotification } = useNotifications();
   const appRef = useRef();

@@ -8,10 +8,11 @@ const isDev = process.env.NODE_ENV === 'development';
 
 const initialState = {
   [STORE_KEYS.CONTROL_PANEL]: {
-    chartMetric: 'cases_new',
+    [STORE_KEYS.CHART_METRIC]: 'cases_new',
     countriesToFetch: [],
     selectedCountries: ['USA'],
     showGlobalTotals: false,
+    [STORE_KEYS.VIEW_MODE]: 'map',
   },
   [STORE_KEYS.COUNTRIES]: [],
   [STORE_KEYS.HISTORY]: {
@@ -37,11 +38,12 @@ const initialState = {
 
 const staticState = {
   [STORE_KEYS.CONTROL_PANEL]: {
-    chartMetric: 'cases_new',
+    [STORE_KEYS.CHART_METRIC]: 'cases_new',
     countriesToFetch: [],
     selectedCountry: 'USA',
     selectedCountries: ['USA'],
     showGlobalTotals: false,
+    [STORE_KEYS.VIEW_MODE]: 'map',
   },
   [STORE_KEYS.COUNTRIES]: staticC19Data.countries,
   [STORE_KEYS.HISTORY]: staticC19Data.history || {
@@ -72,7 +74,7 @@ export const updateCoronavirus = (firstLevel, secondLevel, thirdLevel, payload) 
 };
 
 export default (state = isDev && staticState ? staticState : initialState, action) => {
-  let newState = deepClone(state);
+  let newState = state;
 
   switch (action.type) {
     case UPDATE_CORONAVIRUS:

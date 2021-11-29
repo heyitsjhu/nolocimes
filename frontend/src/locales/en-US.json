@@ -68,6 +68,7 @@
       "mine": "Mine",
       "miningReward": "Mining Reward",
       "main": "Main",
+      "metric": "Metric",
       "name": "Name",
       "nevermind": "Nevermind",
       "next": "Next",
@@ -80,6 +81,7 @@
       "overweight": "Overweight",
       "palette": "Palette",
       "paper": "Paper",
+      "population": "Population",
       "previous": "Previous",
       "previousHash": "Previous Hash",
       "primary": "Primary",
@@ -353,6 +355,7 @@
         "52wkHighLow": "52-week Low/High"
       },
       "Coronavirus": {
+        "title": "Coronavirus Statistics",
         "labels": {
           "cases_new": "New Cases",
           "cases_1M_pop": "Cases per capita (1M)",
