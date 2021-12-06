@@ -117,7 +117,7 @@ export const ROUTES = {
   TO_TICKER: ticker => `/candle-monkeys?ticker=${ticker}`,
 };
 
-export const STORE_KEYS = {
+export const SITE_KEYS = {
   ABOUT: 'about',
   BLOG_POST: 'blogPost',
   NOT_FOUND: 'notFound',
